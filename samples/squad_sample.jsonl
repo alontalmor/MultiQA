@@ -1,0 +1,1990 @@
+{"header": {}}
+{
+    "context": {
+        "documents": [{
+                "text": "Super Bowl 50 was an American football game to determine the champion of the National Football League (NFL) for the 2015 season. The American Football Conference (AFC) champion Denver Broncos defeated the National Football Conference (NFC) champion Carolina Panthers 24\u201310 to earn their third Super Bowl title. The game was played on February 7, 2016, at Levi's Stadium in the San Francisco Bay Area at Santa Clara, California. As this was the 50th Super Bowl, the league emphasized the \"golden anniversary\" with various gold-themed initiatives, as well as temporarily suspending the tradition of naming each Super Bowl game with Roman numerals (under which the game would have been known as \"Super Bowl L\"), so that the logo could prominently feature the Arabic numerals 50.",
+                "title": "Super_Bowl_50",
+                "tokens": {
+                    "text": [["Super",0],["Bowl",6],["50",11],["was",14],["an",18],["American",21],["football",30],["game",39],["to",44],["determine",47],["the",57],["champion",61],["of",70],["the",73],["National",77],["Football",86],["League",95],["(",102],["NFL",103],[")",106],["for",108],["the",112],["2015",116],["season",121],[".",127],["The",129],["American",133],["Football",142],["Conference",151],["(",162],["AFC",163],[")",166],["champion",168],["Denver",177],["Broncos",184],["defeated",192],["the",201],["National",205],["Football",214],["Conference",223],["(",234],["NFC",235],[")",238],["champion",240],["Carolina",249],["Panthers",258],["24\u201310",267],["to",273],["earn",276],["their",281],["third",287],["Super",293],["Bowl",299],["title",304],[".",309],["The",311],["game",315],["was",320],["played",324],["on",331],["February",334],["7",343],[",",344],["2016",346],[",",350],["at",352],["Levi",355],["'s",359],["Stadium",362],["in",370],["the",373],["San",377],["Francisco",381],["Bay",391],["Area",395],["at",400],["Santa",403],["Clara",409],[",",414],["California",416],[".",426],["As",428],["this",431],["was",436],["the",440],["50th",444],["Super",449],["Bowl",455],[",",459],["the",461],["league",465],["emphasized",472],["the",483],["\"",487],["golden",488],["anniversary",495],["\"",506],["with",508],["various",513],["gold",521],["-",525],["themed",526],["initiatives",533],[",",544],["as",546],["well",549],["as",554],["temporarily",557],["suspending",569],["the",580],["tradition",584],["of",594],["naming",597],["each",604],["Super",609],["Bowl",615],["game",620],["with",625],["Roman",630],["numerals",636],["(",645],["under",646],["which",652],["the",658],["game",662],["would",667],["have",673],["been",678],["known",683],["as",689],["\"",692],["Super",693],["Bowl",699],["L",704],["\"",705],[")",706],[",",707],["so",709],["that",712],["the",717],["logo",721],["could",726],["prominently",732],["feature",744],["the",752],["Arabic",756],["numerals",763],["50",772],[".",774]
+                    ],
+                    "title": [["Super_Bowl_50",0]
+                    ]
+                }
+            }
+        ]
+    },
+    "id": "SQuAD_d6365b08122a46778251c7544e9be20a",
+    "qas": [{
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Denver Broncos"
+                        ],
+                        "answer": "Denver Broncos",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be4db0acb8001400a502ec",
+            "question": "Which NFL team represented the AFC at Super Bowl 50?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Carolina Panthers"
+                        ],
+                        "answer": "Carolina Panthers",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 249,
+                                "text": "Carolina Panthers",
+                                "token_inds": [44,45]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 249,
+                                "text": "Carolina Panthers",
+                                "token_inds": [44,45]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 249,
+                                "text": "Carolina Panthers",
+                                "token_inds": [44,45]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be4db0acb8001400a502ed",
+            "question": "Which NFL team represented the NFC at Super Bowl 50?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Levi's Stadium in the San Francisco Bay Area at Santa Clara, California.",
+                            "Santa Clara, California",
+                            "Levi's Stadium"
+                        ],
+                        "answer": "Santa Clara, California",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 403,
+                                "text": "Santa Clara, California",
+                                "token_inds": [76,79]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 355,
+                                "text": "Levi's Stadium",
+                                "token_inds": [66,68]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 355,
+                                "text": "Levi's Stadium in the San Francisco Bay Area at Santa Clara, California.",
+                                "token_inds": [66,80]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be4db0acb8001400a502ee",
+            "question": "Where did Super Bowl 50 take place?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Denver Broncos"
+                        ],
+                        "answer": "Denver Broncos",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be4db0acb8001400a502ef",
+            "question": "Which NFL team won Super Bowl 50?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["gold"
+                        ],
+                        "answer": "gold",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 488,
+                                "text": "gold",
+                                "token_inds": [94,94]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 488,
+                                "text": "gold",
+                                "token_inds": [94,94]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 521,
+                                "text": "gold",
+                                "token_inds": [99,99]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be4db0acb8001400a502f0",
+            "question": "What color was used to emphasize the 50th anniversary of the Super Bowl?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["\"golden anniversary\"",
+                            "\"golden anniversary",
+                            "gold-themed"
+                        ],
+                        "answer": "\"golden anniversary\"",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 487,
+                                "text": "\"golden anniversary\"",
+                                "token_inds": [93,96]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 521,
+                                "text": "gold-themed",
+                                "token_inds": [99,101]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 487,
+                                "text": "\"golden anniversary",
+                                "token_inds": [93,95]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be8e613aeaaa14008c90d1",
+            "question": "What was the theme of Super Bowl 50?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["February 7, 2016",
+                            "February 7"
+                        ],
+                        "answer": "February 7, 2016",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 334,
+                                "text": "February 7, 2016",
+                                "token_inds": [60,63]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 334,
+                                "text": "February 7",
+                                "token_inds": [60,61]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 334,
+                                "text": "February 7, 2016",
+                                "token_inds": [60,63]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be8e613aeaaa14008c90d2",
+            "question": "What day was the game played on?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["American Football Conference"
+                        ],
+                        "answer": "American Football Conference",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 133,
+                                "text": "American Football Conference",
+                                "token_inds": [26,28]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 133,
+                                "text": "American Football Conference",
+                                "token_inds": [26,28]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 133,
+                                "text": "American Football Conference",
+                                "token_inds": [26,28]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be8e613aeaaa14008c90d3",
+            "question": "What is the AFC short for?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["\"golden anniversary\"",
+                            "gold",
+                            "gold-themed"
+                        ],
+                        "answer": "\"golden anniversary\"",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 487,
+                                "text": "\"golden anniversary\"",
+                                "token_inds": [93,96]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 521,
+                                "text": "gold-themed",
+                                "token_inds": [99,101]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 521,
+                                "text": "gold",
+                                "token_inds": [99,99]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bea9923aeaaa14008c91b9",
+            "question": "What was the theme of Super Bowl 50?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["American Football Conference"
+                        ],
+                        "answer": "American Football Conference",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 133,
+                                "text": "American Football Conference",
+                                "token_inds": [26,28]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 133,
+                                "text": "American Football Conference",
+                                "token_inds": [26,28]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 133,
+                                "text": "American Football Conference",
+                                "token_inds": [26,28]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bea9923aeaaa14008c91ba",
+            "question": "What does AFC stand for?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["February 7, 2016",
+                            "February 7"
+                        ],
+                        "answer": "February 7, 2016",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 334,
+                                "text": "February 7, 2016",
+                                "token_inds": [60,63]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 334,
+                                "text": "February 7",
+                                "token_inds": [60,61]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 334,
+                                "text": "February 7, 2016",
+                                "token_inds": [60,63]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bea9923aeaaa14008c91bb",
+            "question": "What day was the Super Bowl played on?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Denver Broncos"
+                        ],
+                        "answer": "Denver Broncos",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56beace93aeaaa14008c91df",
+            "question": "Who won Super Bowl 50?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Levi's Stadium",
+                            "Levi's Stadium in the San Francisco Bay Area at Santa Clara"
+                        ],
+                        "answer": "Levi's Stadium",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 355,
+                                "text": "Levi's Stadium",
+                                "token_inds": [66,68]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 355,
+                                "text": "Levi's Stadium",
+                                "token_inds": [66,68]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 355,
+                                "text": "Levi's Stadium in the San Francisco Bay Area at Santa Clara",
+                                "token_inds": [66,77]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56beace93aeaaa14008c91e0",
+            "question": "What venue did Super Bowl 50 take place in?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Santa Clara"
+                        ],
+                        "answer": "Santa Clara",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 403,
+                                "text": "Santa Clara",
+                                "token_inds": [76,77]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 403,
+                                "text": "Santa Clara",
+                                "token_inds": [76,77]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 403,
+                                "text": "Santa Clara",
+                                "token_inds": [76,77]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56beace93aeaaa14008c91e1",
+            "question": "What city did Super Bowl 50 take place in?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Super Bowl L",
+                            "L"
+                        ],
+                        "answer": "Super Bowl L",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 693,
+                                "text": "Super Bowl L",
+                                "token_inds": [131,133]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 704,
+                                "text": "L",
+                                "token_inds": [133,133]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 693,
+                                "text": "Super Bowl L",
+                                "token_inds": [131,133]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56beace93aeaaa14008c91e2",
+            "question": "If Roman numerals were used, what would Super Bowl 50 have been called?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["2015",
+                            "the 2015 season"
+                        ],
+                        "answer": "2015",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 116,
+                                "text": "2015",
+                                "token_inds": [22,22]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 112,
+                                "text": "the 2015 season",
+                                "token_inds": [21,23]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 116,
+                                "text": "2015",
+                                "token_inds": [22,22]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56beace93aeaaa14008c91e3",
+            "question": "Super Bowl 50 decided the NFL champion for what season?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["2015",
+                            "2016"
+                        ],
+                        "answer": "2015",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 116,
+                                "text": "2015",
+                                "token_inds": [22,22]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 346,
+                                "text": "2016",
+                                "token_inds": [63,63]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 116,
+                                "text": "2015",
+                                "token_inds": [22,22]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bf10f43aeaaa14008c94fd",
+            "question": "What year did the Denver Broncos secure a Super Bowl title for the third time?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Santa Clara"
+                        ],
+                        "answer": "Santa Clara",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 403,
+                                "text": "Santa Clara",
+                                "token_inds": [76,77]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 403,
+                                "text": "Santa Clara",
+                                "token_inds": [76,77]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 403,
+                                "text": "Santa Clara",
+                                "token_inds": [76,77]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bf10f43aeaaa14008c94fe",
+            "question": "What city did Super Bowl 50 take place in?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Levi's Stadium"
+                        ],
+                        "answer": "Levi's Stadium",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 355,
+                                "text": "Levi's Stadium",
+                                "token_inds": [66,68]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 355,
+                                "text": "Levi's Stadium",
+                                "token_inds": [66,68]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 355,
+                                "text": "Levi's Stadium",
+                                "token_inds": [66,68]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bf10f43aeaaa14008c94ff",
+            "question": "What stadium did Super Bowl 50 take place in?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["24\u201310"
+                        ],
+                        "answer": "24\u201310",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 267,
+                                "text": "24\u201310",
+                                "token_inds": [46,46]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 267,
+                                "text": "24\u201310",
+                                "token_inds": [46,46]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 267,
+                                "text": "24\u201310",
+                                "token_inds": [46,46]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bf10f43aeaaa14008c9500",
+            "question": "What was the final score of Super Bowl 50? "
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["February 7, 2016"
+                        ],
+                        "answer": "February 7, 2016",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 334,
+                                "text": "February 7, 2016",
+                                "token_inds": [60,63]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 334,
+                                "text": "February 7, 2016",
+                                "token_inds": [60,63]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 334,
+                                "text": "February 7, 2016",
+                                "token_inds": [60,63]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bf10f43aeaaa14008c9501",
+            "question": "What month, day and year did Super Bowl 50 take place? "
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["2015",
+                            "2016"
+                        ],
+                        "answer": "2015",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 116,
+                                "text": "2015",
+                                "token_inds": [22,22]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 346,
+                                "text": "2016",
+                                "token_inds": [63,63]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 346,
+                                "text": "2016",
+                                "token_inds": [63,63]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d20362e7d4791d009025e8",
+            "question": "What year was Super Bowl 50?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Denver Broncos"
+                        ],
+                        "answer": "Denver Broncos",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d20362e7d4791d009025e9",
+            "question": "What team was the AFC champion?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Carolina Panthers"
+                        ],
+                        "answer": "Carolina Panthers",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 249,
+                                "text": "Carolina Panthers",
+                                "token_inds": [44,45]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 249,
+                                "text": "Carolina Panthers",
+                                "token_inds": [44,45]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 249,
+                                "text": "Carolina Panthers",
+                                "token_inds": [44,45]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d20362e7d4791d009025ea",
+            "question": "What team was the NFC champion?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Denver Broncos"
+                        ],
+                        "answer": "Denver Broncos",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d20362e7d4791d009025eb",
+            "question": "Who won Super Bowl 50?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["2015",
+                            "the 2015 season"
+                        ],
+                        "answer": "2015",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 116,
+                                "text": "2015",
+                                "token_inds": [22,22]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 112,
+                                "text": "the 2015 season",
+                                "token_inds": [21,23]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 116,
+                                "text": "2015",
+                                "token_inds": [22,22]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d600e31c85041400946eae",
+            "question": "Super Bowl 50 determined the NFL champion for what season?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Denver Broncos"
+                        ],
+                        "answer": "Denver Broncos",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d600e31c85041400946eb0",
+            "question": "Which team won Super Bowl 50."
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Santa Clara, California.",
+                            "Levi's Stadium"
+                        ],
+                        "answer": "Santa Clara, California.",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 403,
+                                "text": "Santa Clara, California.",
+                                "token_inds": [76,80]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 355,
+                                "text": "Levi's Stadium",
+                                "token_inds": [66,68]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 355,
+                                "text": "Levi's Stadium",
+                                "token_inds": [66,68]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d600e31c85041400946eb1",
+            "question": "Where was Super Bowl 50 held?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Super Bowl"
+                        ],
+                        "answer": "Super Bowl",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 0,
+                                "text": "Super Bowl",
+                                "token_inds": [0,1]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 0,
+                                "text": "Super Bowl",
+                                "token_inds": [0,1]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 0,
+                                "text": "Super Bowl",
+                                "token_inds": [0,1]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d9895ddc89441400fdb50e",
+            "question": "The name of the NFL championship game is?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Denver Broncos"
+                        ],
+                        "answer": "Denver Broncos",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 177,
+                                "text": "Denver Broncos",
+                                "token_inds": [33,34]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d9895ddc89441400fdb510",
+            "question": "What 2015 NFL team one the AFC playoff?"
+        }
+    ]
+}
+{
+    "context": {
+        "documents": [{
+                "text": "The Panthers finished the regular season with a 15\u20131 record, and quarterback Cam Newton was named the NFL Most Valuable Player (MVP). They defeated the Arizona Cardinals 49\u201315 in the NFC Championship Game and advanced to their second Super Bowl appearance since the franchise was founded in 1995. The Broncos finished the regular season with a 12\u20134 record, and denied the New England Patriots a chance to defend their title from Super Bowl XLIX by defeating them 20\u201318 in the AFC Championship Game. They joined the Patriots, Dallas Cowboys, and Pittsburgh Steelers as one of four teams that have made eight appearances in the Super Bowl.",
+                "title": "Super_Bowl_50",
+                "tokens": {
+                    "text": [["The",0],["Panthers",4],["finished",13],["the",22],["regular",26],["season",34],["with",41],["a",46],["15\u20131",48],["record",53],[",",59],["and",61],["quarterback",65],["Cam",77],["Newton",81],["was",88],["named",92],["the",98],["NFL",102],["Most",106],["Valuable",111],["Player",120],["(",127],["MVP",128],[")",131],[".",132],["They",134],["defeated",139],["the",148],["Arizona",152],["Cardinals",160],["49\u201315",170],["in",176],["the",179],["NFC",183],["Championship",187],["Game",200],["and",205],["advanced",209],["to",218],["their",221],["second",227],["Super",234],["Bowl",240],["appearance",245],["since",256],["the",262],["franchise",266],["was",276],["founded",280],["in",288],["1995",291],[".",295],["The",297],["Broncos",301],["finished",309],["the",318],["regular",322],["season",330],["with",337],["a",342],["12\u20134",344],["record",349],[",",355],["and",357],["denied",361],["the",368],["New",372],["England",376],["Patriots",384],["a",393],["chance",395],["to",402],["defend",405],["their",412],["title",418],["from",424],["Super",429],["Bowl",435],["XLIX",440],["by",445],["defeating",448],["them",458],["20\u201318",463],["in",469],["the",472],["AFC",476],["Championship",480],["Game",493],[".",497],["They",499],["joined",504],["the",511],["Patriots",515],[",",523],["Dallas",525],["Cowboys",532],[",",539],["and",541],["Pittsburgh",545],["Steelers",556],["as",565],["one",568],["of",572],["four",575],["teams",580],["that",586],["have",591],["made",596],["eight",601],["appearances",607],["in",619],["the",622],["Super",626],["Bowl",632],[".",636]
+                    ],
+                    "title": [["Super_Bowl_50",0]
+                    ]
+                }
+            }
+        ]
+    },
+    "id": "SQuAD_bb526453a68b4fc8a7a4d7aa260d0589",
+    "qas": [{
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Cam Newton"
+                        ],
+                        "answer": "Cam Newton",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be4e1facb8001400a502f6",
+            "question": "Which Carolina Panthers player was named Most Valuable Player?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["8",
+                            "eight"
+                        ],
+                        "answer": "8",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 467,
+                                "text": "8",
+                                "token_inds": [83,83]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 601,
+                                "text": "eight",
+                                "token_inds": [109,109]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 601,
+                                "text": "eight",
+                                "token_inds": [109,109]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be4e1facb8001400a502f9",
+            "question": "How many appearances have the Denver Broncos made in the Super Bowl?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["1995"
+                        ],
+                        "answer": "1995",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 291,
+                                "text": "1995",
+                                "token_inds": [51,51]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 291,
+                                "text": "1995",
+                                "token_inds": [51,51]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 291,
+                                "text": "1995",
+                                "token_inds": [51,51]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56be4e1facb8001400a502fa",
+            "question": "What year was the Carolina Panthers franchise founded?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Arizona Cardinals",
+                            "the Arizona Cardinals"
+                        ],
+                        "answer": "Arizona Cardinals",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 152,
+                                "text": "Arizona Cardinals",
+                                "token_inds": [29,30]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 148,
+                                "text": "the Arizona Cardinals",
+                                "token_inds": [28,30]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 152,
+                                "text": "Arizona Cardinals",
+                                "token_inds": [29,30]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56beaa4a3aeaaa14008c91c2",
+            "question": "What team did the Panthers defeat?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["the New England Patriots",
+                            "New England Patriots"
+                        ],
+                        "answer": "New England Patriots",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 368,
+                                "text": "the New England Patriots",
+                                "token_inds": [66,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56beaa4a3aeaaa14008c91c3",
+            "question": "Who did the Broncos prevent from going to the Super Bowl?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Arizona Cardinals",
+                            "the Arizona Cardinals"
+                        ],
+                        "answer": "Arizona Cardinals",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 152,
+                                "text": "Arizona Cardinals",
+                                "token_inds": [29,30]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 148,
+                                "text": "the Arizona Cardinals",
+                                "token_inds": [28,30]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 152,
+                                "text": "Arizona Cardinals",
+                                "token_inds": [29,30]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bead5a3aeaaa14008c91e9",
+            "question": "Who did the Panthers beat in the NFC Championship Game?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["the New England Patriots",
+                            "New England Patriots"
+                        ],
+                        "answer": "New England Patriots",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 368,
+                                "text": "the New England Patriots",
+                                "token_inds": [66,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bead5a3aeaaa14008c91ea",
+            "question": "Who lost to the Broncos in the AFC Championship?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["the New England Patriots",
+                            "New England Patriots"
+                        ],
+                        "answer": "New England Patriots",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 368,
+                                "text": "the New England Patriots",
+                                "token_inds": [66,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bead5a3aeaaa14008c91eb",
+            "question": "Who were the defending Super Bowl champions?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["four"
+                        ],
+                        "answer": "four",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 575,
+                                "text": "four",
+                                "token_inds": [104,104]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 575,
+                                "text": "four",
+                                "token_inds": [104,104]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 575,
+                                "text": "four",
+                                "token_inds": [104,104]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bead5a3aeaaa14008c91ec",
+            "question": "How many teams have been in the Super Bowl eight times?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Cam Newton"
+                        ],
+                        "answer": "Cam Newton",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bead5a3aeaaa14008c91ed",
+            "question": "Who was this season's NFL MVP?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["15\u20131"
+                        ],
+                        "answer": "15\u20131",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 48,
+                                "text": "15\u20131",
+                                "token_inds": [8,8]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 48,
+                                "text": "15\u20131",
+                                "token_inds": [8,8]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 48,
+                                "text": "15\u20131",
+                                "token_inds": [8,8]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bf159b3aeaaa14008c9507",
+            "question": "What was the win/loss ratio in 2015 for the Carolina Panthers during their regular season?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Cam Newton"
+                        ],
+                        "answer": "Cam Newton",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bf159b3aeaaa14008c9508",
+            "question": "Which Carolina Panthers team member was picked as the team's MVP in 2015? "
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["12\u20134"
+                        ],
+                        "answer": "12\u20134",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 344,
+                                "text": "12\u20134",
+                                "token_inds": [61,61]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 344,
+                                "text": "12\u20134",
+                                "token_inds": [61,61]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 344,
+                                "text": "12\u20134",
+                                "token_inds": [61,61]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bf159b3aeaaa14008c9509",
+            "question": "What were the win/loss game stats for the Denver Bronco's regular season in 2015?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["4",
+                            "four"
+                        ],
+                        "answer": "4",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 170,
+                                "text": "4",
+                                "token_inds": [31,31]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 575,
+                                "text": "four",
+                                "token_inds": [104,104]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 575,
+                                "text": "four",
+                                "token_inds": [104,104]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bf159b3aeaaa14008c950a",
+            "question": "How many teams have played in the Super Bowl eight times?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["the New England Patriots",
+                            "New England Patriots"
+                        ],
+                        "answer": "New England Patriots",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 368,
+                                "text": "the New England Patriots",
+                                "token_inds": [66,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56bf159b3aeaaa14008c950b",
+            "question": "Which team did not get a chance to defend their Super Bowl XLIX win in Super Bowl 50?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Cam Newton"
+                        ],
+                        "answer": "Cam Newton",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d2045de7d4791d009025f3",
+            "question": "Who is the quarterback for the Panthers?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Arizona Cardinals",
+                            "the Arizona Cardinals"
+                        ],
+                        "answer": "Arizona Cardinals",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 152,
+                                "text": "Arizona Cardinals",
+                                "token_inds": [29,30]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 148,
+                                "text": "the Arizona Cardinals",
+                                "token_inds": [28,30]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 152,
+                                "text": "Arizona Cardinals",
+                                "token_inds": [29,30]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d2045de7d4791d009025f4",
+            "question": "Who did Carolina beat in the NFC championship game?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["second",
+                            "2"
+                        ],
+                        "answer": "2",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 345,
+                                "text": "2",
+                                "token_inds": [61,61]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 227,
+                                "text": "second",
+                                "token_inds": [41,41]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 227,
+                                "text": "second",
+                                "token_inds": [41,41]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d2045de7d4791d009025f5",
+            "question": "How many times have the Panthers been in the Super Bowl?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["the New England Patriots",
+                            "New England Patriots"
+                        ],
+                        "answer": "New England Patriots",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 368,
+                                "text": "the New England Patriots",
+                                "token_inds": [66,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d2045de7d4791d009025f6",
+            "question": "Who did Denver beat in the AFC championship?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Cam Newton"
+                        ],
+                        "answer": "Cam Newton",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d6017d1c85041400946ebe",
+            "question": "Who was the Most Valuable Player for the 2015 NFL season?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["the New England Patriots",
+                            "New England Patriots"
+                        ],
+                        "answer": "New England Patriots",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 368,
+                                "text": "the New England Patriots",
+                                "token_inds": [66,69]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 372,
+                                "text": "New England Patriots",
+                                "token_inds": [67,69]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d6017d1c85041400946ec1",
+            "question": "Who did Denver beat in the 2015 AFC Championship game?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Arizona Cardinals",
+                            "the Arizona Cardinals"
+                        ],
+                        "answer": "Arizona Cardinals",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 152,
+                                "text": "Arizona Cardinals",
+                                "token_inds": [29,30]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 148,
+                                "text": "the Arizona Cardinals",
+                                "token_inds": [28,30]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 152,
+                                "text": "Arizona Cardinals",
+                                "token_inds": [29,30]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d6017d1c85041400946ec2",
+            "question": "Who did the Carolina Panthers beat in the 2015 NFC Championship game?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Cam Newton"
+                        ],
+                        "answer": "Cam Newton",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 77,
+                                "text": "Cam Newton",
+                                "token_inds": [13,14]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d98a59dc89441400fdb52a",
+            "question": "Who was the 2015 NFL MVP?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["Arizona Cardinals",
+                            "the Arizona Cardinals"
+                        ],
+                        "answer": "Arizona Cardinals",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 152,
+                                "text": "Arizona Cardinals",
+                                "token_inds": [29,30]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 148,
+                                "text": "the Arizona Cardinals",
+                                "token_inds": [28,30]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 152,
+                                "text": "Arizona Cardinals",
+                                "token_inds": [29,30]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d98a59dc89441400fdb52b",
+            "question": "Who did the Panthers beat to become the NFC champs?"
+        },
+        {
+            "answers": {
+                "extractive": {
+                    "single_answer": {
+                        "aliases": ["1995",
+                            "1995."
+                        ],
+                        "answer": "1995.",
+                        "instances": [{
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 291,
+                                "text": "1995.",
+                                "token_inds": [51,52]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 291,
+                                "text": "1995",
+                                "token_inds": [51,51]
+                            },
+                            {
+                                "doc_id": 0,
+                                "doc_part": "text",
+                                "start_byte": 291,
+                                "text": "1995",
+                                "token_inds": [51,51]
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "56d98a59dc89441400fdb52e",
+            "question": "What year did the Carolina Panthers form?"
+        }
+    ]
+}
