@@ -22,9 +22,8 @@ class SQuAD(MultiQA_DataSet):
 
     @overrides
     def build_contexts(self, split, preprocessor):
-        #single_file_path = cached_path("https://raw.githubusercontent.com/rajpurkar/SQuAD-explorer/master/dataset/" + \
-        #                               split + "-v1.1.json")
-        single_file_path = "/Users/alontalmor/Documents/dev/datasets/Squad1.1/" + split + "-v1.1.json"
+        single_file_path = cached_path("https://raw.githubusercontent.com/rajpurkar/SQuAD-explorer/master/dataset/" + \
+                                       split + "-v1.1.json")
 
         with open(single_file_path, 'r') as myfile:
             original_dataset = json.load(myfile)

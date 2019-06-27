@@ -52,181 +52,71 @@ A natural language `question` text is acompanied by a list of `question_tokens` 
 "qid": "56ddde6b9a695914005b9629#0",
 "question": "e.g. Who is president?",
 "question_tokens": "e.g. Who is president?",
-"metadata": {...}
-"answers": {...}
+"metadata": {"...":"..."}
+"answers": {"...":"..."}
 ```
 
-
-
-
-In this example, you can see that the second long answer candidate is contained
-within the first. We do not disallow nested long answer candidates, we just ask
-annotators to find the *smallest candidate containing all of the information
-required to infer the answer to the question*. However, we do observe that 95%
-of all long answers (including all paragraph answers) are not nested below any
-other candidates.
-Since we believe that some users may want to start by only considering
-non-overlapping candidates, we include a boolean flag `top_level` that
-identifies whether a candidate is nested below another (`top_level = False`) or
-not (`top_level = True`). Please be aware that this flag is only included for
-convenience and it is not related to the task definition in any way.
-For more information about the distribution of long answer types, please
-see the data statistics section below.
-
-### Annotations
-The NQ training data has a single annotation with each example and the evaluation
-data has five. Each annotation defines a "long_answer" span, a list of
-`short_answers`, and a `yes_no_answer`.  If the annotator has marked a long
-answer, then the long answer dictionary identifies this long answer using byte
-offsets, token offsets, and an index into the list of long answer candidates. If
-the annotator has marked that no long answer is available, all of the fields in
-the long answer dictionary are set to -1.
+#### Metadata
 
 ```json
-"annotations": [{
-  "long_answer": { "start_byte": 32, "end_byte": 106, "start_token": 5, "end_token": 22, "candidate_index": 0 },
-  "short_answers": [
-    {"start_byte": 73, "end_byte": 78, "start_token": 15, "end_token": 16},
-    {"start_byte": 87, "end_byte": 92, "start_token": 18, "end_token": 19}
-  ],
-  "yes_no_answer": "NONE"
-}]
+"metadata":{
+    "supporting_context": [{
+        "doc_ind": 1,
+        "part": "text",
+        "start_byte": 0,
+        "text": "Scott Derrickson (born July 16, 1966) ..."},
+    {
+        "doc_ind": 4,
+        "part": "text",
+        "start_byte": 0,
+        "text": "Edward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, ..."}
+    ]}
+}
 ```
 
-Each of the short answers is also identified using both byte offsets and token
-indices. There is no limit to the number of short answers. There is also often
-no short answer, since some questions such as "describe google's founding" do
-not have a succinct extractive answer. When this is the case, the long answer is
-given but the "short_answers" list is empty.
+#### Answers 
 
-Finally, if no short answer is given, it is possible that there is a
-`yes_no_answer` for questions such as "did larry co-found google". The values
-for this field `YES`, or `NO` if a yes/no answer is given. The default value is
-`NONE` when no yes/no answer is given. For statistics on long answers, short
-answers, and yes/no answers, please see the data statistics section below.
+Answers may be of multiple types depending on the dataset tasks.
 
-### Data Statistics
-The NQ training data contains 307,373 examples. 152,148 have a long answer
-and 110,724 have a short answer. Short answers can be sets of spans in the document
-(106,926), or yes or no (3,798). Long answers are HTML bounding boxes, and the
-distribution of NQ long answer types is as follows:
+##### Extractive answers 
 
-| HTML tags | Percent of long answers |
-|-----------|-------------------------|
-| `<P>`     | 72.9%                   |
-| `<Table>` | 19.0%                   |
-| `<Tr>`    | 1.5%                    |
-| `<Ul>`, `<Ol>`, `<Dl>` | 3.2%       |
-| `<Li>`, `<Dd>`, `<Dt>` | 3.4%       |
+ ```json
+"answers": {
+    "extractive": {
+        "single_answer": {
+        "aliases": ["Denver Broncos"],
+        "answer": "Denver Broncos",
+        "instances": [{
+                "doc_id": 0,
+                "doc_part": "text",
+                "start_byte": 177,
+                "text": "Denver Broncos",
+                "token_inds": [33,34]
+            }]
+        }
+    }
+}
+```
 
-While we allow any paragraph, table, or list element to be a long answer,
-we find that 95% of the long answers are not contained by any other
-long answer candidate. We mark these `top level` candidates in the data,
-as described above.
+##### Extractive answers 
 
-Short answers may contain more than one span, if the question is asking
-for a list of answers (e.g. who made it to stage 3 in american ninja warrior season 9).
-However, almost all short answers (90%) only contain a single span of text.
-All short answers are contained by the long answer given in the same annotation.
+ ```json
+"answers": {
+    "extractive": {
+        "single_answer": {
+        "aliases": ["Denver Broncos"],
+        "answer": "Denver Broncos",
+        "instances": [{
+                "doc_id": 0,
+                "doc_part": "text",
+                "start_byte": 177,
+                "text": "Denver Broncos",
+                "token_inds": [33,34]
+            }]
+        }
+    }
+}
+```
 
-# Prediction Format
-Please see the [evaluation script](nq_eval.py) for a description of the prediction
-format that your model should output.
 
-# Contact us
-If you have a technical question regarding the dataset, code or publication, please
-create an issue in this repository. This is the fastest way to reach us.
-
-If you would like to share feedback or report concerns, please email us at <natural-questions@google.com>.
-
-# Dataset Metadata
-The following table is necessary for this dataset to be indexed by search
-engines such as <a href="https://g.co/datasetsearch">Google Dataset Search</a>.
-<div itemscope itemtype="http://schema.org/Dataset">
-<table>
-  <tr>
-    <th>property</th>
-    <th>value</th>
-  </tr>
-  <tr>
-    <td>name</td>
-    <td><code itemprop="name">Natural Questions</code></td>
-  </tr>
-  <tr>
-    <td>alternateName</td>
-    <td><code itemprop="alternateName">natural-questions</code></td>
-  </tr>
-  <tr>
-    <td>url</td>
-    <td><code itemprop="url">https://github.com/google-research-datasets/natural-questions</code></td>
-  </tr>
-  <tr>
-    <td>sameAs</td>
-    <td><code itemprop="sameAs">https://ai.google.com/research/NaturalQuestions</code></td>
-  </tr>
-  <tr>
-    <td>description</td>
-    <td><code itemprop="description">Natural Questions (NQ) contains real user questions issued to Google search, and
-answers found from Wikipedia by annotators.\n
-NQ is designed for the training and evaluation of automatic question answering systems.\n
-\n
-NQ contains 307,372 training examples, 7,830 examples for development, and we withold a further 7,842 examples for testing.\n
-\n
-Each example contains a single question, a tokenized representation of the question, a timestamped Wikipedia URL, and the HTML representation of that Wikipedia page.\n
-\n
-```json\n
-"question_text": "who founded google",\n
-"question_tokens": ["who", "founded", "google"],\n
-"document_url": "http://www.wikipedia.org/Google",\n
-"document_html": "<html><body>Google<p>Google was founded in 1998 by ..."\n
-```\n</code></td>
-  </tr>
-  <tr>
-    <td>provider</td>
-    <td>
-      <div itemscope itemtype="http://schema.org/Organization" itemprop="provider">
-        <table>
-          <tr>
-            <th>property</th>
-            <th>value</th>
-          </tr>
-          <tr>
-            <td>name</td>
-            <td><code itemprop="name">Google</code></td>
-          </tr>
-          <tr>
-            <td>sameAs</td>
-            <td><code itemprop="sameAs">https://en.wikipedia.org/wiki/Google</code></td>
-          </tr>
-        </table>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>license</td>
-    <td>
-      <div itemscope itemtype="http://schema.org/CreativeWork" itemprop="license">
-        <table>
-          <tr>
-            <th>property</th>
-            <th>value</th>
-          </tr>
-          <tr>
-            <td>name</td>
-            <td><code itemprop="name">CC BY-SA 3.0</code></td>
-          </tr>
-          <tr>
-            <td>url</td>
-            <td><code itemprop="url">https://creativecommons.org/licenses/by-sa/3.0/</code></td>
-          </tr>
-        </table>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>citation</td>
-    <td><code itemprop="citation">Kwiatkowski, Tom, Jennimaria Palomaki, Olivia Rhinehart, Michael Collins, Ankur Parikh, Chris Alberti, Danielle Epstein et al. "Natural questions: a benchmark for question answering research." (2019). https://ai.google/research/pubs/pub47761</code></td>
-  </tr>
-</table>
-</div>
 

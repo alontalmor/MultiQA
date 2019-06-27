@@ -22,11 +22,10 @@ class HotpotQA(MultiQA_DataSet):
 
     @overrides
     def build_contexts(self, split, preprocessor):
-        #if split == 'train':
-        #    single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_train_v1.1.json")
-        #elif split == 'dev':
-        #    single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_dev_distractor_v1.json")
-        single_file_path = "/Users/alontalmor/Documents/dev/datasets/HotpotQA/hotpot_" + split + "_distractor_v1.json"
+        if split == 'train':
+            single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_train_v1.1.json")
+        elif split == 'dev':
+            single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_dev_distractor_v1.json")
 
         with open(single_file_path, 'r') as myfile:
             data = json.load(myfile)
