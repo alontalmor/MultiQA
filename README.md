@@ -89,7 +89,7 @@ In the `multi-choice` options a set of `answer_candidate` `choices` is provided,
         "cannot_answer": "yes/no",
         "answer_candidates":["answer_candidate1", "answer_candidate2"]
     },
-    "multi-choice" {
+    "multi-choice": {
         "correct_answer_index": 0,
         "multi_correct_answer_indexes":[1,2],
         "choices":["answer_candidate1", "answer_candidate2", "answer_candidate3" ]
