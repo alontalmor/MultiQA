@@ -77,46 +77,58 @@ A natural language `question` text is acompanied by a list of `question_tokens` 
 #### Answers 
 
 Answers may be of multiple types depending on the dataset tasks.
-
-##### Extractive answers 
-
  ```json
 "answers": {
-    "extractive": {
-        "single_answer": {
-        "aliases": ["Denver Broncos"],
-        "answer": "Denver Broncos",
-        "instances": [{
-                "doc_id": 0,
-                "doc_part": "text",
-                "start_byte": 177,
-                "text": "Denver Broncos",
-                "token_inds": [33,34]
-            }]
-        }
+    "open-ended": {
+        "cannot_answer": "yes/no",
+        "answer_candidates":[answer_candidate1, answer_candidate2, ... ]
+    },
+    "multi-choice" {
+        "correct_answer_ind":1,
+        "multi_correct_answer_inds":[1,2],
+        "choices":[answer_candidate1, answer_candidate2, ... ]
     }
 }
 ```
 
-##### Extractive answers 
+
+##### answer candidate
 
  ```json
-"answers": {
-    "extractive": {
-        "single_answer": {
-        "aliases": ["Denver Broncos"],
-        "answer": "Denver Broncos",
-        "instances": [{
-                "doc_id": 0,
-                "doc_part": "text",
-                "start_byte": 177,
-                "text": "Denver Broncos",
-                "token_inds": [33,34]
-            }]
+"yesno": {
+    "single_answer":"yes",
+  },
+  "generated_text": {
+    "list":[],
+  },
+  "date": {
+    "set":[]
+  },
+  "number": {
+    "single_answer":{},
+  },
+  "extractive": {
+    "single_answer":{
+      "answer": "the main answer",
+      "aliases": ["Donald Trump","Trump"],
+      "instances":[
+        {
+            "doc_ind":0,
+            "part":"abstract",
+            "start_byte":15,
+            "start_end_tokens":[2,3],
+            "text": "Donald Trump",
+        },
+        {
+            "doc_ind":0,
+            "part":"abstract",
+            "start_byte":15,
+            "start_end_tokens":[2,3],
+            "text": "Trump",
         }
+      ]
     }
-}
+  }
 ```
-
 
 
