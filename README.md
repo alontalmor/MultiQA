@@ -52,7 +52,7 @@ A natural language `question` text is accompanied by a list of `question_tokens`
 "qid": "DROP_q_1e50dd00-e837-4ecc-8265-83365d286aa4",
 "question": "How many years was the Mon kingdom",
 "question_tokens": [["How",0],["many",4],["years",9],["was",15],["the",19],["Mon",23],["kingdom",27]
-"supporting_context": {}
+"supporting_context": {},
 "metadata": {},
 "answers": {}
 ```
