@@ -10,11 +10,11 @@ It is accompanied by an AllenNLP dataset reader and model that enable train and/
 We will have table of many datasets statistics here .. 
 
 ## Data Format
-Each example in the MultiQA format contains a `context`, that may contain multiple documents with diverse types of text, and a list of one or more question on the context (`qas`).
+Each example in the MultiQA format contains a `context`, that may contain multiple documents with diverse types of text, and a list of one or more questions about the context (`qas`).
 
 ### Context
 
-Each context contains a list of one or more documents with different possible types of text. A document `title` if such exists, a `snippet` for context produced by search engines. A `text` for various types of body text such abstract, partial or full body text or full html. And finally the `source_utl` of the document. 
+Each context contains a list of one or more documents with different possible types of text. A document `title` if such exists, a `snippet` for contexts produced by search engines (e.g. SearchQA). A `text` for various types of internal document texts such abstract (e.g. HotpotQA), partial or full body text (e.g. TriviaQA) or full html (e.g. NaturalQuestions). And finally the `source_url` of the document. 
 
 ```json
 "title": "the document title",
@@ -34,7 +34,7 @@ Each document may also contain a metadata field for datasets with annotated fiel
 ```
 
 #### Tokens
-Each document and text field is tokenized separatly. The tokens are stored in the `tokens` for every document in the list of documents.
+Each document and text field is tokenized separately. The tokens are stored in the `tokens` field for each document.
 
 ```json
 "tokens": {
@@ -49,11 +49,11 @@ Each context contains a list of one or more question and answers.
 
 A natural language `question` text is acompanied by a list of `question_tokens` as well as a set of one or more `answers` for various tasks.  Dataset specific annotations or question properties may be added to `metadata`. 
 ```json
-"qid": "56ddde6b9a695914005b9629#0",
-"question": "e.g. Who is president?",
-"question_tokens": "e.g. Who is president?",
-"metadata": {"...":"..."}
-"answers": {"...":"..."}
+"qid": "DROP_q_1e50dd00-e837-4ecc-8265-83365d286aa4",
+"question": "How many years was the Mon kingdom",
+"question_tokens": [["How",0],["many",4],["years",9],["was",15],["the",19],["Mon",23],["kingdom",27]
+"metadata": {}
+"answers": {}
 ```
 
 #### Metadata
