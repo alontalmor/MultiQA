@@ -21,7 +21,7 @@ class HotpotQA(MultiQA_DataSet):
         return header
 
     @overrides
-    def build_contexts(self, split, preprocessor):
+    def build_contexts(self, split, preprocessor , sample_size):
         if split == 'train':
             single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_train_v1.1.json")
         elif split == 'dev':
@@ -60,14 +60,14 @@ class HotpotQA(MultiQA_DataSet):
                                  'metadata': {"text": {"sentence_start_bytes": sentence_start_bytes}}})
 
             if example['answer'].lower() == 'yes':
-                answers = {'abstractive': {'yesno': 'yes'}}
+                answers = {'open-ended': {'answer_candidates': [{'yesno':{'single_answer':'yes'}}]}}
             elif example['answer'].lower() == 'no':
-                answers = {'abstractive': {'yesno': 'no'}}
+                answers = {'open-ended': {'answer_candidates': [{'yesno':{'single_answer':'no'}}]}}
             else:
-                answers = {'extractive': {'single_answer': {'answer': example['answer'],
-                                      'aliases': [example['answer']]}}}
+                answers = {'open-ended': {'answer_candidates': [{'extractive': {'single_answer': {'answer': example['answer']}}}]}}
 
-            qas = [{"qid": example['_id'],
+
+            qas = [{"qid": self.DATASET_NAME + '_q_' + example['_id'],
                     "metadata":{'type':example['type'],'level':example['level']},
                     "supporting_context": supporting_context,
                     "question": example['question'],
@@ -78,9 +78,8 @@ class HotpotQA(MultiQA_DataSet):
                              "context": {"documents": documents},
                              "qas": qas})
 
-        # tokenize
-        # TODO this is only for debugging :
-        contexts = contexts[0:5]
+        if sample_size != None:
+            contexts = contexts[0:sample_size]
         contexts = preprocessor.tokenize_and_detect_answers(contexts)
 
         # detect answers

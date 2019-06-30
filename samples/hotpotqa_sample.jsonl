@@ -156,16 +156,23 @@
     "id": "HotpotQA_5a8b57f25542995d1e6f1371",
     "qas": [{
             "answers": {
-                "abstractive": {
-                    "yesno": "yes"
+                "open-ended": {
+                    "answer_candidates": [{
+                            "yesno": {
+                                "single_answer": "yes"
+                            }
+                        }
+                    ]
                 }
             },
-            "id": "5a8b57f25542995d1e6f1371",
             "metadata": {
                 "level": "hard",
                 "type": "comparison"
             },
+            "qid": "HotpotQA_q_5a8b57f25542995d1e6f1371",
             "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+            "question_tokens": [["Were",0],["Scott",5],["Derrickson",11],["and",22],["Ed",26],["Wood",29],["of",34],["the",37],["same",41],["nationality",46],["?",57]
+            ],
             "supporting_context": [{
                     "doc_ind": 1,
                     "part": "text",
@@ -339,28 +346,33 @@
     "id": "HotpotQA_5a8c7595554299585d9e36b6",
     "qas": [{
             "answers": {
-                "extractive": {
-                    "single_answer": {
-                        "aliases": ["Chief of Protocol"
-                        ],
-                        "answer": "Chief of Protocol",
-                        "instances": [{
-                                "doc_id": 1,
-                                "doc_part": "text",
-                                "start_byte": 315,
-                                "text": "Chief of Protocol",
-                                "token_inds": [65,67]
+                "open-ended": {
+                    "answer_candidates": [{
+                            "extractive": {
+                                "single_answer": {
+                                    "answer": "Chief of Protocol",
+                                    "instances": [{
+                                            "doc_id": 1,
+                                            "doc_part": "text",
+                                            "start_byte": 315,
+                                            "text": "Chief of Protocol",
+                                            "token_inds": [65,67]
+                                        }
+                                    ]
+                                }
                             }
-                        ]
-                    }
+                        }
+                    ]
                 }
             },
-            "id": "5a8c7595554299585d9e36b6",
             "metadata": {
                 "level": "hard",
                 "type": "bridge"
             },
+            "qid": "HotpotQA_q_5a8c7595554299585d9e36b6",
             "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+            "question_tokens": [["What",0],["government",5],["position",16],["was",25],["held",29],["by",34],["the",37],["woman",41],["who",47],["portrayed",51],["Corliss",61],["Archer",69],["in",76],["the",79],["film",83],["Kiss",88],["and",93],["Tell",97],["?",101]
+            ],
             "supporting_context": [{
                     "doc_ind": 1,
                     "part": "text",
@@ -540,42 +552,47 @@
     "id": "HotpotQA_5a85ea095542994775f606a8",
     "qas": [{
             "answers": {
-                "extractive": {
-                    "single_answer": {
-                        "aliases": ["Animorphs"
-                        ],
-                        "answer": "Animorphs",
-                        "instances": [{
-                                "doc_id": 2,
-                                "doc_part": "text",
-                                "start_byte": 63,
-                                "text": "Animorphs",
-                                "token_inds": [13,13]
-                            },
-                            {
-                                "doc_id": 8,
-                                "doc_part": "title",
-                                "start_byte": 0,
-                                "text": "Animorphs",
-                                "token_inds": [0,0]
-                            },
-                            {
-                                "doc_id": 8,
-                                "doc_part": "text",
-                                "start_byte": 0,
-                                "text": "Animorphs",
-                                "token_inds": [0,0]
+                "open-ended": {
+                    "answer_candidates": [{
+                            "extractive": {
+                                "single_answer": {
+                                    "answer": "Animorphs",
+                                    "instances": [{
+                                            "doc_id": 2,
+                                            "doc_part": "text",
+                                            "start_byte": 63,
+                                            "text": "Animorphs",
+                                            "token_inds": [13,13]
+                                        },
+                                        {
+                                            "doc_id": 8,
+                                            "doc_part": "title",
+                                            "start_byte": 0,
+                                            "text": "Animorphs",
+                                            "token_inds": [0,0]
+                                        },
+                                        {
+                                            "doc_id": 8,
+                                            "doc_part": "text",
+                                            "start_byte": 0,
+                                            "text": "Animorphs",
+                                            "token_inds": [0,0]
+                                        }
+                                    ]
+                                }
                             }
-                        ]
-                    }
+                        }
+                    ]
                 }
             },
-            "id": "5a85ea095542994775f606a8",
             "metadata": {
                 "level": "hard",
                 "type": "bridge"
             },
+            "qid": "HotpotQA_q_5a85ea095542994775f606a8",
             "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+            "question_tokens": [["What",0],["science",5],["fantasy",13],["young",21],["adult",27],["series",33],[",",39],["told",41],["in",46],["first",49],["person",55],[",",61],["has",63],["a",67],["set",69],["of",73],["companion",76],["books",86],["narrating",92],["the",102],["stories",106],["of",114],["enslaved",117],["worlds",126],["and",133],["alien",137],["species",143],["?",150]
+            ],
             "supporting_context": [{
                     "doc_ind": 2,
                     "part": "text",
@@ -767,16 +784,23 @@
     "id": "HotpotQA_5adbf0a255429947ff17385a",
     "qas": [{
             "answers": {
-                "abstractive": {
-                    "yesno": "no"
+                "open-ended": {
+                    "answer_candidates": [{
+                            "yesno": {
+                                "single_answer": "no"
+                            }
+                        }
+                    ]
                 }
             },
-            "id": "5adbf0a255429947ff17385a",
             "metadata": {
                 "level": "hard",
                 "type": "comparison"
             },
+            "qid": "HotpotQA_q_5adbf0a255429947ff17385a",
             "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+            "question_tokens": [["Are",0],["the",4],["Laleli",8],["Mosque",15],["and",22],["Esma",26],["Sultan",31],["Mansion",38],["located",46],["in",54],["the",57],["same",61],["neighborhood",66],["?",78]
+            ],
             "supporting_context": [{
                     "doc_ind": 5,
                     "part": "text",
@@ -950,28 +974,33 @@
     "id": "HotpotQA_5a8e3ea95542995a26add48d",
     "qas": [{
             "answers": {
-                "extractive": {
-                    "single_answer": {
-                        "aliases": ["Greenwich Village, New York City"
-                        ],
-                        "answer": "Greenwich Village, New York City",
-                        "instances": [{
-                                "doc_id": 3,
-                                "doc_part": "text",
-                                "start_byte": 138,
-                                "text": "Greenwich Village, New York City",
-                                "token_inds": [24,29]
+                "open-ended": {
+                    "answer_candidates": [{
+                            "extractive": {
+                                "single_answer": {
+                                    "answer": "Greenwich Village, New York City",
+                                    "instances": [{
+                                            "doc_id": 3,
+                                            "doc_part": "text",
+                                            "start_byte": 138,
+                                            "text": "Greenwich Village, New York City",
+                                            "token_inds": [24,29]
+                                        }
+                                    ]
+                                }
                             }
-                        ]
-                    }
+                        }
+                    ]
                 }
             },
-            "id": "5a8e3ea95542995a26add48d",
             "metadata": {
                 "level": "hard",
                 "type": "bridge"
             },
+            "qid": "HotpotQA_q_5a8e3ea95542995a26add48d",
             "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+            "question_tokens": [["The",0],["director",4],["of",13],["the",16],["romantic",20],["comedy",29],["\"",36],["Big",37],["Stone",41],["Gap",47],["\"",50],["is",52],["based",55],["in",61],["what",64],["New",69],["York",73],["city",78],["?",82]
+            ],
             "supporting_context": [{
                     "doc_ind": 3,
                     "part": "text",

@@ -11,12 +11,13 @@ def main():
     parse.add_argument("dataset_name", type=str, help="use the actual name of the dataset class, case sensitive")
     parse.add_argument("split", type=str, help="dev / train / text")
     parse.add_argument("output_file", type=str, help="")
+    parse.add_argument("--sample_size", type=int, help="", default=None)
     parse.add_argument("--n_processes", type=int, help="", default=1)
     args = parse.parse_args()
 
     preprocessor = MultiQAPreProcess(args.n_processes)
     factory = MultiQAFactory()
-    header, contexts = factory.build_dataset(args.dataset_name, args.split, preprocessor)
+    header, contexts = factory.build_dataset(args.dataset_name, args.split, preprocessor, args.sample_size)
 
     if args.output_file.startswith('s3://'):
         output_file = args.output_file.replace('s3://','')
