@@ -68,7 +68,7 @@ class NaturalQuestions(MultiQA_DataSet):
             # a non-null answer that is seen at least once in the 5
             # annotations; conversely if fewer than 2 annotators
             # give a non-null long answer, the system is required
-            # to return NULL as its o utput.
+            # to return NULL as its output.
             # from https://ai.google/research/pubs/pub47761
             # we will ineicate cannot answer as well as add the candidates (for completeness)
             open_ended = {'answer_candidates': answer_candidates}
