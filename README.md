@@ -30,7 +30,7 @@ The first line in a multiqa file is a header, containing various information on 
 }
 ```
 
-## contexts
+## A single line
 
 After the header, each line in the MultiQA format contains one context + questions. The `context` field may contain one or more documents, and a list of one or more questions about the context (`qas`).
 
