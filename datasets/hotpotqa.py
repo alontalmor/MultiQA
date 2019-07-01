@@ -2,7 +2,6 @@ import json
 from datasets.multiqa_dataset import MultiQA_DataSet
 from overrides import overrides
 from allennlp.common.file_utils import cached_path
-from common.uuid import gen_uuid
 import tqdm
 
 
@@ -16,7 +15,21 @@ class HotpotQA(MultiQA_DataSet):
 
     @overrides
     def build_header(self, contexts, split, preprocessor):
-        header = {}
+        header = {
+            "dataset_name": self.DATASET_NAME,
+            "split": split,
+            "dataset_url": "https://hotpotqa.github.io/",
+            "license": "http://creativecommons.org/licenses/by-sa/4.0/legalcode",
+            "data_source": "Wikipedia",
+            "context_answer_detection_source": "MultiQA",
+            "tokenization_source": "MultiQA",
+            "full_schema": super().compute_schema(contexts),
+            "text_type": "abstract",
+            "number_of_qas": sum([len(context['qas']) for context in contexts]),
+            "number_of_contexts": len(contexts),
+            "readme": "",
+            "multiqa_version": super().get_multiqa_version()
+        }
 
         return header
 

@@ -16,7 +16,21 @@ class SQuAD(MultiQA_DataSet):
 
     @overrides
     def build_header(self, contexts, split, preprocessor ):
-        header = {}
+        header = {
+            "dataset_name": self.DATASET_NAME,
+            "split": split,
+            "dataset_url": "https://rajpurkar.github.io/SQuAD-explorer/",
+            "license": "http://creativecommons.org/licenses/by-sa/4.0/legalcode",
+            "data_source": "Wikipedia",
+            "context_answer_detection_source": self.DATASET_NAME,
+            "tokenization_source": "MultiQA",
+            "full_schema": super().compute_schema(contexts),
+            "text_type": "abstract",
+            "number_of_qas": sum([len(context['qas']) for context in contexts]),
+            "number_of_contexts": len(contexts),
+            "readme": "",
+            "multiqa_version": super().get_multiqa_version()
+        }
 
         return header
 

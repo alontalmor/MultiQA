@@ -17,7 +17,21 @@ class NaturalQuestions(MultiQA_DataSet):
 
     @overrides
     def build_header(self, contexts, split, preprocessor):
-        header = {}
+        header = {
+            "dataset_name": self.DATASET_NAME,
+            "split": split,
+            "dataset_url": "https://ai.google.com/research/NaturalQuestions/",
+            "license": "https://ai.google.com/research/NaturalQuestions/termsAndConditions",
+            "data_source": "Wikipedia",
+            "context_answer_detection_source": self.DATASET_NAME,
+            "tokenization_source": self.DATASET_NAME,
+            "full_schema": super().compute_schema(contexts),
+            "text_type": "abstract",
+            "number_of_qas": sum([len(context['qas']) for context in contexts]),
+            "number_of_contexts": len(contexts),
+            "readme": "",
+            "multiqa_version": super().get_multiqa_version()
+        }
 
         return header
 

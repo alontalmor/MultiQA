@@ -1,6 +1,6 @@
 # MultiQA
 
-MultiQA is an set of datasets currently confined to the task of machine reading comprehenstion, that are preprocessed in a single format.
+MultiQA is a set of datasets currently confined to the task of machine reading comprehenstion, that are preprocessed in a single format.
 It is accompanied by an AllenNLP dataset reader and model that enable train and/or evaluation on multiple subsets of the datasets. 
 
 
@@ -98,8 +98,13 @@ In the `multi-choice` options a set of `answer_candidate` `choices` is provided,
 
 #### answer candidate
 
-Each answer candidate may contain more than one answer type. Each answer type (e.g. `yesno`, `extractive`) may contain only one of [`single_answer`, `list`,`set`] this allows expressive answers such as:
-`Yes, [span1, span2 ... ]` or a sorted set of instructions provided as generated text.
+Each answer candidate may contain more than one answer type. Each answer type (e.g. `yesno`, `extractive`) can be one of the following:
+ * `single_answer` : only one answer in needed here.
+ * `list` : a list of answers (order is not important)
+ * `set`: a set or sorted list of answers in which order is important.
+  
+ this allows expressive answers such as:
+`Yes, [span1, span2 ... ]` or a sorted set of instructions provided as generated text, etc ... 
 
 Fields that are not applicable for a certain datasets will not be shown in it's file.
 
@@ -136,13 +141,6 @@ Note that in all observed datasets, a model is required to match only one of the
             "start_byte":15,
             "start_end_tokens":[2,3],
             "text": "Donald Trump",
-        },
-        {
-            "doc_ind":0,
-            "part":"abstract",
-            "start_byte":15,
-            "start_end_tokens":[2,3],
-            "text": "Trump",
         }
       ]
     }

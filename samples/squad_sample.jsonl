@@ -1,4 +1,19 @@
-{"header": {}}
+{
+    "header": {
+        "data_source": "wikipedia",
+        "dataset_name": "SQuAD",
+        "dataset_url": "https://rajpurkar.github.io/SQuAD-explorer/",
+        "license": "http://creativecommons.org/licenses/by-sa/4.0/legalcode",
+        "multiqa_version": "0.00",
+        "number_of_contexts": 10,
+        "number_of_qas": 59,
+        "readme": "",
+        "schema": {},
+        "split": "dev",
+        "text_type": "abstract",
+        "tokenization_source": "multiqa"
+    }
+}
 {
     "context": {
         "documents": [{
@@ -13,7 +28,7 @@
             }
         ]
     },
-    "id": "SQuAD_b3fd4654f07c43918bea699f3a1cf127",
+    "id": "SQuAD_c9d59265aec849fa86941ae2af5b8903",
     "qas": [{
             "answers": {
                 "open-ended": {
@@ -457,7 +472,7 @@
             }
         ]
     },
-    "id": "SQuAD_2864aacfb6df497492da4d6646aec0b5",
+    "id": "SQuAD_df44f723102f473ab4e3d69f73d2cede",
     "qas": [{
             "answers": {
                 "open-ended": {
@@ -732,7 +747,7 @@
             }
         ]
     },
-    "id": "SQuAD_bfdce89693a54203a42513a2a9531259",
+    "id": "SQuAD_9818b30a3f5149f1b28da2c4de0f83ef",
     "qas": [{
             "answers": {
                 "open-ended": {
@@ -897,7 +912,7 @@
             }
         ]
     },
-    "id": "SQuAD_06114c65c44249b6a06a0d12d53fb3d1",
+    "id": "SQuAD_fa878c0fa2e2445d99e889dc176ad36b",
     "qas": [{
             "answers": {
                 "open-ended": {
@@ -1154,7 +1169,7 @@
             }
         ]
     },
-    "id": "SQuAD_3ad4d73b306c4598bd07134f3ab6b255",
+    "id": "SQuAD_b4f7a243e2cb454ea71564b02437c342",
     "qas": [{
             "answers": {
                 "open-ended": {
@@ -1263,7 +1278,7 @@
             }
         ]
     },
-    "id": "SQuAD_6b1e49fb25dd43e59aad388afed592d2",
+    "id": "SQuAD_67cc809d5027444389c70a19a4249018",
     "qas": [{
             "answers": {
                 "open-ended": {
@@ -1446,7 +1461,7 @@
             }
         ]
     },
-    "id": "SQuAD_c58e9ae27494437ca494dba09075b06d",
+    "id": "SQuAD_4248ae408df740e59860514f150e621c",
     "qas": [{
             "answers": {
                 "open-ended": {
@@ -1573,7 +1588,7 @@
             }
         ]
     },
-    "id": "SQuAD_e00fe15201f1430fbaa6cde1c3fa7bb1",
+    "id": "SQuAD_d01c718ea6e44be89fcdb43fa9b380c9",
     "qas": [{
             "answers": {
                 "open-ended": {
@@ -1718,7 +1733,7 @@
             }
         ]
     },
-    "id": "SQuAD_47d7eaea1d2d4bcfa3e511813dc0255f",
+    "id": "SQuAD_66d71c852f8447c8b67da8749cc1aead",
     "qas": [{
             "answers": {
                 "open-ended": {
@@ -1975,7 +1990,7 @@
             }
         ]
     },
-    "id": "SQuAD_22785365a63f48009e028476239fdf1d",
+    "id": "SQuAD_e7c7948d74fa41d79c055c7047382178",
     "qas": [{
             "answers": {
                 "open-ended": {

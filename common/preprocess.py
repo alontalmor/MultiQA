@@ -8,6 +8,8 @@ import boto3
 from typing import TypeVar,Iterable
 from multiprocessing import Pool
 
+
+
 T = TypeVar('T')
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(os.path.join(os.path.join(__file__, os.pardir), os.pardir))))
@@ -187,7 +189,6 @@ class MultiQAPreProcess:
 
         return list(set(occurences))
 
-
     def tokenize_context(self, document):
         if 'tokens' not in document:
             document['tokens'] = {}
@@ -197,8 +198,6 @@ class MultiQAPreProcess:
                 part_tokens = self._tokenizer.tokenize(document[part])
                 # seems Spacy class is pretty heavy in memory, lets move to a simple representation for now..
                 document['tokens'][part] = [(t.text, t.idx) for t in part_tokens]
-
-
 
     def preprocess_context(self, context):
 
@@ -212,38 +211,48 @@ class MultiQAPreProcess:
             if 'question_tokens' not in qa:
                 qa['question_tokens'] = [(t.text, t.idx) for t in self._tokenizer.tokenize(qa['question'])]
 
-            if 'cannot_answer' in qa['answers']['open-ended'] and qa['answers']['open-ended']['cannot_answer'] == 'yes':
-                pass
-            else:
-                for answer_cand in qa['answers']['open-ended']['answer_candidates']:
-                    if 'extractive' in answer_cand:
-                        answer_list = []
-                        if "single_answer" in answer_cand['extractive']:
-                            answer_list.append(answer_cand['extractive']['single_answer'])
-                        if "list" in answer_cand['extractive']:
-                            answer_list += [answer for answer in answer_cand['extractive']['list']]
+            answer_cand_list = []
+            if 'open-ended' in qa['answers']:
+                if 'cannot_answer' in qa['answers']['open-ended'] and qa['answers']['open-ended']['cannot_answer'] == 'yes':
+                    pass
+                else:
+                    for answer_cand in qa['answers']['open-ended']['answer_candidates']:
+                        if 'extractive' in answer_cand:
+                            if "single_answer" in answer_cand['extractive']:
+                                answer_cand_list.append(answer_cand['extractive']['single_answer'])
+                            if "list" in answer_cand['extractive']:
+                                answer_cand_list += [answer for answer in answer_cand['extractive']['list']]
 
-                        for single_item in answer_list:
-                            if 'instances' in single_item:
-                                for instance in single_item['instances']:
-                                    self.char_span_to_token_span(instance, document['tokens'][instance['doc_part']])
-                            else:
-                                single_item['instances'] = []
-                                aliases = [single_item['answer']]
-                                if 'aliases' in single_item:
-                                    aliases += single_item['aliases']
-                                for alias in aliases:
-                                    for doc_id, document in enumerate(context['context']['documents']):
-                                        for part in document['tokens'].keys():
-                                            occurences = self.find_all_answer_spans(alias, document['tokens'][part])
-                                            for occurence in occurences:
-                                                instance = {
-                                                     'doc_id': doc_id,
-                                                     'doc_part': part,
-                                                     'start_byte': document['tokens'][part][occurence[0]][1],
-                                                     'text': alias,
-                                                     'token_inds':occurence}
-                                                single_item['instances'].append(instance)
+            elif 'multi-choice' in qa['answers']:
+                for answer_cand in qa['answers']['multi-choice']['choices']:
+                    if 'extractive' in answer_cand:
+                        if "single_answer" in answer_cand['extractive']:
+                            answer_cand_list.append(answer_cand['extractive']['single_answer'])
+                        if "list" in answer_cand['extractive']:
+                            answer_cand_list += [answer for answer in answer_cand['extractive']['list']]
+
+
+            for single_item in answer_cand_list:
+                if 'instances' in single_item:
+                    for instance in single_item['instances']:
+                        self.char_span_to_token_span(instance, document['tokens'][instance['doc_part']])
+                else:
+                    single_item['instances'] = []
+                    aliases = [single_item['answer']]
+                    if 'aliases' in single_item:
+                        aliases += single_item['aliases']
+                    for alias in aliases:
+                        for doc_id, document in enumerate(context['context']['documents']):
+                            for part in document['tokens'].keys():
+                                occurences = self.find_all_answer_spans(alias, document['tokens'][part])
+                                for occurence in occurences:
+                                    instance = {
+                                         'doc_id': doc_id,
+                                         'doc_part': part,
+                                         'start_byte': document['tokens'][part][occurence[0]][1],
+                                         'text': alias,
+                                         'token_inds':occurence}
+                                    single_item['instances'].append(instance)
 
     def tokenize_and_detect_answers(self, contexts):
         if self._n_processes == 1:

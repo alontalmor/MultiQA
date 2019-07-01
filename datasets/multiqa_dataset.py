@@ -19,6 +19,11 @@ class MultiQA_DataSet():
     def __init__(self):
         pass
 
+    def get_multiqa_version(self):
+        return '0.00'
+
+    def compute_schema(self, contexts):
+        return {}
 
     def build_contexts(self):
         pass
