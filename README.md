@@ -32,7 +32,7 @@ The first line in a multiqa file is a header, containing various information on 
 
 ## contexts
 
-After the header, each line in the MultiQA format contains one context + questions. The `context` that may contain one or more documents, and a list of one or more questions about the context (`qas`).
+After the header, each line in the MultiQA format contains one context + questions. The `context` field may contain one or more documents, and a list of one or more questions about the context (`qas`).
 
 ```json
 "id": "HotpotQA_5a85ea095542994775f606a8",
