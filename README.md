@@ -10,18 +10,47 @@ on multiple subsets of datasets.
 # Data Description
 We will have table of many datasets statistics here .. 
 
-## Data Format
-Each example in the MultiQA format contains a `context`, that may contain multiple documents with diverse types of text, and a list of one or more questions about the context (`qas`).
+## Header
 
-### Context
+The first line in a multiqa file is a header, containing various information on dataset at hand.
+```json
+"header": {
+    "data_source": "wikipedia",
+    "dataset_name": "SQuAD",
+    "dataset_url": "https://rajpurkar.github.io/SQuAD-explorer/",
+    "license": "http://creativecommons.org/licenses/by-sa/4.0/legalcode",
+    "multiqa_version": "0.00",
+    "number_of_contexts": 19035,
+    "number_of_qas": 130319,
+    "readme": "",
+    "schema": {},
+    "split": "train",
+    "text_type": "abstract",
+    "tokenization_source": "multiqa"
+}
+```
+
+## contexts
+
+After the header, each line in the MultiQA format contains one context + questions. The `context` that may contain one or more documents, and a list of one or more questions about the context (`qas`).
+
+```json
+"id": "HotpotQA_5a85ea095542994775f606a8",
+"context":["document1","document2","document3"],
+"qas":["question1","question2"], 
+```
+
+### The Context
 
 Each context contains a list of one or more documents with different possible types of text. A document `title` if such exists, a `snippet` for contexts produced by search engines (e.g. SearchQA). A `text` for various types of internal document texts such abstract (e.g. HotpotQA), partial or full body text (e.g. TriviaQA) or full html (e.g. NaturalQuestions). And finally the `source_url` of the document. 
 
 ```json
 "title": "the document title",
-"snippet":"a snippet, mostly applicable for search engine results", 
-"text":"full context text as provided by the dataset",
-"source_url":"",
+"snippet":" applicable for search engine results", 
+"text":" abstract / paragraph / full_html",
+"source_url":"http:// ... ",
+"metadata": {},
+"tokens": {}
 ```
 
 Each document may also contain a metadata field for datasets with annotated field on the context. Such as `sentence_start_bytes`  that serparating the `text` field into sentences for supporting context in datasets such as HotpotQA.
