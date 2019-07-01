@@ -1,9 +1,10 @@
 # MultiQA
 
-MultiQA is a set of datasets currently confined to the task of machine reading comprehenstion, that are preprocessed in a single format.
-It is accompanied by an AllenNLP dataset reader and model that enable train and/or evaluation on multiple subsets of the datasets. 
-
-
+MultiQA is a project whose goal is to facilitate training and evaluating reading
+comprehension models over arbitrary sets of datasets.
+All datasets are in a single format, and it is accompanied by
+an AllenNLP `DatasetReader` and model that enable easy training and evaluation
+on multiple subsets of datasets.
 
 
 # Data Description
