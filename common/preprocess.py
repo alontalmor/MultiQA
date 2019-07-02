@@ -142,7 +142,7 @@ class MultiQAPreProcess:
         if token_offsets[end_index][1] != character_span[1]:
             error = True
 
-        instance['token_inds'] = (start_index,end_index)
+        instance['token_inds'] = (start_index, end_index + 1)
         #return (start_index, end_index), error
 
     def find_all_answer_spans(self, answer, context):
@@ -235,7 +235,7 @@ class MultiQAPreProcess:
             for single_item in answer_cand_list:
                 if 'instances' in single_item:
                     for instance in single_item['instances']:
-                        self.char_span_to_token_span(instance, document['tokens'][instance['doc_part']])
+                        self.char_span_to_token_span(instance, document['tokens'][instance['part']])
                 else:
                     single_item['instances'] = []
                     aliases = [single_item['answer']]

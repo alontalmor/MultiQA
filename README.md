@@ -42,13 +42,12 @@ After the header, each line in the MultiQA format contains one context + questio
 
 ### The `Context`
 
-Each context contains a LIST of one or more documents with different possible types of text. A document `title` if such exists, a `snippet` for contexts produced by search engines (e.g. SearchQA). A `text` for various types of internal document texts such abstract (e.g. HotpotQA), partial or full body text (e.g. TriviaQA) or full html (e.g. NaturalQuestions). And finally the `source_url` of the document. 
+Each context contains a LIST of one or more documents with different possible types of text. A document `title` if such exists, a `text` for various types of internal document texts such abstract (e.g. HotpotQA), partial or full body text (e.g. TriviaQA) or full html (e.g. NaturalQuestions). And finally the `source_url` of the document. 
 
 ```json
 "document" : {
     "title": "the document title",
-    "snippet":" applicable for search engine results", 
-    "text":" abstract / paragraph / full_html",
+    "text":" abstract / web-snippet/ paragraph / full_html",
     "source_url":"http:// ... ",
     "metadata": {},
     "tokens": {}

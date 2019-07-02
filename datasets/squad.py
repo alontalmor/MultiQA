@@ -60,7 +60,7 @@ class SQuAD(MultiQA_DataSet):
                         for answer_candidate in qa['answers']:
                             answer_candidates.append({'extractive':{"single_answer":{"answer": answer_candidate['text'],
                                 "instances": [{'doc_id':0,
-                                           'doc_part':'text',
+                                           'part':'text',
                                            'start_byte':answer_candidate['answer_start'],
                                            'text':answer_candidate['text']}]}}})
                         new_qa['answers'] = {"open-ended": {'answer_candidates': answer_candidates}}
