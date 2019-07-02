@@ -22,8 +22,17 @@ class MultiQA_DataSet():
     def get_multiqa_version(self):
         return '0.00'
 
+    def recursive_schema_compute(self,item, schema):
+        if type(item) == list:
+            for context in contexts:
+                schema = self.recursive_schema_compute(context, schema)
+        return schema
+
     def compute_schema(self, contexts):
-        return {}
+        schema = {}
+        for context in contexts:
+            schema = self.recursive_schema_compute(context, schema)
+        return schema
 
     def build_contexts(self):
         pass

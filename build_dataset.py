@@ -20,7 +20,7 @@ def main():
     header, contexts = factory.build_dataset(args.dataset_name, args.split, preprocessor, args.sample_size)
 
     print('------- dataset header --------')
-    print(json.dumps({'header': header}, sort_keys=True, indent=4))
+    print(json.dumps({'header': header}, indent=4))
 
     if args.output_file.startswith('s3://'):
         output_file = args.output_file.replace('s3://','')
@@ -33,6 +33,8 @@ def main():
             for instance in contexts:
                 f.write((json.dumps(instance) + '\n').encode('utf-8'))
 
+        print("size of %s is %dMB" % (local_filename, int(os.stat(local_filename).st_size / 1000000)))
+
         s3 = boto3.client('s3')
         s3.upload_file(local_filename , bucketName, outPutname, ExtraArgs={'ACL':'public-read'})
 
@@ -44,10 +46,10 @@ def main():
 
         with open(args.output_file.replace('.gz',''), "wb") as f:
             # first JSON line is header
-            f.write(json.dumps({'header': header}, sort_keys=True, indent=4) + '\n')
+            f.write(json.dumps({'header': header}, indent=4) + '\n')
             for instance in contexts:
                 if True:
-                    s = json.dumps(instance, sort_keys=True, indent=4)
+                    s = json.dumps(instance, indent=4)
                     # just making the answer starts in the sample no have a newline for every offset..
                     s = re.sub('\n\s*(\d+)', r'\1', s)
                     #s = re.sub('\n\s*"title"', r'"title"', s)

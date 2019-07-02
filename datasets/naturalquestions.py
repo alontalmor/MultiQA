@@ -26,7 +26,7 @@ class NaturalQuestions(MultiQA_DataSet):
             "context_answer_detection_source": self.DATASET_NAME,
             "tokenization_source": self.DATASET_NAME,
             "full_schema": super().compute_schema(contexts),
-            "text_type": "abstract",
+            "text_type": "full_html",
             "number_of_qas": sum([len(context['qas']) for context in contexts]),
             "number_of_contexts": len(contexts),
             "readme": "",

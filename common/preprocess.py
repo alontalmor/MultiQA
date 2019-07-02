@@ -142,8 +142,8 @@ class MultiQAPreProcess:
         if token_offsets[end_index][1] != character_span[1]:
             error = True
 
-        instance['token_inds'] = (start_index, end_index + 1)
-        #return (start_index, end_index), error
+        # inclusive start_index and inclusive end_index
+        instance['token_inds'] = (start_index, end_index)
 
     def find_all_answer_spans(self, answer, context):
         """Find all exact matches of `answer` in `context`.
@@ -185,6 +185,7 @@ class MultiQAPreProcess:
                 else:
                     break
             if n_tokens == ans_token:
+                # inclusive start_index and inclusive end_index
                 occurences.append((start, end - 1))
 
         return list(set(occurences))
@@ -254,29 +255,30 @@ class MultiQAPreProcess:
                                          'token_inds':occurence}
                                     single_item['instances'].append(instance)
 
+    def preprocess_multiple_contexts(self, contexts):
+        for context in contexts:
+            self.preprocess_context(context)
+        return contexts
+
+    def _preprocess_t(self, arg):
+        return self.preprocess_multiple_contexts(*arg[0:1])
+
     def tokenize_and_detect_answers(self, contexts):
         if self._n_processes == 1:
             for context in Tqdm.tqdm(contexts, ncols=80):
                 self.preprocess_context(context)
         else:
+            # multi process (creates chunks of 200 contexts each )
             preprocessed_instances = []
-
-            skipped_qa_count = 0
-            all_qa_count = 0
             with Pool(self._n_processes) as pool:
                 chunks = split(contexts, self._n_processes)
                 chunks = flatten_iterable(group(c, 200) for c in chunks)
                 pbar = Tqdm.tqdm(total=len(chunks), ncols=80, smoothing=0.0)
-                for preproc_inst, all_count, s_count in pool.imap_unordered(_preprocess_t, \
-                                                                            [[c, args.BERT_format, args.ndocs, args.docsize, args.titles,
-                                                                              args.use_rank, \
-                                                                              args.require_answer_in_doc, args.require_answer_in_question,
-                                                                              header, args.DEBUG, args.USE_TFIDF] for c in chunks]):
+                for preproc_inst in pool.imap_unordered(self._preprocess_t,[[c] for c in chunks]):
                     preprocessed_instances += preproc_inst
-                    all_qa_count += all_count
-                    skipped_qa_count += s_count
                     pbar.update(1)
                 pbar.close()
+            contexts = preprocessed_instances
 
         return contexts
 

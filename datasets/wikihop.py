@@ -26,7 +26,7 @@ class WikiHop(MultiQA_DataSet):
             "data_source": "wikipedia",
             "tokenization_source": "multiqa",
             "full_schema": super().compute_schema(contexts),
-            "text_type": "abstract",
+            "text_type": "paragraph",
             "number_of_qas": sum([len(context['qas']) for context in contexts]),
             "number_of_contexts": len(contexts),
             "readme": "",
