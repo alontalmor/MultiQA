@@ -1,0 +1,859 @@
+{
+    "header": {
+        "dataset_name": "HotpotQA",
+        "split": "dev",
+        "dataset_url": "https://hotpotqa.github.io/",
+        "license": "http://creativecommons.org/licenses/by-sa/4.0/legalcode",
+        "data_source": "Wikipedia",
+        "context_answer_detection_source": "MultiQA",
+        "tokenization_source": "MultiQA",
+        "full_schema": {},
+        "text_type": "abstract",
+        "number_of_qas": 10,
+        "number_of_contexts": 10,
+        "readme": "",
+        "multiqa_version": "0.00"
+    }
+}
+{
+    "id": "HotpotQA_5a8b57f25542995d1e6f1371",
+    "context": {
+        "documents": [{
+                "text": "Edward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director. ",
+                "title": "Ed Wood",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0]
+                    }
+                },
+                "tokens": {
+                    "title": [["Ed",0],["Wood",3]
+                    ],
+                    "text": [["Edward",0],["Davis",7],["Wood",13],["Jr.",18],["(",22],["October",23],["10",31],[",",33],["1924",35],["\u2013",40],["December",42],["10",51],[",",53],["1978",55],[")",59],["was",61],["an",65],["American",68],["filmmaker",77],[",",86],["actor",88],[",",93],["writer",95],[",",101],["producer",103],[",",111],["and",113],["director",117],[".",125]
+                    ]
+                }
+            },
+            {
+                "text": "Scott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  He lives in Los Angeles, California.  He is best known for directing horror films such as \"Sinister\", \"The Exorcism of Emily Rose\", and \"Deliver Us From Evil\", as well as the 2016 Marvel Cinematic Universe installment, \"Doctor Strange.\" ",
+                "title": "Scott Derrickson",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,90,128]
+                    }
+                },
+                "tokens": {
+                    "title": [["Scott",0],["Derrickson",6]
+                    ],
+                    "text": [["Scott",0],["Derrickson",6],["(",17],["born",18],["July",23],["16",28],[",",30],["1966",32],[")",36],["is",38],["an",41],["American",44],["director",53],[",",61],["screenwriter",63],["and",76],["producer",80],[".",88],["He",91],["lives",94],["in",100],["Los",103],["Angeles",107],[",",114],["California",116],[".",126],["He",129],["is",132],["best",135],["known",140],["for",146],["directing",150],["horror",160],["films",167],["such",173],["as",178],["\"",181],["Sinister",182],["\"",190],[",",191],["\"",193],["The",194],["Exorcism",198],["of",207],["Emily",210],["Rose",216],["\"",220],[",",221],["and",223],["\"",227],["Deliver",228],["Us",236],["From",239],["Evil",244],["\"",248],[",",249],["as",251],["well",254],["as",259],["the",262],["2016",266],["Marvel",271],["Cinematic",278],["Universe",288],["installment",297],[",",308],["\"",310],["Doctor",311],["Strange",318],[".",325],["\"",326]
+                    ]
+                }
+            }
+        ]
+    },
+    "qas": [{
+            "qid": "HotpotQA_q_5a8b57f25542995d1e6f1371",
+            "metadata": {
+                "type": "comparison",
+                "level": "hard"
+            },
+            "supporting_context": [{
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Edward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Scott Derrickson (born July 16, 1966) is an American director, screenwriter and producer."
+                }
+            ],
+            "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+            "answers": {
+                "open-ended": {
+                    "answer_candidates": [{
+                            "yesno": {
+                                "single_answer": "yes"
+                            }
+                        }
+                    ]
+                }
+            },
+            "question_tokens": [["Were",0],["Scott",5],["Derrickson",11],["and",22],["Ed",26],["Wood",29],["of",34],["the",37],["same",41],["nationality",46],["?",57]
+            ]
+        }
+    ]
+}
+{
+    "id": "HotpotQA_5a8c7595554299585d9e36b6",
+    "context": {
+        "documents": [{
+                "text": "Kiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer.  In the film, two teenage girls cause their respective parents much concern when they start to become interested in boys.  The parents' bickering about which girl is the worse influence causes more problems than it solves. ",
+                "title": "Kiss and Tell (1945 film)",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,105,227]
+                    }
+                },
+                "tokens": {
+                    "title": [["Kiss",0],["and",5],["Tell",9],["(",14],["1945",15],["film",20],[")",24]
+                    ],
+                    "text": [["Kiss",0],["and",5],["Tell",9],["is",14],["a",17],["1945",19],["American",24],["comedy",33],["film",40],["starring",45],["then",54],["17-year",59],["-",66],["old",67],["Shirley",71],["Temple",79],["as",86],["Corliss",89],["Archer",97],[".",103],["In",106],["the",109],["film",113],[",",117],["two",119],["teenage",123],["girls",131],["cause",137],["their",143],["respective",149],["parents",160],["much",168],["concern",173],["when",181],["they",186],["start",191],["to",197],["become",200],["interested",207],["in",218],["boys",221],[".",225],["The",228],["parents",232],["'",239],["bickering",241],["about",251],["which",257],["girl",263],["is",268],["the",271],["worse",275],["influence",281],["causes",291],["more",298],["problems",303],["than",312],["it",317],["solves",320],[".",326]
+                    ]
+                }
+            },
+            {
+                "text": "Shirley Temple Black (April 23, 1928 \u2013 February 10, 2014) was an American actress, singer, dancer, businesswoman, and diplomat who was Hollywood's number one box-office draw as a child actress from 1935 to 1938.  As an adult, she was named United States ambassador to Ghana and to Czechoslovakia and also served as Chief of Protocol of the United States. ",
+                "title": "Shirley Temple",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,212]
+                    }
+                },
+                "tokens": {
+                    "title": [["Shirley",0],["Temple",8]
+                    ],
+                    "text": [["Shirley",0],["Temple",8],["Black",15],["(",21],["April",22],["23",28],[",",30],["1928",32],["\u2013",37],["February",39],["10",48],[",",50],["2014",52],[")",56],["was",58],["an",62],["American",65],["actress",74],[",",81],["singer",83],[",",89],["dancer",91],[",",97],["businesswoman",99],[",",112],["and",114],["diplomat",118],["who",127],["was",131],["Hollywood",135],["'s",144],["number",147],["one",154],["box",158],["-",161],["office",162],["draw",169],["as",174],["a",177],["child",179],["actress",185],["from",193],["1935",198],["to",203],["1938",206],[".",210],["As",213],["an",216],["adult",219],[",",224],["she",226],["was",230],["named",234],["United",240],["States",247],["ambassador",254],["to",265],["Ghana",268],["and",274],["to",278],["Czechoslovakia",281],["and",296],["also",300],["served",305],["as",312],["Chief",315],["of",321],["Protocol",324],["of",333],["the",336],["United",340],["States",347],[".",353]
+                    ]
+                }
+            }
+        ]
+    },
+    "qas": [{
+            "qid": "HotpotQA_q_5a8c7595554299585d9e36b6",
+            "metadata": {
+                "type": "bridge",
+                "level": "hard"
+            },
+            "supporting_context": [{
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Kiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Shirley Temple Black (April 23, 1928 \u2013 February 10, 2014) was an American actress, singer, dancer, businesswoman, and diplomat who was Hollywood's number one box-office draw as a child actress from 1935 to 1938."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 212,
+                    "text": " As an adult, she was named United States ambassador to Ghana and to Czechoslovakia and also served as Chief of Protocol of the United States."
+                }
+            ],
+            "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+            "answers": {
+                "open-ended": {
+                    "answer_candidates": [{
+                            "extractive": {
+                                "single_answer": {
+                                    "answer": "Chief of Protocol",
+                                    "instances": [{
+                                            "doc_id": 1,
+                                            "part": "text",
+                                            "start_byte": 315,
+                                            "text": "Chief of Protocol",
+                                            "token_inds": [65,67]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "question_tokens": [["What",0],["government",5],["position",16],["was",25],["held",29],["by",34],["the",37],["woman",41],["who",47],["portrayed",51],["Corliss",61],["Archer",69],["in",76],["the",79],["film",83],["Kiss",88],["and",93],["Tell",97],["?",101]
+            ]
+        }
+    ]
+}
+{
+    "id": "HotpotQA_5a85ea095542994775f606a8",
+    "context": {
+        "documents": [{
+                "text": "The Hork-Bajir Chronicles is the second companion book to the \"Animorphs\" series, written by K. A. Applegate.  With respect to continuity within the series, it takes place before book #23, \"The Pretender\", although the events told in the story occur between the time of \"The Ellimist Chronicles\" and \"The Andalite Chronicles\".  The book is introduced by Tobias, who flies to the valley of the free Hork-Bajir, where Jara Hamee tells him the story of how the Yeerks enslaved the Hork-Bajir, and how Aldrea, an Andalite, and her companion, Dak Hamee, a Hork-Bajir, tried to save their world from the invasion.  Jara Hamee's story is narrated from the points of view of Aldrea, Dak Hamee, and Esplin 9466, alternating in similar fashion to the \"Megamorphs\" books. ",
+                "title": "The Hork-Bajir Chronicles",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,110,327,608]
+                    }
+                },
+                "tokens": {
+                    "title": [["The",0],["Hork",4],["-",8],["Bajir",9],["Chronicles",15]
+                    ],
+                    "text": [["The",0],["Hork",4],["-",8],["Bajir",9],["Chronicles",15],["is",26],["the",29],["second",33],["companion",40],["book",50],["to",55],["the",58],["\"",62],["Animorphs",63],["\"",72],["series",74],[",",80],["written",82],["by",90],["K.",93],["A.",96],["Applegate",99],[".",108],["With",111],["respect",116],["to",124],["continuity",127],["within",138],["the",145],["series",149],[",",155],["it",157],["takes",160],["place",166],["before",172],["book",179],["#",184],["23",185],[",",187],["\"",189],["The",190],["Pretender",194],["\"",203],[",",204],["although",206],["the",215],["events",219],["told",226],["in",231],["the",234],["story",238],["occur",244],["between",250],["the",258],["time",262],["of",267],["\"",270],["The",271],["Ellimist",275],["Chronicles",284],["\"",294],["and",296],["\"",300],["The",301],["Andalite",305],["Chronicles",314],["\"",324],[".",325],["The",328],["book",332],["is",337],["introduced",340],["by",351],["Tobias",354],[",",360],["who",362],["flies",366],["to",372],["the",375],["valley",379],["of",386],["the",389],["free",393],["Hork",398],["-",402],["Bajir",403],[",",408],["where",410],["Jara",416],["Hamee",421],["tells",427],["him",433],["the",437],["story",441],["of",447],["how",450],["the",454],["Yeerks",458],["enslaved",465],["the",474],["Hork",478],["-",482],["Bajir",483],[",",488],["and",490],["how",494],["Aldrea",498],[",",504],["an",506],["Andalite",509],[",",517],["and",519],["her",523],["companion",527],[",",536],["Dak",538],["Hamee",542],[",",547],["a",549],["Hork",551],["-",555],["Bajir",556],[",",561],["tried",563],["to",569],["save",572],["their",577],["world",583],["from",589],["the",594],["invasion",598],[".",606],["Jara",609],["Hamee",614],["'s",619],["story",622],["is",628],["narrated",631],["from",640],["the",645],["points",649],["of",656],["view",659],["of",664],["Aldrea",667],[",",673],["Dak",675],["Hamee",679],[",",684],["and",686],["Esplin",690],["9466",697],[",",701],["alternating",703],["in",715],["similar",718],["fashion",726],["to",734],["the",737],["\"",741],["Megamorphs",742],["\"",752],["books",754],[".",759]
+                    ]
+                }
+            },
+            {
+                "text": "Animorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic.  It is told in first person, with all six main characters taking turns narrating the books through their own perspectives.  Horror, war, dehumanization, sanity, morality, innocence, leadership, freedom and growing up are the core themes of the series. ",
+                "title": "Animorphs",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,199,322]
+                    }
+                },
+                "tokens": {
+                    "title": [["Animorphs",0]
+                    ],
+                    "text": [["Animorphs",0],["is",10],["a",13],["science",15],["fantasy",23],["series",31],["of",38],["young",41],["adult",47],["books",53],["written",59],["by",67],["Katherine",70],["Applegate",80],["and",90],["her",94],["husband",98],["Michael",106],["Grant",114],[",",119],["writing",121],["together",129],["under",138],["the",144],["name",148],["K.",153],["A.",156],["Applegate",159],[",",168],["and",170],["published",174],["by",184],["Scholastic",187],[".",197],["It",200],["is",203],["told",206],["in",211],["first",214],["person",220],[",",226],["with",228],["all",233],["six",237],["main",241],["characters",246],["taking",257],["turns",264],["narrating",270],["the",280],["books",284],["through",290],["their",298],["own",304],["perspectives",308],[".",320],["Horror",323],[",",329],["war",331],[",",334],["dehumanization",336],[",",350],["sanity",352],[",",358],["morality",360],[",",368],["innocence",370],[",",379],["leadership",381],[",",391],["freedom",393],["and",401],["growing",405],["up",413],["are",416],["the",420],["core",424],["themes",429],["of",436],["the",439],["series",443],[".",449]
+                    ]
+                }
+            }
+        ]
+    },
+    "qas": [{
+            "qid": "HotpotQA_q_5a85ea095542994775f606a8",
+            "metadata": {
+                "type": "bridge",
+                "level": "hard"
+            },
+            "supporting_context": [{
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "The Hork-Bajir Chronicles is the second companion book to the \"Animorphs\" series, written by K. A. Applegate."
+                },
+                {
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 110,
+                    "text": " With respect to continuity within the series, it takes place before book #23, \"The Pretender\", although the events told in the story occur between the time of \"The Ellimist Chronicles\" and \"The Andalite Chronicles\"."
+                },
+                {
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 327,
+                    "text": " The book is introduced by Tobias, who flies to the valley of the free Hork-Bajir, where Jara Hamee tells him the story of how the Yeerks enslaved the Hork-Bajir, and how Aldrea, an Andalite, and her companion, Dak Hamee, a Hork-Bajir, tried to save their world from the invasion."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Animorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 199,
+                    "text": " It is told in first person, with all six main characters taking turns narrating the books through their own perspectives."
+                }
+            ],
+            "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+            "answers": {
+                "open-ended": {
+                    "answer_candidates": [{
+                            "extractive": {
+                                "single_answer": {
+                                    "answer": "Animorphs",
+                                    "instances": [{
+                                            "doc_id": 0,
+                                            "part": "text",
+                                            "start_byte": 63,
+                                            "text": "Animorphs",
+                                            "token_inds": [13,13]
+                                        },
+                                        {
+                                            "doc_id": 1,
+                                            "part": "title",
+                                            "start_byte": 0,
+                                            "text": "Animorphs",
+                                            "token_inds": [0,0]
+                                        },
+                                        {
+                                            "doc_id": 1,
+                                            "part": "text",
+                                            "start_byte": 0,
+                                            "text": "Animorphs",
+                                            "token_inds": [0,0]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "question_tokens": [["What",0],["science",5],["fantasy",13],["young",21],["adult",27],["series",33],[",",39],["told",41],["in",46],["first",49],["person",55],[",",61],["has",63],["a",67],["set",69],["of",73],["companion",76],["books",86],["narrating",92],["the",102],["stories",106],["of",114],["enslaved",117],["worlds",126],["and",133],["alien",137],["species",143],["?",150]
+            ]
+        }
+    ]
+}
+{
+    "id": "HotpotQA_5adbf0a255429947ff17385a",
+    "context": {
+        "documents": [{
+                "text": "The Laleli Mosque (Turkish: \"Laleli Camii, or Tulip Mosque\" ) is an 18th-century Ottoman imperial mosque located in Laleli, Fatih, Istanbul, Turkey. ",
+                "title": "Laleli Mosque",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0]
+                    }
+                },
+                "tokens": {
+                    "title": [["Laleli",0],["Mosque",7]
+                    ],
+                    "text": [["The",0],["Laleli",4],["Mosque",11],["(",18],["Turkish",19],[":",26],["\"",28],["Laleli",29],["Camii",36],[",",41],["or",43],["Tulip",46],["Mosque",52],["\"",58],[")",60],["is",62],["an",65],["18th",68],["-",72],["century",73],["Ottoman",81],["imperial",89],["mosque",98],["located",105],["in",113],["Laleli",116],[",",122],["Fatih",124],[",",129],["Istanbul",131],[",",139],["Turkey",141],[".",147]
+                    ]
+                }
+            },
+            {
+                "text": "The Esma Sultan Mansion (Turkish: \"Esma Sultan Yal\u0131s\u0131\" ), a historical yal\u0131 (English: waterside mansion ) located at Bosphorus in Ortak\u00f6y neighborhood of Istanbul, Turkey and named after its original owner Esma Sultan, is used today as a cultural center after being redeveloped. ",
+                "title": "Esma Sultan Mansion",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0]
+                    }
+                },
+                "tokens": {
+                    "title": [["Esma",0],["Sultan",5],["Mansion",12]
+                    ],
+                    "text": [["The",0],["Esma",4],["Sultan",9],["Mansion",16],["(",24],["Turkish",25],[":",32],["\"",34],["Esma",35],["Sultan",40],["Yal\u0131s\u0131",47],["\"",53],[")",55],[",",56],["a",58],["historical",60],["yal\u0131",71],["(",76],["English",77],[":",84],["waterside",86],["mansion",96],[")",104],["located",106],["at",114],["Bosphorus",117],["in",127],["Ortak\u00f6y",130],["neighborhood",138],["of",151],["Istanbul",154],[",",162],["Turkey",164],["and",171],["named",175],["after",181],["its",187],["original",191],["owner",200],["Esma",206],["Sultan",211],[",",217],["is",219],["used",222],["today",227],["as",233],["a",236],["cultural",238],["center",247],["after",254],["being",260],["redeveloped",266],[".",277]
+                    ]
+                }
+            }
+        ]
+    },
+    "qas": [{
+            "qid": "HotpotQA_q_5adbf0a255429947ff17385a",
+            "metadata": {
+                "type": "comparison",
+                "level": "hard"
+            },
+            "supporting_context": [{
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "The Laleli Mosque (Turkish: \"Laleli Camii, or Tulip Mosque\" ) is an 18th-century Ottoman imperial mosque located in Laleli, Fatih, Istanbul, Turkey."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "The Esma Sultan Mansion (Turkish: \"Esma Sultan Yal\u0131s\u0131\" ), a historical yal\u0131 (English: waterside mansion ) located at Bosphorus in Ortak\u00f6y neighborhood of Istanbul, Turkey and named after its original owner Esma Sultan, is used today as a cultural center after being redeveloped."
+                }
+            ],
+            "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+            "answers": {
+                "open-ended": {
+                    "answer_candidates": [{
+                            "yesno": {
+                                "single_answer": "no"
+                            }
+                        }
+                    ]
+                }
+            },
+            "question_tokens": [["Are",0],["the",4],["Laleli",8],["Mosque",15],["and",22],["Esma",26],["Sultan",31],["Mansion",38],["located",46],["in",54],["the",57],["same",61],["neighborhood",66],["?",78]
+            ]
+        }
+    ]
+}
+{
+    "id": "HotpotQA_5a8e3ea95542995a26add48d",
+    "context": {
+        "documents": [{
+                "text": "Big Stone Gap is a 2014 American drama romantic comedy film written and directed by Adriana Trigiani and produced by Donna Gigliotti for Altar Identity Studios, a subsidiary of Media Society.  Based on Trigiani's 2000 best-selling novel of the same name, the story is set in the actual Virginia town of Big Stone Gap circa 1970s.  The film had its world premiere at the Virginia Film Festival on November 6, 2014. ",
+                "title": "Big Stone Gap (film)",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,192,330]
+                    }
+                },
+                "tokens": {
+                    "title": [["Big",0],["Stone",4],["Gap",10],["(",14],["film",15],[")",19]
+                    ],
+                    "text": [["Big",0],["Stone",4],["Gap",10],["is",14],["a",17],["2014",19],["American",24],["drama",33],["romantic",39],["comedy",48],["film",55],["written",60],["and",68],["directed",72],["by",81],["Adriana",84],["Trigiani",92],["and",101],["produced",105],["by",114],["Donna",117],["Gigliotti",123],["for",133],["Altar",137],["Identity",143],["Studios",152],[",",159],["a",161],["subsidiary",163],["of",174],["Media",177],["Society",183],[".",190],["Based",193],["on",199],["Trigiani",202],["'s",210],["2000",213],["best",218],["-",222],["selling",223],["novel",231],["of",237],["the",240],["same",244],["name",249],[",",253],["the",255],["story",259],["is",265],["set",268],["in",272],["the",275],["actual",279],["Virginia",286],["town",295],["of",300],["Big",303],["Stone",307],["Gap",313],["circa",317],["1970s",323],[".",328],["The",331],["film",335],["had",340],["its",344],["world",348],["premiere",354],["at",363],["the",366],["Virginia",370],["Film",379],["Festival",384],["on",393],["November",396],["6",405],[",",406],["2014",408],[".",412]
+                    ]
+                }
+            },
+            {
+                "text": "Adriana Trigiani is an Italian American best-selling author of sixteen books, television writer, film director, and entrepreneur based in Greenwich Village, New York City.  Trigiani has published a novel a year since 2000. ",
+                "title": "Adriana Trigiani",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,172]
+                    }
+                },
+                "tokens": {
+                    "title": [["Adriana",0],["Trigiani",8]
+                    ],
+                    "text": [["Adriana",0],["Trigiani",8],["is",17],["an",20],["Italian",23],["American",31],["best",40],["-",44],["selling",45],["author",53],["of",60],["sixteen",63],["books",71],[",",76],["television",78],["writer",89],[",",95],["film",97],["director",102],[",",110],["and",112],["entrepreneur",116],["based",129],["in",135],["Greenwich",138],["Village",148],[",",155],["New",157],["York",161],["City",166],[".",170],["Trigiani",173],["has",182],["published",186],["a",196],["novel",198],["a",204],["year",206],["since",211],["2000",217],[".",221]
+                    ]
+                }
+            }
+        ]
+    },
+    "qas": [{
+            "qid": "HotpotQA_q_5a8e3ea95542995a26add48d",
+            "metadata": {
+                "type": "bridge",
+                "level": "hard"
+            },
+            "supporting_context": [{
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Big Stone Gap is a 2014 American drama romantic comedy film written and directed by Adriana Trigiani and produced by Donna Gigliotti for Altar Identity Studios, a subsidiary of Media Society."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Adriana Trigiani is an Italian American best-selling author of sixteen books, television writer, film director, and entrepreneur based in Greenwich Village, New York City."
+                }
+            ],
+            "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+            "answers": {
+                "open-ended": {
+                    "answer_candidates": [{
+                            "extractive": {
+                                "single_answer": {
+                                    "answer": "Greenwich Village, New York City",
+                                    "instances": [{
+                                            "doc_id": 1,
+                                            "part": "text",
+                                            "start_byte": 138,
+                                            "text": "Greenwich Village, New York City",
+                                            "token_inds": [24,29]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "question_tokens": [["The",0],["director",4],["of",13],["the",16],["romantic",20],["comedy",29],["\"",36],["Big",37],["Stone",41],["Gap",47],["\"",50],["is",52],["based",55],["in",61],["what",64],["New",69],["York",73],["city",78],["?",82]
+            ]
+        }
+    ]
+}
+{
+    "id": "HotpotQA_5abd94525542992ac4f382d2",
+    "context": {
+        "documents": [{
+                "text": "Winner (Hangul: \uc704\ub108), often stylized as WINNER, is a South Korean boy group formed in 2013 by YG Entertainment and debuted in 2014.  It currently consists of four members, Jinwoo, Seunghoon, Mino and Seungyoon.  Originally a five-piece group with Taehyun, who later departed from the group in November 2016. ",
+                "title": "Winner (band)",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,131,210]
+                    }
+                },
+                "tokens": {
+                    "title": [["Winner",0],["(",7],["band",8],[")",12]
+                    ],
+                    "text": [["Winner",0],["(",7],["Hangul",8],[":",14],["\uc704\ub108",16],[")",18],[",",19],["often",21],["stylized",27],["as",36],["WINNER",39],[",",45],["is",47],["a",50],["South",52],["Korean",58],["boy",65],["group",69],["formed",75],["in",82],["2013",85],["by",90],["YG",93],["Entertainment",96],["and",110],["debuted",114],["in",122],["2014",125],[".",129],["It",132],["currently",135],["consists",145],["of",154],["four",157],["members",162],[",",169],["Jinwoo",171],[",",177],["Seunghoon",179],[",",188],["Mino",190],["and",195],["Seungyoon",199],[".",208],["Originally",211],["a",222],["five",224],["-",228],["piece",229],["group",235],["with",241],["Taehyun",246],[",",253],["who",255],["later",259],["departed",265],["from",274],["the",279],["group",283],["in",289],["November",292],["2016",301],[".",305]
+                    ]
+                }
+            },
+            {
+                "text": "2014 S/S is the debut album of South Korean group WINNER.  It was released on August 12, 2014 by the group's record label, YG Entertainment.  The members were credited for writing the lyrics and composing the majority of the album's songs. ",
+                "title": "2014 S/S",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,58,141]
+                    }
+                },
+                "tokens": {
+                    "title": [["2014",0],["S",5],["/",6],["S",7]
+                    ],
+                    "text": [["2014",0],["S",5],["/",6],["S",7],["is",9],["the",12],["debut",16],["album",22],["of",28],["South",31],["Korean",37],["group",44],["WINNER",50],[".",56],["It",59],["was",62],["released",66],["on",75],["August",78],["12",85],[",",87],["2014",89],["by",94],["the",97],["group",101],["'s",106],["record",109],["label",116],[",",121],["YG",123],["Entertainment",126],[".",139],["The",142],["members",146],["were",154],["credited",159],["for",168],["writing",172],["the",180],["lyrics",184],["and",191],["composing",195],["the",205],["majority",209],["of",218],["the",221],["album",225],["'s",230],["songs",233],[".",238]
+                    ]
+                }
+            }
+        ]
+    },
+    "qas": [{
+            "qid": "HotpotQA_q_5abd94525542992ac4f382d2",
+            "metadata": {
+                "type": "bridge",
+                "level": "hard"
+            },
+            "supporting_context": [{
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Winner (Hangul: \uc704\ub108), often stylized as WINNER, is a South Korean boy group formed in 2013 by YG Entertainment and debuted in 2014."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "2014 S/S is the debut album of South Korean group WINNER."
+                }
+            ],
+            "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+            "answers": {
+                "open-ended": {
+                    "answer_candidates": [{
+                            "extractive": {
+                                "single_answer": {
+                                    "answer": "YG Entertainment",
+                                    "instances": [{
+                                            "doc_id": 0,
+                                            "part": "text",
+                                            "start_byte": 93,
+                                            "text": "YG Entertainment",
+                                            "token_inds": [22,23]
+                                        },
+                                        {
+                                            "doc_id": 1,
+                                            "part": "text",
+                                            "start_byte": 123,
+                                            "text": "YG Entertainment",
+                                            "token_inds": [29,30]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "question_tokens": [["2014",0],["S",5],["/",6],["S",7],["is",9],["the",12],["debut",16],["album",22],["of",28],["a",31],["South",33],["Korean",39],["boy",46],["group",50],["that",56],["was",61],["formed",65],["by",72],["who",75],["?",78]
+            ]
+        }
+    ]
+}
+{
+    "id": "HotpotQA_5a85b2d95542997b5ce40028",
+    "context": {
+        "documents": [{
+                "text": "Eenasul Fateh (Bengali: \u0988\u09a8\u09be\u09b8\u09c1\u09b2 \u09ab\u09be\u09a4\u09c7\u09b9 ; born 3 April 1959), also known by his stage name Aladin, is a Bangladeshi-British cultural practitioner, magician, live artist and former international management consultant. ",
+                "title": "Eenasul Fateh",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0]
+                    }
+                },
+                "tokens": {
+                    "title": [["Eenasul",0],["Fateh",8]
+                    ],
+                    "text": [["Eenasul",0],["Fateh",8],["(",14],["Bengali",15],[":",22],["\u0988\u09a8\u09be\u09b8\u09c1\u09b2",24],["\u09ab\u09be\u09a4\u09c7\u09b9",31],[";",37],["born",39],["3",44],["April",46],["1959",52],[")",56],[",",57],["also",59],["known",64],["by",70],["his",73],["stage",77],["name",83],["Aladin",88],[",",94],["is",96],["a",99],["Bangladeshi",101],["-",112],["British",113],["cultural",121],["practitioner",130],[",",142],["magician",144],[",",152],["live",154],["artist",159],["and",166],["former",170],["international",177],["management",191],["consultant",202],[".",212]
+                    ]
+                }
+            },
+            {
+                "text": "Management consulting is the practice of helping organizations to improve their performance, operating primarily through the analysis of existing organizational problems and the development of plans for improvement.  Organizations may draw upon the services of management consultants for a number of reasons, including gaining external (and presumably objective) advice and access to the consultants' specialized expertise. ",
+                "title": "Management consulting",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,216]
+                    }
+                },
+                "tokens": {
+                    "title": [["Management",0],["consulting",11]
+                    ],
+                    "text": [["Management",0],["consulting",11],["is",22],["the",25],["practice",29],["of",38],["helping",41],["organizations",49],["to",63],["improve",66],["their",74],["performance",80],[",",91],["operating",93],["primarily",103],["through",113],["the",121],["analysis",125],["of",134],["existing",137],["organizational",146],["problems",161],["and",170],["the",174],["development",178],["of",190],["plans",193],["for",199],["improvement",203],[".",214],["Organizations",217],["may",231],["draw",235],["upon",240],["the",245],["services",249],["of",258],["management",261],["consultants",272],["for",284],["a",288],["number",290],["of",297],["reasons",300],[",",307],["including",309],["gaining",319],["external",327],["(",336],["and",337],["presumably",341],["objective",352],[")",361],["advice",363],["and",370],["access",374],["to",381],["the",384],["consultants",388],["'",399],["specialized",401],["expertise",413],[".",422]
+                    ]
+                }
+            }
+        ]
+    },
+    "qas": [{
+            "qid": "HotpotQA_q_5a85b2d95542997b5ce40028",
+            "metadata": {
+                "type": "bridge",
+                "level": "hard"
+            },
+            "supporting_context": [{
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Eenasul Fateh (Bengali: \u0988\u09a8\u09be\u09b8\u09c1\u09b2 \u09ab\u09be\u09a4\u09c7\u09b9 ; born 3 April 1959), also known by his stage name Aladin, is a Bangladeshi-British cultural practitioner, magician, live artist and former international management consultant."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Management consulting is the practice of helping organizations to improve their performance, operating primarily through the analysis of existing organizational problems and the development of plans for improvement."
+                }
+            ],
+            "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+            "answers": {
+                "open-ended": {
+                    "answer_candidates": [{
+                            "extractive": {
+                                "single_answer": {
+                                    "answer": "Eenasul Fateh",
+                                    "instances": [{
+                                            "doc_id": 0,
+                                            "part": "title",
+                                            "start_byte": 0,
+                                            "text": "Eenasul Fateh",
+                                            "token_inds": [0,1]
+                                        },
+                                        {
+                                            "doc_id": 0,
+                                            "part": "text",
+                                            "start_byte": 0,
+                                            "text": "Eenasul Fateh",
+                                            "token_inds": [0,1]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "question_tokens": [["Who",0],["was",4],["known",8],["by",14],["his",17],["stage",21],["name",27],["Aladin",32],["and",39],["helped",43],["organizations",50],["improve",64],["their",72],["performance",78],["as",90],["a",93],["consultant",95],["?",105]
+            ]
+        }
+    ]
+}
+{
+    "id": "HotpotQA_5a87ab905542996e4f3088c1",
+    "context": {
+        "documents": [{
+                "text": "The Lewiston Maineiacs were a junior ice hockey team of the Quebec Major Junior Hockey League based in Lewiston, Maine.  The team played its home games at the Androscoggin Bank Colis\u00e9e.  They were the second QMJHL team in the United States, and the only one to play a full season.  They won the President's Cup in 2007. ",
+                "title": "Lewiston Maineiacs",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,120,186,281]
+                    }
+                },
+                "tokens": {
+                    "title": [["Lewiston",0],["Maineiacs",9]
+                    ],
+                    "text": [["The",0],["Lewiston",4],["Maineiacs",13],["were",23],["a",28],["junior",30],["ice",37],["hockey",41],["team",48],["of",53],["the",56],["Quebec",60],["Major",67],["Junior",73],["Hockey",80],["League",87],["based",94],["in",100],["Lewiston",103],[",",111],["Maine",113],[".",118],["The",121],["team",125],["played",130],["its",137],["home",141],["games",146],["at",152],["the",155],["Androscoggin",159],["Bank",172],["Colis\u00e9e",177],[".",184],["They",187],["were",192],["the",197],["second",201],["QMJHL",208],["team",214],["in",219],["the",222],["United",226],["States",233],[",",239],["and",241],["the",245],["only",249],["one",254],["to",258],["play",261],["a",266],["full",268],["season",273],[".",279],["They",282],["won",287],["the",291],["President",295],["'s",304],["Cup",307],["in",311],["2007",314],[".",318]
+                    ]
+                }
+            },
+            {
+                "text": "The Androscoggin Bank Colis\u00e9e (formerly Central Maine Civic Center and Lewiston Colisee) is a 4,000 capacity (3,677 seated) multi-purpose arena, in Lewiston, Maine, that opened in 1958.  In 1965 it was the location of the World Heavyweight Title fight during which one of the most famous sports photographs of the century was taken of Muhammed Ali standing over Sonny Liston. ",
+                "title": "Androscoggin Bank Colis\u00e9e",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,186]
+                    }
+                },
+                "tokens": {
+                    "title": [["Androscoggin",0],["Bank",13],["Colis\u00e9e",18]
+                    ],
+                    "text": [["The",0],["Androscoggin",4],["Bank",17],["Colis\u00e9e",22],["(",30],["formerly",31],["Central",40],["Maine",48],["Civic",54],["Center",60],["and",67],["Lewiston",71],["Colisee",80],[")",87],["is",89],["a",92],["4,000",94],["capacity",100],["(",109],["3,677",110],["seated",116],[")",122],["multi",124],["-",129],["purpose",130],["arena",138],[",",143],["in",145],["Lewiston",148],[",",156],["Maine",158],[",",163],["that",165],["opened",170],["in",177],["1958",180],[".",184],["In",187],["1965",190],["it",195],["was",198],["the",202],["location",206],["of",215],["the",218],["World",222],["Heavyweight",228],["Title",240],["fight",246],["during",252],["which",259],["one",265],["of",269],["the",272],["most",276],["famous",281],["sports",288],["photographs",295],["of",307],["the",310],["century",314],["was",322],["taken",326],["of",332],["Muhammed",335],["Ali",344],["standing",348],["over",357],["Sonny",362],["Liston",368],[".",374]
+                    ]
+                }
+            }
+        ]
+    },
+    "qas": [{
+            "qid": "HotpotQA_q_5a87ab905542996e4f3088c1",
+            "metadata": {
+                "type": "bridge",
+                "level": "hard"
+            },
+            "supporting_context": [{
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 120,
+                    "text": " The team played its home games at the Androscoggin Bank Colis\u00e9e."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "The Androscoggin Bank Colis\u00e9e (formerly Central Maine Civic Center and Lewiston Colisee) is a 4,000 capacity (3,677 seated) multi-purpose arena, in Lewiston, Maine, that opened in 1958."
+                }
+            ],
+            "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+            "answers": {
+                "open-ended": {
+                    "answer_candidates": [{
+                            "extractive": {
+                                "single_answer": {
+                                    "answer": "3,677 seated",
+                                    "instances": [{
+                                            "doc_id": 1,
+                                            "part": "text",
+                                            "start_byte": 110,
+                                            "text": "3,677 seated",
+                                            "token_inds": [19,20]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "question_tokens": [["The",0],["arena",4],["where",10],["the",16],["Lewiston",20],["Maineiacs",29],["played",39],["their",46],["home",52],["games",57],["can",63],["seat",67],["how",72],["many",76],["people",81],["?",87]
+            ]
+        }
+    ]
+}
+{
+    "id": "HotpotQA_5a7bbb64554299042af8f7cc",
+    "context": {
+        "documents": [{
+                "text": "Annie Morton (born October 8, 1970) is an American model born in Pennsylvania.  She has appeared on the covers of \"British Vogue\", \"ID\", \"Marie Claire\", and other magazines.  She has been photographed by Helmut Newton; Peter Lindbergh; Annie Leibovitz; Richard Avedon; Juergen Teller; Paul Jasmin, Mary Ellen Mark and Terry Richardson, and modeled for Donna Karan, Givenchy, Guerlain, Chanel, \"Harper's Bazaar\", \"Sports Illustrated\" and Victoria's Secret.  A long time vegetarian, an advocate for organic lifestyle choices and natural healthcare.  She co-founded Tsi-La Organics, a \"Green Luxury\" company that creates and sells vegan, organic perfume and skin care products. ",
+                "title": "Annie Morton",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,79,174,456,547]
+                    }
+                },
+                "tokens": {
+                    "title": [["Annie",0],["Morton",6]
+                    ],
+                    "text": [["Annie",0],["Morton",6],["(",13],["born",14],["October",19],["8",27],[",",28],["1970",30],[")",34],["is",36],["an",39],["American",42],["model",51],["born",57],["in",62],["Pennsylvania",65],[".",77],["She",80],["has",84],["appeared",88],["on",97],["the",100],["covers",104],["of",111],["\"",114],["British",115],["Vogue",123],["\"",128],[",",129],["\"",131],["ID",132],["\"",134],[",",135],["\"",137],["Marie",138],["Claire",144],["\"",150],[",",151],["and",153],["other",157],["magazines",163],[".",172],["She",175],["has",179],["been",183],["photographed",188],["by",201],["Helmut",204],["Newton",211],[";",217],["Peter",219],["Lindbergh",225],[";",234],["Annie",236],["Leibovitz",242],[";",251],["Richard",253],["Avedon",261],[";",267],["Juergen",269],["Teller",277],[";",283],["Paul",285],["Jasmin",290],[",",296],["Mary",298],["Ellen",303],["Mark",309],["and",314],["Terry",318],["Richardson",324],[",",334],["and",336],["modeled",340],["for",348],["Donna",352],["Karan",358],[",",363],["Givenchy",365],[",",373],["Guerlain",375],[",",383],["Chanel",385],[",",391],["\"",393],["Harper",394],["'s",400],["Bazaar",403],["\"",409],[",",410],["\"",412],["Sports",413],["Illustrated",420],["\"",431],["and",433],["Victoria",437],["'s",445],["Secret",448],[".",454],["A",457],["long",459],["time",464],["vegetarian",469],[",",479],["an",481],["advocate",484],["for",493],["organic",497],["lifestyle",505],["choices",515],["and",523],["natural",527],["healthcare",535],[".",545],["She",548],["co",552],["-",554],["founded",555],["Tsi",563],["-",566],["La",567],["Organics",570],[",",578],["a",580],["\"",582],["Green",583],["Luxury",589],["\"",595],["company",597],["that",605],["creates",610],["and",618],["sells",622],["vegan",628],[",",633],["organic",635],["perfume",643],["and",651],["skin",655],["care",660],["products",665],[".",673]
+                    ]
+                }
+            },
+            {
+                "text": "Terrence \"Uncle Terry\" Richardson (born August 14, 1965) is an American fashion and portrait photographer who has shot advertising campaigns for Marc Jacobs, Aldo, Supreme, Sisley, Tom Ford, and Yves Saint Laurent among others.  He has also done work for magazines such as \"Rolling Stone\", \"GQ\", \"Vogue\", \"Vanity Fair\", \"Harper's Bazaar\", \"i-D\", and \"Vice\". ",
+                "title": "Terry Richardson",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,228]
+                    }
+                },
+                "tokens": {
+                    "title": [["Terry",0],["Richardson",6]
+                    ],
+                    "text": [["Terrence",0],["\"",9],["Uncle",10],["Terry",16],["\"",21],["Richardson",23],["(",34],["born",35],["August",40],["14",47],[",",49],["1965",51],[")",55],["is",57],["an",60],["American",63],["fashion",72],["and",80],["portrait",84],["photographer",93],["who",106],["has",110],["shot",114],["advertising",119],["campaigns",131],["for",141],["Marc",145],["Jacobs",150],[",",156],["Aldo",158],[",",162],["Supreme",164],[",",171],["Sisley",173],[",",179],["Tom",181],["Ford",185],[",",189],["and",191],["Yves",195],["Saint",200],["Laurent",206],["among",214],["others",220],[".",226],["He",229],["has",232],["also",236],["done",241],["work",246],["for",251],["magazines",255],["such",265],["as",270],["\"",273],["Rolling",274],["Stone",282],["\"",287],[",",288],["\"",290],["GQ",291],["\"",293],[",",294],["\"",296],["Vogue",297],["\"",302],[",",303],["\"",305],["Vanity",306],["Fair",313],["\"",317],[",",318],["\"",320],["Harper",321],["'s",327],["Bazaar",330],["\"",336],[",",337],["\"",339],["i",340],["-",341],["D",342],["\"",343],[",",344],["and",346],["\"",350],["Vice",351],["\"",355],[".",356]
+                    ]
+                }
+            }
+        ]
+    },
+    "qas": [{
+            "qid": "HotpotQA_q_5a7bbb64554299042af8f7cc",
+            "metadata": {
+                "type": "bridge",
+                "level": "hard"
+            },
+            "supporting_context": [{
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Annie Morton (born October 8, 1970) is an American model born in Pennsylvania."
+                },
+                {
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 174,
+                    "text": " She has been photographed by Helmut Newton; Peter Lindbergh; Annie Leibovitz; Richard Avedon; Juergen Teller; Paul Jasmin, Mary Ellen Mark and Terry Richardson, and modeled for Donna Karan, Givenchy, Guerlain, Chanel, \"Harper's Bazaar\", \"Sports Illustrated\" and Victoria's Secret."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Terrence \"Uncle Terry\" Richardson (born August 14, 1965) is an American fashion and portrait photographer who has shot advertising campaigns for Marc Jacobs, Aldo, Supreme, Sisley, Tom Ford, and Yves Saint Laurent among others."
+                }
+            ],
+            "question": "Who is older, Annie Morton or Terry Richardson?",
+            "answers": {
+                "open-ended": {
+                    "answer_candidates": [{
+                            "extractive": {
+                                "single_answer": {
+                                    "answer": "Terry Richardson",
+                                    "instances": [{
+                                            "doc_id": 0,
+                                            "part": "text",
+                                            "start_byte": 318,
+                                            "text": "Terry Richardson",
+                                            "token_inds": [69,70]
+                                        },
+                                        {
+                                            "doc_id": 1,
+                                            "part": "title",
+                                            "start_byte": 0,
+                                            "text": "Terry Richardson",
+                                            "token_inds": [0,1]
+                                        },
+                                        {
+                                            "doc_id": 1,
+                                            "part": "text",
+                                            "start_byte": 16,
+                                            "text": "Terry Richardson",
+                                            "token_inds": [3,5]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "question_tokens": [["Who",0],["is",4],["older",7],[",",12],["Annie",14],["Morton",20],["or",27],["Terry",30],["Richardson",36],["?",46]
+            ]
+        }
+    ]
+}
+{
+    "id": "HotpotQA_5a8db19d5542994ba4e3dd00",
+    "context": {
+        "documents": [{
+                "text": "Local H is an American rock band originally formed by guitarist and vocalist Scott Lucas, bassist Matt Garcia, drummer Joe Daniels, and lead guitarist John Sparkman in Zion, Illinois in 1987.  The members all met in high school in 1987 and founded Local H three years later. ",
+                "title": "Local H",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,192]
+                    }
+                },
+                "tokens": {
+                    "title": [["Local",0],["H",6]
+                    ],
+                    "text": [["Local",0],["H",6],["is",8],["an",11],["American",14],["rock",23],["band",28],["originally",33],["formed",44],["by",51],["guitarist",54],["and",64],["vocalist",68],["Scott",77],["Lucas",83],[",",88],["bassist",90],["Matt",98],["Garcia",103],[",",109],["drummer",111],["Joe",119],["Daniels",123],[",",130],["and",132],["lead",136],["guitarist",141],["John",151],["Sparkman",156],["in",165],["Zion",168],[",",172],["Illinois",174],["in",183],["1987",186],[".",190],["The",193],["members",197],["all",205],["met",209],["in",213],["high",216],["school",221],["in",228],["1987",231],["and",236],["founded",240],["Local",248],["H",254],["three",256],["years",262],["later",268],[".",273]
+                    ]
+                }
+            },
+            {
+                "text": "For Against is a United States post-punk/dream pop band from Lincoln, Nebraska.  Despite numerous lineup shuffles and some periods of dormancy, the band has produced material steadily from its 1984 inception to the present. ",
+                "title": "For Against",
+                "metadata": {
+                    "text": {
+                        "sentence_start_bytes": [0,80]
+                    }
+                },
+                "tokens": {
+                    "title": [["For",0],["Against",4]
+                    ],
+                    "text": [["For",0],["Against",4],["is",12],["a",15],["United",17],["States",24],["post",31],["-",35],["punk",36],["/",40],["dream",41],["pop",47],["band",51],["from",56],["Lincoln",61],[",",68],["Nebraska",70],[".",78],["Despite",81],["numerous",89],["lineup",98],["shuffles",105],["and",114],["some",118],["periods",123],["of",131],["dormancy",134],[",",142],["the",144],["band",148],["has",153],["produced",157],["material",166],["steadily",175],["from",184],["its",189],["1984",193],["inception",198],["to",208],["the",211],["present",215],[".",222]
+                    ]
+                }
+            }
+        ]
+    },
+    "qas": [{
+            "qid": "HotpotQA_q_5a8db19d5542994ba4e3dd00",
+            "metadata": {
+                "type": "comparison",
+                "level": "hard"
+            },
+            "supporting_context": [{
+                    "doc_ind": 0,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "Local H is an American rock band originally formed by guitarist and vocalist Scott Lucas, bassist Matt Garcia, drummer Joe Daniels, and lead guitarist John Sparkman in Zion, Illinois in 1987."
+                },
+                {
+                    "doc_ind": 1,
+                    "part": "text",
+                    "start_byte": 0,
+                    "text": "For Against is a United States post-punk/dream pop band from Lincoln, Nebraska."
+                }
+            ],
+            "question": "Are Local H and For Against both from the United States?",
+            "answers": {
+                "open-ended": {
+                    "answer_candidates": [{
+                            "yesno": {
+                                "single_answer": "yes"
+                            }
+                        }
+                    ]
+                }
+            },
+            "question_tokens": [["Are",0],["Local",4],["H",10],["and",12],["For",16],["Against",20],["both",28],["from",33],["the",38],["United",42],["States",49],["?",55]
+            ]
+        }
+    ]
+}

@@ -34,7 +34,7 @@ class HotpotQA(MultiQA_DataSet):
         return header
 
     @overrides
-    def build_contexts(self, split, preprocessor , sample_size):
+    def build_contexts(self, split, preprocessor, sample_size):
         if split == 'train':
             single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_train_v1.1.json")
         elif split == 'dev':
@@ -46,9 +46,17 @@ class HotpotQA(MultiQA_DataSet):
         contexts = []
         for example in tqdm.tqdm(data, total=len(data), ncols=80):
 
+            # choosing only the gold paragraphs
+            gold_paragraphs = []
+            for supp_fact_title in set([supp_fact[0] for supp_fact in example['supporting_facts']]):
+                for context in example['context']:
+                    # finding the gold context
+                    if context[0] == supp_fact_title:
+                        gold_paragraphs.append(context)
+
             documents = []
             supporting_context = []
-            for doc_ind, para in enumerate(example['context']):
+            for doc_ind, para in enumerate(gold_paragraphs):
 
                 # calcing the sentence_start_bytes for the supporting facts in hotpotqa
                 offset = 0

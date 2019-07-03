@@ -44,7 +44,7 @@ def main():
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-        with open(args.output_file.replace('.gz',''), "wb") as f:
+        with open(args.output_file.replace('.gz',''), "w") as f:
             # first JSON line is header
             f.write(json.dumps({'header': header}, indent=4) + '\n')
             for instance in contexts:

@@ -249,7 +249,7 @@ class MultiQAPreProcess:
                                 for occurence in occurences:
                                     instance = {
                                          'doc_id': doc_id,
-                                         'doc_part': part,
+                                         'part': part,
                                          'start_byte': document['tokens'][part][occurence[0]][1],
                                          'text': alias,
                                          'token_inds':occurence}
