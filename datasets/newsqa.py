@@ -19,9 +19,9 @@ class NewsQA(MultiQA_DataSet):
         header = {
             "dataset_name": self.DATASET_NAME,
             "split": split,
-            "dataset_url": "https://rajpurkar.github.io/SQuAD-explorer/",
-            "license": "http://creativecommons.org/licenses/by-sa/4.0/legalcode",
-            "data_source": "Wikipedia",
+            "dataset_url": "https://datasets.maluuba.com/NewsQA",
+            "license": "https://datasets.maluuba.com/terms-and-conditions",
+            "data_source": "NewsWire",
             "context_answer_detection_source": self.DATASET_NAME,
             "tokenization_source": "MultiQA",
             "full_schema": super().compute_schema(contexts),
@@ -46,6 +46,8 @@ class NewsQA(MultiQA_DataSet):
 
 
         for story in tqdm.tqdm(data, total=len(data), ncols=80):
+            if story['type'] != split:
+                continue
 
             # we have only one question per context here:
             qas = []
@@ -56,7 +58,8 @@ class NewsQA(MultiQA_DataSet):
                 if 'badQuestion' in qa['consensus']:
                     continue
                 elif 'noAnswer' in qa['consensus']:
-                    new_qa['answers'] = {"open-ended": {'cannot_answer': 'yes'}}
+                    continue
+                    #new_qa['answers'] = {"open-ended": {'cannot_answer': 'yes'}}
                 else:
                     new_qa['answers'] = {"open-ended":{
                         'answer_candidates': [
