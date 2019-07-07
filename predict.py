@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     # automatic filename generation / or manual
     if args.prediction_filepath == None:
-        prediction_filepath = 'data/predictions/' + '_'.join(args.model.split('/')[-2:]).split('.')[0] + '__on__' + \
+        prediction_filepath = 'datasets/' + args.dataset_name + '/_'.join(args.model.split('/')[-2:]).split('.')[0] + '__on__' + \
                                args.dataset.split('/')[-1].split('.')[0] + '.json'
     else:
         prediction_filepath = args.prediction_filepath
