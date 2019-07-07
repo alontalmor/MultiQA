@@ -13,13 +13,13 @@ on multiple subsets of datasets.
 1.  First, clone the repository:
 
     ```
-    git clone https://github.com/alontalmor/MultiQA_for_AllenNLP.git
+    git clone -b staging --single-branch https://github.com/alontalmor/MultiQA.git
     ```
 
 2.  Change your directory to where you cloned the files:
 
     ```
-    cd MultiQA_for_AllenNLP
+    cd MultiQA
     ```
 
 3.  Create a virtual environment with Python 3.6 or above:
