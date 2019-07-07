@@ -12,6 +12,9 @@ def main():
     parse.add_argument("dataset_name", type=str, help="use the actual name of the dataset class, case sensitive")
     parse.add_argument("split", type=str, help="dev / train / test")
     parse.add_argument("output_file", type=str, help="")
+    parse.add_argument("--input_file", type=str, help="", default=None)
+    parse.add_argument("--dataset_flavor", type=str, help="", default=None)
+    parse.add_argument("--dataset_version", type=str, help="", default=None)
     parse.add_argument("--sample_size", type=int, help="", default=None)
     parse.add_argument("--sample_format", type=bool, help="", default=False)
     parse.add_argument("--n_processes", type=int, help="", default=1)
@@ -19,7 +22,8 @@ def main():
 
     preprocessor = MultiQAPreProcess(args.n_processes)
     factory = MultiQAFactory()
-    header, contexts = factory.build_dataset(args.dataset_name, args.split, preprocessor, args.sample_size)
+    header, contexts = factory.build_dataset(args.dataset_name, args.split, preprocessor, args.sample_size, \
+                                             args.dataset_version, args.dataset_flavor, args.input_file)
 
     print('------- dataset header --------')
     print(json.dumps({'header': header}, indent=4))

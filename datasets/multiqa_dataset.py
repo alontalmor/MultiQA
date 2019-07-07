@@ -41,4 +41,4 @@ class MultiQA_DataSet():
         pass
 
     def format_predictions(self, predictions):
-        pass
+        return predictions

@@ -64,8 +64,8 @@ class SearchQA(MultiQA_DataSet):
             documents = []
             for search_res in example['search_results']:
                 if search_res['snippet'] is not None:
-                    documents.append({'title': search_res['title'],'text': search_res['snippet']})
-            # ,'url':search_res['url']
+                    documents.append({'title': search_res['title'],'text': search_res['snippet'],'url':search_res['url']})
+
             contexts.append({"id": self.DATASET_NAME + '_'  + str(example['id']),
                              "context": {"documents": documents},
                              "qas": qas})
@@ -74,9 +74,5 @@ class SearchQA(MultiQA_DataSet):
         if sample_size != None:
             contexts = contexts[0:sample_size]
         contexts = preprocessor.tokenize_and_detect_answers(contexts)
-
-        # detect answers
-
-        # save dataset
 
         return contexts
