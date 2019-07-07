@@ -4,6 +4,7 @@ import os
 import boto3
 import re
 import gzip
+import shutil
 from  datasets.multiqa_factory import MultiQAFactory
 from common.preprocess import MultiQAPreProcess
 def main():
@@ -12,6 +13,7 @@ def main():
     parse.add_argument("split", type=str, help="dev / train / test")
     parse.add_argument("output_file", type=str, help="")
     parse.add_argument("--sample_size", type=int, help="", default=None)
+    parse.add_argument("--sample_format", type=bool, help="", default=False)
     parse.add_argument("--n_processes", type=int, help="", default=1)
     args = parse.parse_args()
 
@@ -48,7 +50,7 @@ def main():
             # first JSON line is header
             f.write(json.dumps({'header': header}, indent=4) + '\n')
             for instance in contexts:
-                if True:
+                if args.sample_format:
                     s = json.dumps(instance, indent=4)
                     # just making the answer starts in the sample no have a newline for every offset..
                     s = re.sub('\n\s*(\d+)', r'\1', s)
@@ -63,8 +65,9 @@ def main():
                     f.write(json.dumps(instance) + '\n')
 
         if args.output_file.endswith('gz'):
-            with gzip.open(args.output_file, "wb") as zip_file:
-                zip_file.write(args.output_file.replace('.gz',''))
+            with open(args.output_file.replace('.gz',''), 'rb') as f_in:
+                with gzip.open(args.output_file, 'wb') as f_out:
+                    shutil.copyfileobj(f_in, f_out)
 
             os.remove(args.output_file.replace('.gz',''))
 
