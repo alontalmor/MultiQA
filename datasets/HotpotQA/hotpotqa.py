@@ -14,7 +14,7 @@ class HotpotQA(MultiQA_DataSet):
         self.DATASET_NAME = 'HotpotQA'
 
     @overrides
-    def build_header(self, contexts, split, preprocessor):
+    def build_header(self, contexts, split, preprocessor, dataset_version, dataset_flavor):
         header = {
             "dataset_name": self.DATASET_NAME,
             "split": split,
@@ -38,11 +38,14 @@ class HotpotQA(MultiQA_DataSet):
         return {"answer": predictions, "sp": {}}
 
     @overrides
-    def build_contexts(self, split, preprocessor, sample_size):
-        if split == 'train':
-            single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_train_v1.1.json")
-        elif split == 'dev':
-            single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_dev_distractor_v1.json")
+    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file):
+        if input_file is not None:
+            single_file_path = cached_path(input_file)
+        else:
+            if split == 'train':
+                single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_train_v1.1.json")
+            elif split == 'dev':
+                single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_dev_distractor_v1.json")
 
         with open(single_file_path, 'r') as myfile:
             data = json.load(myfile)
