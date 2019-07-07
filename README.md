@@ -45,13 +45,9 @@ The allennlp caching infra is used, so be sure to have enough disk space, and co
 
 ## Preprocess
     
-   please run 
-   
-   `python3 -m spacy download en` 
-   
    before you run: 
    
-  `python build_dataset.py dHotpotQA dev path/to/output.jsonl.gz --n_processes 10'}`
+  `python build_dataset.py HotpotQA dev path/to/output.jsonl.gz --n_processes 10`
 
 
 ## Predict
@@ -65,7 +61,7 @@ first argument is the allennlp model, second is the preprocessed evalutaion file
  You may also change the output filename and path using `--prediction_filepath path/to/my/output`
  
  ### HotpotQA Official Evaluation script 
- `python datasets/HotpotQA/eval_script.py data/predictions/BERTbase_HotpotQA__on__HotpotQA_dev.json datasets/HotpotQA/hotpot_dev_distractor_v1.json`
+ `python datasets/HotpotQA/eval_script.py datasets/HotpotQA/BERTbase_HotpotQA__on__HotpotQA_dev.json datasets/HotpotQA/hotpot_dev_distractor_v1.json`
  
 ## Multiqa Data Format
 see Readme in the datasets folder.

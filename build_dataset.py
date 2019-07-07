@@ -41,7 +41,7 @@ def main():
         os.remove(local_filename)
     else:
         output_dir = '/'.join(args.output_file.split('/')[0:-1])
-        if not os.path.exists(output_dir):
+        if output_dir != '' and not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
         with open(args.output_file.replace('.gz',''), "w") as f:
