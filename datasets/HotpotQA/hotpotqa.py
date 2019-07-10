@@ -54,16 +54,16 @@ class HotpotQA(MultiQA_DataSet):
         for example in tqdm.tqdm(data, total=len(data), ncols=80):
 
             # choosing only the gold paragraphs
-            gold_paragraphs = []
-            for supp_fact_title in set([supp_fact[0] for supp_fact in example['supporting_facts']]):
-                for context in example['context']:
-                    # finding the gold context
-                    if context[0] == supp_fact_title:
-                        gold_paragraphs.append(context)
+            #gold_paragraphs = []
+            #for supp_fact_title in set([supp_fact[0] for supp_fact in example['supporting_facts']]):
+            #    for context in example['context']:
+            #        # finding the gold context
+            #        if context[0] == supp_fact_title:
+            #            gold_paragraphs.append(context)
 
             documents = []
             supporting_context = []
-            for doc_ind, para in enumerate(gold_paragraphs):
+            for doc_ind, para in enumerate(example['context']):
 
                 # calcing the sentence_start_bytes for the supporting facts in hotpotqa
                 offset = 0
