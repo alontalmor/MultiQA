@@ -7,6 +7,7 @@ from  datasets.multiqa_factory import MultiQAFactory
 from common.official_eval import read_answers
 from common.official_eval import evaluate
 import numpy as np
+import os
 import gzip
 import json
 from allennlp.common.tqdm import Tqdm
@@ -61,17 +62,26 @@ if __name__ == "__main__":
 
     # automatic filename generation / or manual
     if args.prediction_filepath == None:
-        prediction_filepath = 'datasets/' + args.dataset_name + '/' + '_'.join(args.model.split('/')[-2:]).split('.')[0] + '__on__' + \
-                               args.multiqa_dataset.split('/')[-1].split('.')[0] + '.json'
+        if not os.path.exists('results/' + args.dataset_name):
+            os.makedirs('results/' + args.dataset_name)
+        output_filepath = 'results/' + args.dataset_name + '/' + '_'.join(args.model.split('/')[-2:]).split('.')[0] + '__on__' + \
+                               args.multiqa_dataset.split('/')[-1].split('.')[0]
     else:
-        prediction_filepath = args.prediction_filepath
+        output_filepath = args.output_filepath
 
     # formatting the predictions in the specific dataset format in order to run the official eval_script
     factory = MultiQAFactory()
     all_predictions = factory.format_predictions(args.dataset_name, all_predictions)
 
-    with open(prediction_filepath, 'w') as f:
+    # running dataset specific eval script
+
+    # saving predictions
+    with open(output_filepath + '_predictions.json', 'w') as f:
         json.dump(all_predictions, f)
+
+    # storing results
+    with open(output_filepath + '_eval_results.json', 'w') as f:
+        json.dump(metrics, f)
 
 
 
