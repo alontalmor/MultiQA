@@ -46,15 +46,18 @@ if __name__ == "__main__":
 
         # saving official answers for this context
         for qa in context['qas']:
-            for ans_cand in qa['answers']['open-ended']['answer_candidates']:
-                if 'extractive' in ans_cand and 'single_answer' in ans_cand['extractive']:
-                    qid = qa['qid'].split('_q_')[1]
-                    if qid not in answers:
-                        answers[qid] = []
+            qid = qa['qid'].split('_q_')[1]
+            if qid not in answers:
+                answers[qid] = []
 
-                    answers[qid] += [(ans_cand['extractive']['single_answer']['answer'])]
-                    if 'aliases' in ans_cand['extractive']['single_answer']:
-                        answers[qid] += ans_cand['extractive']['single_answer']['aliases']
+            if 'answer_candidates' in qa['answers']['open-ended']:
+                for ans_cand in qa['answers']['open-ended']['answer_candidates']:
+                    if 'extractive' in ans_cand and 'single_answer' in ans_cand['extractive']:
+                        answers[qid] += [(ans_cand['extractive']['single_answer']['answer'])]
+                        if 'aliases' in ans_cand['extractive']['single_answer']:
+                            answers[qid] += ans_cand['extractive']['single_answer']['aliases']
+            elif 'cannot_answer' in qa['answers']['open-ended']:
+                answers[qid] += ['cannot_answer']
 
     # running the official evaluation script:
     metrics = evaluate(answers, all_predictions, True)
