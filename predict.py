@@ -56,6 +56,9 @@ if __name__ == "__main__":
                         answers[qid] += [(ans_cand['extractive']['single_answer']['answer'])]
                         if 'aliases' in ans_cand['extractive']['single_answer']:
                             answers[qid] += ans_cand['extractive']['single_answer']['aliases']
+                    elif 'yesno' in ans_cand and 'single_answer' in ans_cand['yesno']:
+                        answers[qid] += [(ans_cand['yesno']['single_answer'])]
+
             elif 'cannot_answer' in qa['answers']['open-ended']:
                 answers[qid] += ['cannot_answer']
 

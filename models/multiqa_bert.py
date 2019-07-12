@@ -104,20 +104,21 @@ class MultiQA_BERT(Model):
         # Compute F1 and preparing the output dictionary.
         output_dict['best_span_str'] = []
         output_dict['best_span_logit'] = []
-        output_dict['category'] = []
-        output_dict['category_logit'] = []
+        output_dict['max_category'] = []
+        output_dict['category_logits'] = []
         output_dict['qid'] = []
 
         # getting best span prediction for
         best_span = self._get_example_predications(span_start_logits, span_end_logits, self._max_span_length)
         best_span_cpu = best_span.detach().cpu().numpy()
+        category_logits = categorical_logits.data.cpu().numpy()
 
         for instance_ind, instance_metadata in zip(range(batch_size), metadata):
             best_span_logit = span_start_logits.data.cpu().numpy()[instance_ind, best_span_cpu[instance_ind][0]] + \
                               span_end_logits.data.cpu().numpy()[instance_ind, best_span_cpu[instance_ind][1]]
 
-            category = np.argmax(categorical_logits[instance_ind].data.cpu().numpy())
-            category_logit = categorical_logits[instance_ind,category].data.cpu().numpy()
+            category = np.argmax(category_logits[instance_ind])
+            #category_logit = category_logits[instance_ind,category]
             cat_pred = self.vocab.get_token_from_index(category, namespace="categorical_labels")
 
             passage_str = instance_metadata['original_passage']
@@ -130,9 +131,12 @@ class MultiQA_BERT(Model):
 
             output_dict['best_span_str'].append(best_span_string)
             output_dict['best_span_logit'].append(best_span_logit)
-            output_dict['category'].append(cat_pred)
-            output_dict['category_logit'].append(category_logit)
+            output_dict['max_category'].append(cat_pred)
+            #output_dict['category_logit'].append(category_logit)
             output_dict['qid'].append(instance_metadata['question_id'])
+            output_dict['category_logits'].append(\
+                {self.vocab.get_token_from_index(cat, namespace="categorical_labels"):category_logits[instance_ind][cat]  \
+                    for cat in range(0, len(categorical_logits[instance_ind]))})
 
             # In prediction mode we have no gold answers
             if categorical_labels is not None:
