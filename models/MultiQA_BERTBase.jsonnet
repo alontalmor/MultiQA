@@ -27,7 +27,7 @@
         }
     },
     "iterator": {
-        "type": "mrqa_iterator",
+        "type": "basic",
         "batch_size": 6,
         "max_instances_in_memory": 1000
     },
@@ -63,7 +63,7 @@
         "validation_metric": "+f1"
     },
     "validation_iterator": {
-        "type": "mrqa_iterator",
+        "type": "basic",
         "batch_size": 6
     }
 }

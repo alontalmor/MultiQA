@@ -269,7 +269,11 @@ class MultiQAPreProcess:
     def _preprocess_t(self, arg):
         return self.preprocess_multiple_contexts(*arg[0:1])
 
-    def tokenize_and_detect_answers(self, contexts):
+    def tokenize_and_detect_answers(self, contexts, shuffle=True):
+        if shuffle:
+            random.seed(0)
+            random.shuffle(contexts)
+
         if self._n_processes == 1:
             for context in Tqdm.tqdm(contexts, ncols=80):
                 self.preprocess_context(context)

@@ -110,8 +110,4 @@ class HotpotQA(MultiQA_DataSet):
             contexts = contexts[0:sample_size]
         contexts = preprocessor.tokenize_and_detect_answers(contexts)
 
-        # detect answers
-
-        # save dataset
-
         return contexts

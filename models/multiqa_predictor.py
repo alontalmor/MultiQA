@@ -17,11 +17,27 @@ class MultiQAPredictor(Predictor):
             for instance in self._dataset_reader.gen_question_instances(question_chunks):
                 question_instances.append(instance)
 
-            pred = self.predict_batch_instance(question_instances)[0]
+            question_predictions = self.predict_batch_instance(question_instances)
+
+            max_logit = -30
+            final_question_pred = {}
+            for pred in question_predictions:
+                if pred['category'] != 'cannot_answer' and pred['category_logit'] > max_logit:
+                    max_logit = pred['category_logit']
+                    if pred['category'] == 'span':
+                        final_question_pred['best_span_str'] = pred['best_span_str']
+                    else:
+                        # yes no
+                        final_question_pred['best_span_str'] = pred['category']
+
+            if max_logit == -30:
+                final_question_pred['best_span_str'] = 'cannot_answer'
+
             # Leaving only the original question ID for this dataset in order to run the original eval script.
+            final_question_pred['qid'] = pred['qid']
             if pred['qid'].find('_q_') > -1:
-                pred['qid'] = pred['qid'].split('_q_')[1]
-            predictions.append(pred)
+                final_question_pred['qid'] = final_question_pred['qid'].split('_q_')[1]
+            predictions.append(final_question_pred)
 
         formated_predictions = {pred['qid']:pred['best_span_str'] for pred in predictions}
         return formated_predictions

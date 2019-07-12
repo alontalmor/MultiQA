@@ -15,9 +15,11 @@ class SQuAD(MultiQA_DataSet):
         self.DATASET_NAME = 'SQuAD'
 
     @overrides
-    def build_header(self, contexts, split, preprocessor ):
+    def build_header(self, contexts, split, preprocessor , dataset_version, dataset_flavor):
         header = {
             "dataset_name": self.DATASET_NAME,
+            "version": dataset_version,
+            "flavor": dataset_flavor,
             "split": split,
             "dataset_url": "https://rajpurkar.github.io/SQuAD-explorer/",
             "license": "http://creativecommons.org/licenses/by-sa/4.0/legalcode",
@@ -35,9 +37,9 @@ class SQuAD(MultiQA_DataSet):
         return header
 
     @overrides
-    def build_contexts(self, split, preprocessor, sample_size):
+    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file):
         single_file_path = cached_path("https://raw.githubusercontent.com/rajpurkar/SQuAD-explorer/master/dataset/" + \
-                                       split + "-v2.0.json")
+                                       split + "-v" + dataset_version +".json")
 
         with open(single_file_path, 'r') as myfile:
             original_dataset = json.load(myfile)
@@ -53,7 +55,7 @@ class SQuAD(MultiQA_DataSet):
                     new_qa = {'qid':self.DATASET_NAME + '_q_' + qa['id'],
                                 'question':qa['question']}
                     answer_candidates = []
-                    if qa['is_impossible']:
+                    if 'is_impossible' in qa and qa['is_impossible']:
                         new_qa['answers'] = {"open-ended": {'cannot_answer': 'yes'}}
                         new_qa['metadata'] = {'plausible_answers': qa['plausible_answers']}
                     else:
@@ -75,9 +77,5 @@ class SQuAD(MultiQA_DataSet):
         if sample_size != None:
             contexts = contexts[0:sample_size]
         contexts = preprocessor.tokenize_and_detect_answers(contexts)
-
-        # detect answers
-
-        # save dataset
 
         return contexts
