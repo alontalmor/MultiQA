@@ -200,7 +200,7 @@ class MultiQAPreProcess:
                 # seems Spacy class is pretty heavy in memory, lets move to a simple representation for now..
                 document['tokens'][part] = [(t.text, t.idx) for t in part_tokens]
 
-    def preprocess_context(self, context):
+    def preprocess_context(self, context, search_answer_within_supp_context):
 
 
 
@@ -252,31 +252,44 @@ class MultiQAPreProcess:
                         for doc_id, document in enumerate(context['context']['documents']):
                             for part in document['tokens'].keys():
                                 occurences = self.find_all_answer_spans(alias, document['tokens'][part])
-                                for occurence in occurences:
-                                    instance = {
-                                         'doc_id': doc_id,
-                                         'part': part,
-                                         'start_byte': document['tokens'][part][occurence[0]][1],
-                                         'text': alias,
-                                         'token_inds':occurence}
-                                    single_item['instances'].append(instance)
 
-    def preprocess_multiple_contexts(self, contexts):
+                                for occurence in occurences:
+                                    start_byte = document['tokens'][part][occurence[0]][1]
+                                    if search_answer_within_supp_context:
+                                        keep_occurance = False
+                                        for supp_context in qa['supporting_context']:
+                                            if supp_context['doc_id'] == doc_id and supp_context['part'] == part and \
+                                                start_byte >= supp_context['start_byte'] and \
+                                                start_byte <= supp_context['start_byte'] + len(supp_context['text']):
+                                                    keep_occurance = True
+                                    else:
+                                        keep_occurance = True
+
+                                    if keep_occurance:
+                                        instance = {
+                                             'doc_id': doc_id,
+                                             'part': part,
+                                             'start_byte': start_byte,
+                                             'text': alias,
+                                             'token_inds':occurence}
+                                        single_item['instances'].append(instance)
+
+    def preprocess_multiple_contexts(self, contexts, search_answer_within_supp_context):
         for context in contexts:
-            self.preprocess_context(context)
+            self.preprocess_context(context, search_answer_within_supp_context)
         return contexts
 
     def _preprocess_t(self, arg):
-        return self.preprocess_multiple_contexts(*arg[0:1])
+        return self.preprocess_multiple_contexts(*arg[0:2])
 
-    def tokenize_and_detect_answers(self, contexts, shuffle=True):
+    def tokenize_and_detect_answers(self, contexts, shuffle=True, search_answer_within_supp_context=False):
         if shuffle:
             random.seed(0)
             random.shuffle(contexts)
 
         if self._n_processes == 1:
             for context in Tqdm.tqdm(contexts, ncols=80):
-                self.preprocess_context(context)
+                self.preprocess_context(context, search_answer_within_supp_context)
         else:
             # multi process (creates chunks of 200 contexts each )
             preprocessed_instances = []
@@ -284,7 +297,7 @@ class MultiQAPreProcess:
                 chunks = split(contexts, self._n_processes)
                 chunks = flatten_iterable(group(c, 200) for c in chunks)
                 pbar = Tqdm.tqdm(total=len(chunks), ncols=80, smoothing=0.0)
-                for preproc_inst in pool.imap_unordered(self._preprocess_t,[[c] for c in chunks]):
+                for preproc_inst in pool.imap_unordered(self._preprocess_t,[[c, search_answer_within_supp_context] for c in chunks]):
                     preprocessed_instances += preproc_inst
                     pbar.update(1)
                 pbar.close()

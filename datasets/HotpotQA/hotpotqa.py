@@ -63,7 +63,7 @@ class HotpotQA(MultiQA_DataSet):
 
             documents = []
             supporting_context = []
-            for doc_ind, para in enumerate(example['context']):
+            for doc_id, para in enumerate(example['context']):
 
                 # calcing the sentence_start_bytes for the supporting facts in hotpotqa
                 offset = 0
@@ -77,7 +77,7 @@ class HotpotQA(MultiQA_DataSet):
                 for supp_fact in example['supporting_facts']:
                     # finding the gold context
                     if para[0] == supp_fact[0] and len(sentence_start_bytes) > supp_fact[1]:
-                        supporting_context.append({'doc_ind':doc_ind,
+                        supporting_context.append({'doc_id':doc_id,
                                                    'part':'text',
                                                    'start_byte': sentence_start_bytes[supp_fact[1]],
                                                    'text':para[1][supp_fact[1]]})
@@ -108,6 +108,6 @@ class HotpotQA(MultiQA_DataSet):
 
         if sample_size != None:
             contexts = contexts[0:sample_size]
-        contexts = preprocessor.tokenize_and_detect_answers(contexts)
+        contexts = preprocessor.tokenize_and_detect_answers(contexts, search_answer_within_supp_context=True)
 
         return contexts
