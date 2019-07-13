@@ -131,15 +131,15 @@ class MultiQA_BERT(Model):
 
             predicted_span = best_span_cpu[instance_ind]
             # In this version yesno if not "no_yesno" will be regarded as final answer before the spans are considered.
-            if yesno_pred != 'no_yesno':
-                best_span_string = yesno_pred
+            #if yesno_pred != 'no_yesno':
+            #    best_span_string = yesno_pred
+            #else:
+            if predicted_span[0] == 0 and predicted_span[1] == 0:
+                best_span_string = 'cannot_answer'
             else:
-                if predicted_span[0] == 0 and predicted_span[1] == 0:
-                    best_span_string = 'cannot_answer'
-                else:
-                    start_offset = offsets[predicted_span[0]][0]
-                    end_offset = offsets[predicted_span[1]][1]
-                    best_span_string = passage_str[start_offset:end_offset]
+                start_offset = offsets[predicted_span[0]][0]
+                end_offset = offsets[predicted_span[1]][1]
+                best_span_string = passage_str[start_offset:end_offset]
 
             output_dict['best_span_str'].append(best_span_string)
             output_dict['best_span_logit'].append(best_span_logit)
@@ -153,7 +153,7 @@ class MultiQA_BERT(Model):
                 yesno_label = self.vocab.get_token_from_index(yesno_label_ind, namespace="yesno_labels")
 
                 if yesno_label != 'no_yesno':
-                    gold_answer_texts = yesno_label
+                    gold_answer_texts = [yesno_label]
                 elif instance_metadata['cannot_answer']:
                     gold_answer_texts = ['cannot_answer']
                 else:
