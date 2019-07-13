@@ -108,6 +108,11 @@ class HotpotQA(MultiQA_DataSet):
 
         if sample_size != None:
             contexts = contexts[0:sample_size]
-        contexts = preprocessor.tokenize_and_detect_answers(contexts, search_answer_within_supp_context=True)
+
+        if split == 'train':
+            ans_in_supp_context = True
+        else:
+            ans_in_supp_context = False
+        contexts = preprocessor.tokenize_and_detect_answers(contexts, search_answer_within_supp_context=ans_in_supp_context)
 
         return contexts

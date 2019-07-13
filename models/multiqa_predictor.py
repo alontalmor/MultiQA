@@ -10,6 +10,7 @@ class MultiQAPredictor(Predictor):
             return {}
 
         example = self._dataset_reader.combine_context(json_dict)
+        self._dataset_reader._is_training = False
 
         predictions = []
         for question_chunks in self._dataset_reader.make_chunks(example, {'dataset_name':''}):
