@@ -2,8 +2,6 @@ from overrides import overrides
 from allennlp.common.util import JsonDict
 from allennlp.data import Instance
 from allennlp.predictors.predictor import Predictor
-import copy
-import numpy as np
 
 @Predictor.register('multiqa_predictor')
 class MultiQAPredictor(Predictor):
@@ -21,22 +19,12 @@ class MultiQAPredictor(Predictor):
 
             question_predictions = self.predict_batch_instance(question_instances)
 
-            min_no_answer = 100
+            max_logit = -30
             final_question_pred = {}
             for pred in question_predictions:
-                category_logits = copy.deepcopy(pred['category_logits'])
-                if category_logits['cannot_answer'] < min_no_answer:
-                    min_no_answer = category_logits['cannot_answer']
-                    category_logits.pop('cannot_answer')
-                    cat = np.argmax(list(category_logits.values()))
-                    if list(category_logits.keys())[cat] == 'span':
-                        final_question_pred['best_span_str'] = pred['best_span_str']
-                    else:
-                        # yes no
-                        final_question_pred['best_span_str'] = list(category_logits.keys())[cat]
-
-            #if max_logit == -30:
-            #    final_question_pred['best_span_str'] = 'cannot_answer'
+                if pred['best_span_logit'] + pred['yesno_logit'] > max_logit:
+                    max_logit = pred['best_span_logit'] + pred['yesno_logit']
+                    final_question_pred['best_span_str'] = pred['best_span_str']
 
             # Leaving only the original question ID for this dataset in order to run the original eval script.
             final_question_pred['qid'] = pred['qid']

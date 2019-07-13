@@ -124,11 +124,14 @@ class MultiQAReader(DatasetReader):
                  sample_size: int = -1,
                  STRIDE: int = 128,
                  MAX_WORDPIECES: int = 512,
+                 random_seed: int = 0
                  ) -> None:
         super().__init__(lazy)
 
-        # make sure results may be reproduced when sampling...
-        random.seed(0)
+        # the random seed could be change for models like BERT that are
+        # unstable when fine-tuned + the insure results reproducibility
+        random.seed(random_seed)
+
         self._preproc_outputfile = preproc_outputfile
         self._STRIDE = STRIDE
         # NOTE AllenNLP automatically adds [CLS] and [SEP] word peices in the begining and end of the context,
@@ -197,11 +200,13 @@ class MultiQAReader(DatasetReader):
         for qa in context['qas']:
             answer_text_list = []
             qa['detected_answers'] = []
-            qa['categorical_labels'] = []
+            qa['yesno'] = 'no_yesno'
+            qa['cannot_answer'] = False
             if 'open-ended' in qa['answers']:
                 if 'answer_candidates' in qa['answers']['open-ended']:
                     for ac in qa['answers']['open-ended']["answer_candidates"]:
                         if 'extractive' in ac:
+                            # Supporting only one answer of type extractive (future version will support list and set)
                             if "single_answer" in ac['extractive']:
                                 for instance in ac['extractive']["single_answer"]["instances"]:
                                     detected_answer = {}
@@ -214,18 +219,13 @@ class MultiQAReader(DatasetReader):
                                         qa['detected_answers'].append(detected_answer)
                                     answer_text_list.append(instance["text"])
                         elif 'yesno' in ac:
+                            # Supporting only one answer of type yesno
                             if "single_answer" in ac['yesno']:
-                                qa['categorical_labels'].append(ac['yesno']['single_answer'])
+                                qa['yesno'] = ac['yesno']['single_answer']
                 elif 'cannot_answer' in qa['answers']['open-ended']:
-                    qa['categorical_labels'].append('cannot_answer')
+                    qa['cannot_answer'] = True
 
             qa['answer_text_list'] = answer_text_list
-            #if len(qa['detected_answers']) == 0:
-            #    no_answer_questions.append(qa)
-
-        #if self._is_training:
-        #    for no_answer_q in no_answer_questions:
-        #        context['qas'].remove(no_answer_q)
 
         return context
 
@@ -289,7 +289,8 @@ class MultiQAReader(DatasetReader):
 
 
                 inst = {}
-                inst['categorical_labels'] = copy.copy(qa['categorical_labels'])
+                inst['yesno'] = qa['yesno']
+                inst['cannot_answer'] = qa['cannot_answer']
                 inst['question_tokens'] = qa['question_tokens']
                 inst['tokens'] = curr_context_tokens
                 inst['text'] = qa['question'] + ' [SEP] ' + unproc_context['full_text'][context_char_offset: \
@@ -306,21 +307,13 @@ class MultiQAReader(DatasetReader):
                                                        answer['token_spans'][1] + answer_token_offset,
                                                        answer['text']))
 
-                if len(inst['categorical_labels']) == 0:
-                    if len(inst['answers']) == 0:
-                        inst['categorical_labels'].append('cannot_answer')
-                    else:
-                        inst['categorical_labels'].append('span')
-
-
                 inst['metadata'] = qa_metadata
                 chunks.append(inst)
 
                 window_start_token_offset += self._STRIDE
 
-            # In training we need examples with answer only
-            #if not self._is_training or len([inst for inst in chunks if inst['answers'] != []])>0:
             per_question_chunks.append(chunks)
+
         return per_question_chunks
 
     @profile
@@ -329,12 +322,14 @@ class MultiQAReader(DatasetReader):
         if self._is_training:
             # Trying to balance the chunks with answer and the ones without by sampling one from each
             # if each is available
-            chunks_with_answer = [inst for inst in question_chunks if 'cannot_answer' not in inst['categorical_labels']]
-            if len(chunks_with_answer) > 0:
-                instances_to_add += random.sample(chunks_with_answer, 1)
-            chunks_without_answer = [inst for inst in question_chunks if 'cannot_answer' in inst['categorical_labels']]
-            if len(chunks_without_answer) > 0:
-                instances_to_add += random.sample(chunks_without_answer, 1)
+            explicit_cannot_answer_chunks = [inst for inst in question_chunks if inst['cannot_answer']]
+            yesno_chunks = [inst for inst in question_chunks if inst['yesno'] != 'no_yesno']
+            span_chunks = [inst for inst in question_chunks if len(inst['answers']) > 0]
+
+            selected_chunks = explicit_cannot_answer_chunks + yesno_chunks + span_chunks
+            if len(selected_chunks) > 0:
+                instances_to_add += random.sample(selected_chunks, 1)
+
         else:
             instances_to_add = question_chunks
 
@@ -344,7 +339,7 @@ class MultiQAReader(DatasetReader):
                                              self._token_indexers,
                                              inst['text'],
                                              inst['answers'],
-                                             inst['categorical_labels'],
+                                             inst['yesno'],
                                              inst['metadata'])
             yield instance
 
@@ -397,7 +392,7 @@ def make_multiqa_instance(question_tokens: List[Token],
                              token_indexers: Dict[str, TokenIndexer],
                              paragraph: List[str],
                              answers_list: List[Tuple[int, int]] = None,
-                             categorical_labels: List[str] = None,
+                             yesno: List[str] = None,
                              additional_metadata: Dict[str, Any] = None) -> Instance:
 
     additional_metadata = additional_metadata or {}
@@ -408,9 +403,10 @@ def make_multiqa_instance(question_tokens: List[Token],
     passage_field = TextField(tokenized_paragraph, token_indexers)
     fields['passage'] = passage_field
     fields['question'] = TextField(question_tokens, token_indexers)
-    fields['categorical_labels'] = LabelField(categorical_labels[0], label_namespace="categorical_labels")
+    fields['yesno_labels'] = LabelField(yesno, label_namespace="yesno_labels")
     metadata = {'original_passage': paragraph,
                 'answers_list': answers_list,
+                'cannot_answer': False,
                 'token_offsets': passage_offsets,
                 'question_tokens': [token.text for token in question_tokens],
                 'passage_tokens': [token.text for token in tokenized_paragraph]}
@@ -419,7 +415,12 @@ def make_multiqa_instance(question_tokens: List[Token],
         span_start_list: List[Field] = []
         span_end_list: List[Field] = []
         if answers_list == []:
-            span_start, span_end = -1, -1
+            # No answer will point at the beginning of the chunk (see
+            # A BERT Baseline for the Natural Questions https://arxiv.org/abs/1901.08634 )
+            # Note connot_answer (SQuAD 2.0) and negative examples (just example in which we could not find
+            #the gold answer, if any are used), are both treated similarly here.
+            span_start, span_end = 0, 0
+            metadata['cannot_answer'] = True
         else:
             span_start, span_end, text = answers_list[0]
 
