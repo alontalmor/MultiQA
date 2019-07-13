@@ -19,7 +19,7 @@ class MultiQAPredictor(Predictor):
 
             question_predictions = self.predict_batch_instance(question_instances)
 
-            max_logit = -30
+            max_logit = -1000
             final_question_pred = {}
             for pred in question_predictions:
                 if pred['best_span_logit'] + pred['yesno_logit'] > max_logit:
