@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     # predict
     answers = {}
-    for context in Tqdm.tqdm(contexts,total = len(contexts)):
+    for context in Tqdm.tqdm(contexts, total = len(contexts)):
         all_predictions.update(predictor.predict_json(context))
 
         # saving official answers for this context
