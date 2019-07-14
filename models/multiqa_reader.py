@@ -124,7 +124,8 @@ class MultiQAReader(DatasetReader):
                  sample_size: int = -1,
                  STRIDE: int = 128,
                  MAX_WORDPIECES: int = 512,
-                 random_seed: int = 0
+                 random_seed: int = 0,
+                 support_yesno: bool = True
                  ) -> None:
         super().__init__(lazy)
 
@@ -132,6 +133,7 @@ class MultiQAReader(DatasetReader):
         # unstable when fine-tuned + the insure results reproducibility
         random.seed(random_seed)
 
+        self._support_yesno = support_yesno
         self._preproc_outputfile = preproc_outputfile
         self._STRIDE = STRIDE
         # NOTE AllenNLP automatically adds [CLS] and [SEP] word peices in the begining and end of the context,
@@ -158,6 +160,42 @@ class MultiQAReader(DatasetReader):
                 else token[0])
         word_pieces = self._bert_wordpiece_tokenizer(text)
         return len(word_pieces), word_pieces
+
+    def _improve_answer_span(self, doc_tokens, input_start, input_end, tokenizer,
+                             orig_answer_text):
+        """Returns tokenized answer spans that better match the annotated answer."""
+
+        # The SQuAD annotations are character based. We first project them to
+        # whitespace-tokenized words. But then after WordPiece tokenization, we can
+        # often find a "better match". For example:
+        #
+        #   Question: What year was John Smith born?
+        #   Context: The leader was John Smith (1895-1943).
+        #   Answer: 1895
+        #
+        # The original whitespace-tokenized answer will be "(1895-1943).". However
+        # after tokenization, our tokens will be "( 1895 - 1943 ) .". So we can match
+        # the exact answer, 1895.
+        #
+        # However, this is not always possible. Consider the following:
+        #
+        #   Question: What country is the top exporter of electornics?
+        #   Context: The Japanese electronics industry is the lagest in the world.
+        #   Answer: Japan
+        #
+        # In this case, the annotator chose "Japan" as a character sub-span of
+        # the word "Japanese". Since our WordPiece tokenizer does not split
+        # "Japanese", we just use "Japanese" as the annotation. This is fairly rare
+        # in SQuAD, but does happen.
+        tok_answer_text = " ".join(tokenizer(orig_answer_text))
+
+        for new_start in range(input_start, input_end + 1):
+            for new_end in range(input_end, new_start - 1, -1):
+                text_span = " ".join(doc_tokens[new_start:(new_end + 1)])
+                if text_span == tok_answer_text:
+                    return (new_start, new_end)
+
+        return (input_start, input_end)
 
     @profile
     def combine_context(self, context):
@@ -220,8 +258,9 @@ class MultiQAReader(DatasetReader):
                                     answer_text_list.append(instance["text"])
                         elif 'yesno' in ac:
                             # Supporting only one answer of type yesno
-                            if "single_answer" in ac['yesno']:
+                            if self._support_yesno and "single_answer" in ac['yesno']:
                                 qa['yesno'] = ac['yesno']['single_answer']
+
                 elif 'cannot_answer' in qa['answers']['open-ended']:
                     qa['cannot_answer'] = True
 
@@ -303,9 +342,12 @@ class MultiQAReader(DatasetReader):
                         answer['token_spans'][1] < window_end_token_offset:
                         qa_metadata['has_answer'] = True
                         answer_token_offset = len(qa['question_tokens']) + 1 - window_start_token_offset
-                        inst['answers'].append((answer['token_spans'][0]+ answer_token_offset, \
-                                                       answer['token_spans'][1] + answer_token_offset,
-                                                       answer['text']))
+
+                        (tok_start_position, tok_end_position) = self._improve_answer_span([t[0] for t in inst['tokens']], \
+                                answer['token_spans'][0] + answer_token_offset, \
+                                answer['token_spans'][1] + answer_token_offset, self._bert_wordpiece_tokenizer, answer['text'])
+
+                        inst['answers'].append((tok_start_position, tok_end_position, answer['text']))
 
                 inst['metadata'] = qa_metadata
                 chunks.append(inst)
@@ -322,13 +364,12 @@ class MultiQAReader(DatasetReader):
         if self._is_training:
             # Trying to balance the chunks with answer and the ones without by sampling one from each
             # if each is available
-            explicit_cannot_answer_chunks = [inst for inst in question_chunks if inst['cannot_answer']]
-            yesno_chunks = [inst for inst in question_chunks if inst['yesno'] != 'no_yesno']
-            span_chunks = [inst for inst in question_chunks if len(inst['answers']) > 0]
-
-            selected_chunks = explicit_cannot_answer_chunks + yesno_chunks + span_chunks
-            if len(selected_chunks) > 0:
-                instances_to_add += random.sample(selected_chunks, 1)
+            cannot_answer = [inst for inst in question_chunks if inst['cannot_answer']]
+            yesno = [inst for inst in question_chunks if inst['yesno'] != 'no_yesno']
+            spans = [inst for inst in question_chunks if len(inst['answers']) > 0]
+            chunks_to_select_from = cannot_answer + yesno + spans
+            if len(chunks_to_select_from) > 0:
+                instances_to_add += random.sample(chunks_to_select_from, 1)
 
         else:
             instances_to_add = question_chunks
