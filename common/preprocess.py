@@ -70,10 +70,40 @@ def group(lst: List[T], max_group_size) -> List[List[T]]:
         ix += group_size
     return groups
 
+class SpaceTokenizer():
+    def __init__(self):
+        pass
+
+    def is_whitespace(self, c):
+        if c == " " or c == "\t" or c == "\r" or c == "\n" or ord(c) == 0x202F:
+            return True
+        return False
+
+
+    def tokenize(self, text):
+        doc_tokens = []
+        start_offsets = []
+        prev_is_whitespace = True
+        for i, c in enumerate(text):
+            if self.is_whitespace(c):
+                prev_is_whitespace = True
+            else:
+                if prev_is_whitespace:
+                    doc_tokens.append(c)
+                    start_offsets.append(i)
+                else:
+                    doc_tokens[-1] += c
+                prev_is_whitespace = False
+        return [Token(t,s) for t,s in zip(doc_tokens,start_offsets)]
+
+
+
 class MultiQAPreProcess:
+
     def __init__(self,n_processes):
         self._n_processes = n_processes
         self._tokenizer = WordTokenizer()
+        #self._tokenizer = SpaceTokenizer()
 
         self._STRIP_CHARS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~‘’´`_'
 
@@ -143,6 +173,19 @@ class MultiQAPreProcess:
             error = True
 
         # inclusive start_index and inclusive end_index
+        # Only add answers where the text can be exactly recovered from the
+        # document. If this CAN'T happen it's likely due to weird Unicode
+        # stuff so we will just skip the example.
+        #
+        # Note that this means for training mode, every example is NOT
+        # guaranteed to be preserved.
+        #actual_text = " ".join([t[0] for t in tokens[start_index:(end_index + 1)]])
+        #cleaned_answer_text = " ".join([t.text for t in self._tokenizer.tokenize(instance['text'])])
+        #if actual_text.find(cleaned_answer_text) == -1:
+        #    logger.warning("Could not find answer: '%s' vs. '%s'",
+        #                   actual_text, cleaned_answer_text)
+        #    assert()
+        #else:
         instance['token_inds'] = (start_index, end_index)
 
     def find_all_answer_spans(self, answer, context):
