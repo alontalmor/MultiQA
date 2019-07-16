@@ -136,6 +136,7 @@ class MultiQAReader(DatasetReader):
         self._support_yesno = support_yesno
         self._preproc_outputfile = preproc_outputfile
         self._STRIDE = STRIDE
+        # TODO remove this
         # NOTE AllenNLP automatically adds [CLS] and [SEP] word peices in the begining and end of the context,
         # therefore we need to subtract 2
         self._MAX_WORDPIECES = MAX_WORDPIECES - 2
@@ -248,6 +249,9 @@ class MultiQAReader(DatasetReader):
                             if "single_answer" in ac['extractive']:
                                 for instance in ac['extractive']["single_answer"]["instances"]:
                                     detected_answer = {}
+                                    answer_text_list.append(ac['extractive']["single_answer"]["answer"])
+                                    if 'aliases' in ac['extractive']["single_answer"]:
+                                        answer_text_list += ac['extractive']["single_answer"]["aliases"]
                                     # checking if the answer has been detected
                                     if "token_offset" in offsets[instance["doc_id"]][instance["part"]]:
                                         answer_token_offset = offsets[instance["doc_id"]][instance["part"]]['token_offset']
@@ -265,6 +269,7 @@ class MultiQAReader(DatasetReader):
                     qa['cannot_answer'] = True
 
             qa['answer_text_list'] = answer_text_list
+
 
         return context
 
@@ -333,7 +338,7 @@ class MultiQAReader(DatasetReader):
                 inst['question_tokens'] = qa['question_tokens']
                 inst['tokens'] = curr_context_tokens
                 inst['text'] = qa['question'] + ' [SEP] ' + unproc_context['full_text'][context_char_offset: \
-                            context_char_offset + curr_context_tokens[-1][1] + len(curr_context_tokens[-1][0]) + 1]
+                            context_char_offset + curr_context_tokens[-1][1] + len(curr_context_tokens[-1][0]) + 1 - question_char_offset]
                 inst['answers'] = []
                 qa_metadata = {'has_answer': False, 'dataset': header['dataset_name'], "question_id": qa['qid'], \
                                'answer_texts_list': list(set(qa['answer_text_list']))}
