@@ -122,7 +122,7 @@ class HotpotQA(MultiQA_DataSet):
 
         _para_tfidf_scoring = Paragraph_TfIdf_Scoring()
         contexts = []
-        for example in tqdm.tqdm(data[0:10], total=len(data), ncols=80):
+        for example in tqdm.tqdm(data, total=len(data), ncols=80):
 
             # choosing only the gold paragraphs
             #gold_paragraphs = []
