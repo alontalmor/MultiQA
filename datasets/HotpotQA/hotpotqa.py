@@ -108,7 +108,7 @@ class HotpotQA(MultiQA_DataSet):
         return {"answer": predictions, "sp": {}}
 
     @overrides
-    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file):
+    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file, build_properties):
         if input_file is not None:
             single_file_path = cached_path(input_file)
         else:
@@ -133,12 +133,18 @@ class HotpotQA(MultiQA_DataSet):
             #            gold_paragraphs.append(context)
 
             # Arranging paragraphs by TF-IDF
-            tf_idf_scores = _para_tfidf_scoring.score_paragraphs([example['question']], \
-                                                [' '.join(p[1]) for p in example['context']])
+            if build_properties.find('original_context_order')> -1:
+                context_order = range(len(example['context']))
+            else:
+                tf_idf_scores = _para_tfidf_scoring.score_paragraphs([example['question']], \
+                                                    [' '.join(p[1]) for p in example['context']])
+                context_order = list(np.argsort(tf_idf_scores))
+
+
 
             documents = []
             supporting_context = []
-            for doc_id, order_id in enumerate(list(np.argsort(tf_idf_scores))):
+            for doc_id, order_id in enumerate(context_order):
                 para = example['context'][order_id]
                 # calcing the sentence_start_bytes for the supporting facts in hotpotqa
                 offset = 0
@@ -184,7 +190,7 @@ class HotpotQA(MultiQA_DataSet):
         if sample_size != None:
             contexts = contexts[0:sample_size]
 
-        if split == 'train':
+        if split == 'train' and build_properties.find('use_all_answers_in_training')== -1:
             ans_in_supp_context = True
         else:
             ans_in_supp_context = False
