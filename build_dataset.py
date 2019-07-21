@@ -9,12 +9,13 @@ from  datasets.multiqa_factory import MultiQAFactory
 from common.preprocess import MultiQAPreProcess
 def main():
     parse = argparse.ArgumentParser("")
-    parse.add_argument("dataset_name", type=str, help="use the actual name of the dataset class, case sensitive")
-    parse.add_argument("split", type=str, help="dev / train / test")
-    parse.add_argument("output_file", type=str, help="")
-    parse.add_argument("--input_file", type=str, help="", default=None)
+    parse.add_argument("--dataset_name", type=str, help="use the actual name of the dataset class, case sensitive")
     parse.add_argument("--dataset_flavor", type=str, help="", default=None)
     parse.add_argument("--dataset_version", type=str, help="", default=None)
+    parse.add_argument("--split", type=str, help="dev / train / test")
+    parse.add_argument("--output_file", type=str, help="")
+    parse.add_argument("--header_file", type=str, help="If this file path is provided the header json will be save here.", default=None)
+    parse.add_argument("--input_file", type=str, help="", default=None)
     parse.add_argument("--sample_size", type=int, help="", default=None)
     parse.add_argument("--sample_format", type=bool, help="", default=False)
     parse.add_argument("--n_processes", type=int, help="", default=1)
@@ -28,11 +29,31 @@ def main():
     print('------- dataset header --------')
     print(json.dumps({'header': header}, indent=4))
 
+
+    if args.header_file is not None:
+        print('writing header at %s' % args.header_file)
+        if args.header_file.startswith('s3://'):
+            header_file = args.header_file.replace('s3://', '')
+            bucketName = header_file.split('/')[0]
+            outPutname = '/'.join(header_file.split('/')[1:])
+
+            with open('temp.json', "w") as f:
+                json.dump(header,f, indent=4)
+            s3 = boto3.client('s3')
+            s3.upload_file('temp.json', bucketName, outPutname, ExtraArgs={'ACL': 'public-read'})
+            os.remove('temp.json')
+        else:
+            with open(args.header_file, "w") as f:
+                json.dump(header,f, indent=4)
+
     if args.output_file.startswith('s3://'):
         output_file = args.output_file.replace('s3://','')
         bucketName = output_file.split('/')[0]
         outPutname = '/'.join(output_file.split('/')[1:])
         local_filename = outPutname.replace('/','_')
+
+
+
         with gzip.open(local_filename, "wb") as f:
             # first JSON line is header
             f.write((json.dumps({'header':header}) + '\n').encode('utf-8'))
