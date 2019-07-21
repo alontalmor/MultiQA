@@ -79,7 +79,6 @@ class SpaceTokenizer():
             return True
         return False
 
-
     def tokenize(self, text):
         doc_tokens = []
         start_offsets = []
@@ -97,12 +96,13 @@ class SpaceTokenizer():
         return [Token(t,s) for t,s in zip(doc_tokens,start_offsets)]
 
 
-
 class MultiQAPreProcess:
 
     def __init__(self,n_processes):
         self._n_processes = n_processes
         self._tokenizer = WordTokenizer()
+
+        # We also support a simple space tokenizer, although we observe that WordTokenizer is much better.
         #self._tokenizer = SpaceTokenizer()
 
         self._STRIP_CHARS = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~‘’´`_'
