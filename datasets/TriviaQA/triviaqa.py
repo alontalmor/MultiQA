@@ -38,7 +38,7 @@ class TriviaQA(MultiQA_DataSet):
         return header
 
     @overrides
-    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file):
+    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file, build_properties):
         if not input_file:
             if dataset_flavor == "unfiltered":
                 single_file_path = cached_path("https://nlp.cs.washington.edu/triviaqa/data/triviaqa-unfiltered.tar.gz")
