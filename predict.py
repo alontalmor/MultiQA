@@ -9,6 +9,7 @@ from common.official_eval import evaluate
 import numpy as np
 import os
 import gzip
+from allennlp.tools import squad_eval
 import json
 from allennlp.common.tqdm import Tqdm
 
@@ -41,8 +42,10 @@ if __name__ == "__main__":
 
     # predict
     answers = {}
+    all_scores = {}
     for context in Tqdm.tqdm(contexts, total = len(contexts)):
-        all_predictions.update(predictor.predict_json(context))
+        curr_pred = predictor.predict_json(context)
+        all_predictions.update(curr_pred)
 
         # saving official answers for this context
         for qa in context['qas']:
@@ -61,6 +64,17 @@ if __name__ == "__main__":
 
             elif 'cannot_answer' in qa['answers']['open-ended']:
                 answers[qid] += ['cannot_answer']
+
+            f1_score = squad_eval.metric_max_over_ground_truths(squad_eval.f1_score, all_predictions[qid], answers[qid])
+            EM_score = squad_eval.metric_max_over_ground_truths(squad_eval.exact_match_score, all_predictions[qid], answers[qid])
+            all_scores[qid] = {'EM':EM_score * 100,'f1':f1_score * 100}
+
+    metrics = {}
+    metrics['EM'] = sum([all_scores[q]['EM'] for q in all_scores.keys()]) / \
+                    len(all_scores.keys())
+    metrics['f1'] = sum([all_scores[q]['f1'] for q in all_scores.keys()]) / \
+                    len(all_scores.keys())
+    print(json.dumps(metrics))
 
     # running the official evaluation script:
     metrics = evaluate(answers, all_predictions, True)
