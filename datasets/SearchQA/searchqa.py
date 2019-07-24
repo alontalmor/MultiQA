@@ -16,7 +16,7 @@ class SearchQA(MultiQA_DataSet):
         self.DATASET_NAME = 'SearchQA'
 
     @overrides
-    def build_header(self, contexts, split, preprocessor ):
+    def build_header(self, contexts, split, preprocessor, dataset_version, dataset_flavor):
         header = {
             "dataset_name": self.DATASET_NAME,
             "split": split,
@@ -36,7 +36,7 @@ class SearchQA(MultiQA_DataSet):
         return header
 
     @overrides
-    def build_contexts(self, split, preprocessor, sample_size):
+    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file, build_properties):
         if split == 'train':
             single_file_path = cached_path("https://s3.amazonaws.com/multiqa/raw_datasets/SearchQA/train.zip")
         elif split == 'dev':
