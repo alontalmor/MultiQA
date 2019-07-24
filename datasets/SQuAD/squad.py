@@ -15,7 +15,7 @@ class SQuAD(MultiQA_DataSet):
         self.DATASET_NAME = 'SQuAD'
 
     @overrides
-    def build_header(self, contexts, split, preprocessor , dataset_version, dataset_flavor):
+    def build_header(self, preprocessor, contexts, split, dataset_version, dataset_flavor, dataset_specific_props):
         header = {
             "dataset_name": self.DATASET_NAME,
             "version": dataset_version,
@@ -37,7 +37,7 @@ class SQuAD(MultiQA_DataSet):
         return header
 
     @overrides
-    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file):
+    def build_contexts(self, preprocessor, split, sample_size, dataset_version, dataset_flavor, dataset_specific_props, input_file):
         single_file_path = cached_path("https://raw.githubusercontent.com/rajpurkar/SQuAD-explorer/master/dataset/" + \
                                        split + "-v" + dataset_version +".json")
 

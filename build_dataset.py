@@ -12,21 +12,20 @@ def main():
     parse.add_argument("--dataset_name", type=str, help="use the actual name of the dataset class, case sensitive")
     parse.add_argument("--dataset_flavor", type=str, help="", default=None)
     parse.add_argument("--dataset_version", type=str, help="", default=None)
-    parse.add_argument("--build_properties", type=str, help="", default=None)
+    parse.add_argument("--dataset_specific_props", type=str, help="", default=None , action = 'append')
     parse.add_argument("--split", type=str, help="dev / train / test")
     parse.add_argument("--output_file", type=str, help="")
     parse.add_argument("--header_file", type=str, help="If this file path is provided the header json will be save here.", default=None)
     parse.add_argument("--input_file", type=str, help="", default=None)
     parse.add_argument("--sample_size", type=int, help="", default=None)
-    parse.add_argument("--sample_format", type=bool, help="", default=False)
+    parse.add_argument("--save_in_sample_format", type=bool, help="", default=False)
     parse.add_argument("--n_processes", type=int, help="", default=1)
     args = parse.parse_args()
 
     preprocessor = MultiQAPreProcess(args.n_processes)
     factory = MultiQAFactory()
-    header, contexts = factory.build_dataset(args.dataset_name, args.split, preprocessor, args.sample_size, \
-                                             args.dataset_version, args.dataset_flavor, args.input_file, args.build_properties)
-
+    header, contexts = factory.build_dataset(args.dataset_name, args.split, args.dataset_version, args.dataset_flavor, args.dataset_specific_props, \
+                                             preprocessor, args.sample_size, args.input_file)
     print('------- dataset header --------')
     print(json.dumps({'header': header}, indent=4))
 
@@ -76,7 +75,7 @@ def main():
             # first JSON line is header
             f.write(json.dumps({'header': header}, indent=4) + '\n')
             for instance in contexts:
-                if args.sample_format:
+                if args.save_in_sample_format:
                     s = json.dumps(instance, indent=4)
                     # just making the answer starts in the sample no have a newline for every offset..
                     s = re.sub('\n\s*(\d+)', r'\1', s)
