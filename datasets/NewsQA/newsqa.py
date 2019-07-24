@@ -15,7 +15,7 @@ class NewsQA(MultiQA_DataSet):
         self.DATASET_NAME = 'NewsQA'
 
     @overrides
-    def build_header(self, contexts, split, preprocessor, dataset_version, dataset_flavor):
+    def build_header(self, preprocessor, contexts, split, dataset_version, dataset_flavor, dataset_specific_props):
         header = {
             "dataset_name": self.DATASET_NAME,
             "split": split,
@@ -35,7 +35,7 @@ class NewsQA(MultiQA_DataSet):
         return header
 
     @overrides
-    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file):
+    def build_contexts(self, preprocessor, split, sample_size, dataset_version, dataset_flavor, dataset_specific_props, input_file):
         single_file_path = cached_path("https://s3.amazonaws.com/multiqa/raw_datasets/combined-newsqa-data-v1.json")
 
         with open(single_file_path, 'r') as myfile:

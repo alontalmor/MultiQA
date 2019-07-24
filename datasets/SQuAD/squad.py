@@ -16,6 +16,7 @@ class SQuAD(MultiQA_DataSet):
 
     @overrides
     def build_header(self, preprocessor, contexts, split, dataset_version, dataset_flavor, dataset_specific_props):
+
         header = {
             "dataset_name": self.DATASET_NAME,
             "version": dataset_version,
@@ -29,6 +30,7 @@ class SQuAD(MultiQA_DataSet):
             "full_schema": super().compute_schema(contexts),
             "text_type": "abstract",
             "number_of_qas": sum([len(context['qas']) for context in contexts]),
+            "number_of_qas_with_gold_answers": sum([len(context['qas']) for context in contexts]),
             "number_of_contexts": len(contexts),
             "readme": "",
             "multiqa_version": super().get_multiqa_version()

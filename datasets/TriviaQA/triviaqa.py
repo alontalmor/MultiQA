@@ -16,7 +16,7 @@ class TriviaQA(MultiQA_DataSet):
         self.DATASET_NAME = 'TriviaQA'
 
     @overrides
-    def build_header(self, contexts, split, preprocessor, dataset_version, dataset_flavor):
+    def build_header(self, preprocessor, contexts, split, dataset_version, dataset_flavor, dataset_specific_props):
         header = {
             "dataset_name": self.DATASET_NAME,
             "version": '',
@@ -38,7 +38,7 @@ class TriviaQA(MultiQA_DataSet):
         return header
 
     @overrides
-    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file, build_properties):
+    def build_contexts(self, preprocessor, split, sample_size, dataset_version, dataset_flavor, dataset_specific_props, input_file):
         if not input_file:
             if dataset_flavor == "unfiltered":
                 single_file_path = cached_path("https://nlp.cs.washington.edu/triviaqa/data/triviaqa-unfiltered.tar.gz")

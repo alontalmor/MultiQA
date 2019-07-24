@@ -84,7 +84,7 @@ class HotpotQA(MultiQA_DataSet):
         self.DATASET_NAME = 'HotpotQA'
 
     @overrides
-    def build_header(self, contexts, split, preprocessor, dataset_version, dataset_flavor):
+    def build_header(self, preprocessor, contexts, split, dataset_version, dataset_flavor, dataset_specific_props):
         header = {
             "dataset_name": self.DATASET_NAME,
             "split": split,
@@ -108,7 +108,7 @@ class HotpotQA(MultiQA_DataSet):
         return {"answer": predictions, "sp": {}}
 
     @overrides
-    def build_contexts(self, split, preprocessor, sample_size, dataset_version, dataset_flavor, input_file, build_properties):
+    def build_contexts(self, preprocessor, split, sample_size, dataset_version, dataset_flavor, dataset_specific_props, input_file):
         if input_file is not None:
             single_file_path = cached_path(input_file)
         else:
@@ -133,7 +133,7 @@ class HotpotQA(MultiQA_DataSet):
             #            gold_paragraphs.append(context)
 
             # Arranging paragraphs by TF-IDF
-            if build_properties.find('original_context_order')> -1:
+            if 'original_context_order' in dataset_specific_props:
                 context_order = range(len(example['context']))
             else:
                 tf_idf_scores = _para_tfidf_scoring.score_paragraphs([example['question']], \
@@ -190,7 +190,7 @@ class HotpotQA(MultiQA_DataSet):
         if sample_size != None:
             contexts = contexts[0:sample_size]
 
-        if split == 'train' and build_properties.find('use_all_answers_in_training')== -1:
+        if split == 'train' and 'use_all_answers_in_training' in dataset_specific_props:
             ans_in_supp_context = True
         else:
             ans_in_supp_context = False
