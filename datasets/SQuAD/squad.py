@@ -39,7 +39,7 @@ class SQuAD(MultiQA_DataSet):
     @overrides
     def build_contexts(self, preprocessor, split, sample_size, dataset_version, dataset_flavor, dataset_specific_props, input_file):
         single_file_path = cached_path("https://rajpurkar.github.io/SQuAD-explorer/dataset/" + \
-                                       split + "-v" + dataset_version +".json")
+                                       split + "-v" + dataset_version.replace('-','.') +".json")
 
         with open(single_file_path, 'r') as myfile:
             original_dataset = json.load(myfile)
