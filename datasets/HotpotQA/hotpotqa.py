@@ -190,7 +190,7 @@ class HotpotQA(MultiQA_DataSet):
         if sample_size != None:
             contexts = contexts[0:sample_size]
 
-        if split == 'train' and 'use_all_answers_in_training' in dataset_specific_props:
+        if split == 'train' and 'use_all_answers_in_training' not in dataset_specific_props:
             ans_in_supp_context = True
         else:
             ans_in_supp_context = False
