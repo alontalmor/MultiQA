@@ -1,4 +1,5 @@
 {
+    "random_seed": 0,
     "dataset_reader": {
         "type": "multiqa_reader",
         "is_training": true,
