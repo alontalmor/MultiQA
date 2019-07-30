@@ -6,14 +6,12 @@ All datasets are in a single format, and it is accompanied by
 an AllenNLP `DatasetReader` and model that enable easy training and evaluation
 on multiple subsets of datasets.
 
+This repository contains code for our paper [MultiQA: An Empirical Investigation of Generalization and Transfer in Reading Comprehension](https://arxiv.org/abs/1905.13453).
 
-// As part of the paper - put link
+This work was performed at AllenAI institute of Artificial Intelligence.   
 
-// Done at AI2?  
+This project is constantly being improved, contributions, comments and suggestions are welcome!
 
-//// This project is constantly being improved, contributions and comments and suggestions are welcome!
-
- 
 
 ## Datasets
 
@@ -29,6 +27,7 @@ The MultiQA (BERT-Base) column contain the link to the model (in the header) and
 | TriviaQA-unfiltered | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_unfiltered_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_unfiltered_dev.jsonl.gz) | 59.4 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models_new/BERTBase/TriviaQA_unfiltered.tar.gz) | 59.0 / 64.7 |
 | SearchQA | [data](https://multiqa.s3.amazonaws.com/data/SearchQA_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/SearchQA_dev.jsonl.gz) | 58.7 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models_new/BERTBase/SearchQA.tar.gz) | 58.8 / 65.3 |
 
+Datasets will be addeed weekly, so stay tuned!
  
  
 ## Setup
