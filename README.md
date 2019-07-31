@@ -26,8 +26,9 @@ The MultiQA (BERT-Base) column contain the link to the model (in the header) and
 | HotpotQA | [data](https://multiqa.s3.amazonaws.com/data/HotpotQA_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/HotpotQA_dev.jsonl.gz) | 50.1 / 63.2 [(model)](https://multiqa.s3.amazonaws.com/models_new/BERTBase/HotpotQA.tar.gz) | - |
 | TriviaQA-unfiltered | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_unfiltered_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_unfiltered_dev.jsonl.gz) | 59.4 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models_new/BERTBase/TriviaQA_unfiltered.tar.gz) | 59.0 / 64.7 |
 | SearchQA | [data](https://multiqa.s3.amazonaws.com/data/SearchQA_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/SearchQA_dev.jsonl.gz) | 58.7 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models_new/BERTBase/SearchQA.tar.gz) | 58.8 / 65.3 |
+| NaturalQuestions | Comming soon | Comming soon | Comming soon | Comming soon |
 
-Datasets will be addeed weekly, so stay tuned!
+Datasets will be addeed weekly, so please stay tuned!
  
  
 ## Setup
