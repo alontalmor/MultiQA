@@ -17,9 +17,9 @@ This project is constantly being improved, contributions, comments and suggestio
 
 Link to the single format dataset are provided in the Train, Dev and Test columns.
 The BERT-Base column contains evaluation results (EM/F1) as well as a link to the trained model. 
-The MultiQA (BERT-Base) column contain the link to the model (in the header) and evalution results for this model. 
+The MultiQA-5Base column contain the link to the model (in the header) and evalution results for this model. This model is BERT-Base that has been trained on 5 datasets. 
 
-| Dataset | Train | Dev | BERT-Base | MultiQA BERT-Base [(model)](https://multiqa.s3.amazonaws.com/models_new/BERTBase/SQuAD1-1_HotpotQA_NewsQA_TriviaQA_unfiltered_SearchQA__full.tar.gz)|
+| Dataset | Train | Dev | BERT-Base | MultiQA-5Base [(model)](https://multiqa.s3.amazonaws.com/models_new/BERTBase/SQuAD1-1_HotpotQA_NewsQA_TriviaQA_unfiltered_SearchQA__full.tar.gz)|
 | :----- | :-----:|  :------------------: | :------------------: |  :------------------: |
 | SQuAD-1.1 | [data](https://multiqa.s3.amazonaws.com/data/SQuAD1-1_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/SQuAD1-1_dev.jsonl.gz) | 80.1 / 87.5 [(model)](https://multiqa.s3.amazonaws.com/models_new/BERTBase/SQuAD1-1.tar.gz) | 81.7 / 88.8 |
 | NewsQA | [data](https://multiqa.s3.amazonaws.com/data/NewsQA_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/NewsQA_dev.jsonl.gz) | 47.5 / 62.9 [(model)](https://multiqa.s3.amazonaws.com/models_new/BERTBase/NewsQA.tar.gz) | 48.3 / 64.7 |
@@ -75,7 +75,7 @@ The allennlp caching infra is used, so be sure to have enough disk space, and co
   `python build_dataset.py --dataset_name HotpotQA --split train --output_file path/to/output.jsonl.gz --n_processes 10`
 
 
-## Predict
+## Predict 
 
 first argument is the allennlp model, second is the preprocessed evalutaion file ( path/to/output.jsonl.gz in preprocess), then the dataset name (in order to create the official predictions format) 
 
@@ -90,6 +90,13 @@ first argument is the allennlp model, second is the preprocessed evalutaion file
  
 ## Multiqa Data Format
 see Readme in the datasets folder.
+
+## Training using AlleNLP
+see Readme in the models folder.
+
+## Other
+
+Allennlp caching infra is used, so make sure to have enough disk space, and control the cache directory using `ALLENNLP_CACHE_ROOT` env variable.
 
 
 

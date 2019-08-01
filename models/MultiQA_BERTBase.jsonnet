@@ -1,10 +1,13 @@
 {
     "random_seed": 0,
     "dataset_reader": {
+        "MAX_WORDPIECES": 384,
         "type": "multiqa_reader",
         "is_training": true,
         "lazy": true,
         "sample_size": -1,
+        "support_yesno":false,
+        "support_cannotanswer":false,
         "token_indexers": {
             "bert": {
                   "type": "bert-pretrained",
@@ -15,6 +18,9 @@
         }
     },
     "validation_dataset_reader": {
+        "MAX_WORDPIECES": 384,
+        "support_yesno":false,
+        "support_cannotanswer":false,
         "type": "multiqa_reader",
         "lazy": true,
         "sample_size": -1,
@@ -29,8 +35,8 @@
     },
     "iterator": {
         "type": "basic",
-        "batch_size": 6,
-        "max_instances_in_memory": 1000
+        "batch_size": 8,
+        "max_instances_in_memory": 5000
     },
     "model": {
         "type": "multiqa_bert",
@@ -65,7 +71,9 @@
     },
     "validation_iterator": {
         "type": "basic",
-        "batch_size": 6
+        "batch_size": 6,
+        "sample_size": -1,
+        "max_instances_in_memory": 5000
     }
 }
 
