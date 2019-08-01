@@ -4,7 +4,6 @@ from allennlp.models.archival import load_archive
 from allennlp.predictors import Predictor
 from allennlp.common.file_utils import cached_path
 from  datasets.multiqa_factory import MultiQAFactory
-from common.official_eval import read_answers
 from common.official_eval import evaluate
 import numpy as np
 import os
@@ -15,9 +14,9 @@ from allennlp.common.tqdm import Tqdm
 
 if __name__ == "__main__":
     parse = argparse.ArgumentParser("")
-    parse.add_argument("model")
-    parse.add_argument("multiqa_dataset")
-    parse.add_argument("dataset_name")
+    parse.add_argument("--model")
+    parse.add_argument("--dataset")
+    parse.add_argument("--dataset_name")
     parse.add_argument("--prediction_filepath", type=str, default=None)
     parse.add_argument("--cuda_device", type=int, default=-1)
     parse.add_argument("--sample_size", type=int, default=-1)
@@ -28,7 +27,7 @@ if __name__ == "__main__":
     predictor = Predictor.from_archive(archive, 'multiqa_predictor')
     all_predictions = {}
     contexts = []
-    single_file_path_cached = cached_path(args.multiqa_dataset)
+    single_file_path_cached = cached_path(args.dataset)
     with gzip.open(single_file_path_cached, 'rb') as myzip:
         for example in myzip:
             context = json.loads(example)
@@ -85,7 +84,7 @@ if __name__ == "__main__":
         if not os.path.exists('results/' + args.dataset_name):
             os.makedirs('results/' + args.dataset_name)
         output_filepath = 'results/' + args.dataset_name + '/' + '_'.join(args.model.split('/')[-2:]).split('.')[0] + '__on__' + \
-                               args.multiqa_dataset.split('/')[-1].split('.')[0]
+                               args.dataset.split('/')[-1].split('.')[0]
     else:
         output_filepath = args.output_filepath
 
