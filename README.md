@@ -79,18 +79,14 @@ The allennlp caching infra is used, so be sure to have enough disk space, and co
 
 first argument is the allennlp model, second is the preprocessed evalutaion file ( path/to/output.jsonl.gz in preprocess), then the dataset name (in order to create the official predictions format)
 
- `python predict.py https://multiqa.s3.amazonaws.com/models_new/BERTBase/SQuAD1-1.tar.gz  https://multiqa.s3.amazonaws.com/data/SQuAD1-1_dev.jsonl.gz SQuAD`
+ `python predict.py --model https://multiqa.s3.amazonaws.com/models_new/BERTBase/SQuAD1-1.tar.gz  --dataset https://multiqa.s3.amazonaws.com/data/SQuAD1-1_dev.jsonl.gz --dataset_name SQuAD`
  
  To predict only a the first N examples use `--sample_size N`
  
  To add a GPU device simply append: `--cuda_device 0`
  
- You may also change the output filename and path using `--prediction_filepath path/to/my/output`
+ By default the output will be saved at results/DATASET_NAME/...  You may also change the output filename and path using `--prediction_filepath path/to/my/output`
  
- ###  Official Evaluation script 
- An example of running the HotpotQA official evaluation script 
- 
- `python datasets/HotpotQA/eval_script.py datasets/HotpotQA/BERTbase_HotpotQA__on__HotpotQA_dev.json datasets/HotpotQA/hotpot_dev_distractor_v1.json`
  
 ## Multiqa Data Format
 see Readme in the datasets folder.
