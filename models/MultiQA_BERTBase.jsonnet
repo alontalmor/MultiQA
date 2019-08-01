@@ -72,7 +72,6 @@
     "validation_iterator": {
         "type": "basic",
         "batch_size": 6,
-        "sample_size": -1,
         "max_instances_in_memory": 5000
     }
 }
