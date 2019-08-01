@@ -89,10 +89,10 @@ first argument is the allennlp model, second is the preprocessed evalutaion file
  
  
 ## Multiqa Data Format
-see Readme in the datasets folder.
+see [Readme](https://github.com/alontalmor/multiqa/blob/master/datasets/README.md) in the datasets folder.
 
 ## Training using AlleNLP
-see Readme in the models folder.
+see [Readme](https://github.com/alontalmor/multiqa/blob/master/models/README.md) in the models folder.
 
 ## Other
 
