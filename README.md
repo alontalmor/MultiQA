@@ -50,7 +50,7 @@ Datasets will be addeed weekly, so please stay tuned!
 3.  Create a virtual environment with Python 3.6 or above:
 
     ```
-    virtualenv venv --python=python3.7
+    virtualenv venv --python=python3.7 (or python3.7 -m venv venv)
     ```
 
 4.  Activate the virtual environment. You will need to activate the venv environment in each terminal in which you want to use WebAsKB.

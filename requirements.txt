@@ -1,3 +1,6 @@
-allennlp==0.8.3
+allennlp
+
+# used to download the wikihop dataset
 googledrivedownloader
-ujson
+
+
