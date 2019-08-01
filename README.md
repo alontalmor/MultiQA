@@ -68,9 +68,9 @@ Datasets will be addeed weekly, so please stay tuned!
 
 The allennlp caching infra is used, so be sure to have enough disk space, and control the cache directory using ALLENNLP_CACHE_ROOT env variable.
 
-## Preprocess
+## Build Dataset
     
-   before you run: 
+   This will take a dataset from it's original URL and output the same dataset in the MultiQA format.  
    
   `python build_dataset.py --dataset_name HotpotQA --split train --output_file path/to/output.jsonl.gz --n_processes 10`
 
