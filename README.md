@@ -79,7 +79,9 @@ The allennlp caching infra is used, so be sure to have enough disk space, and co
 
 first argument is the allennlp model, second is the preprocessed evalutaion file ( path/to/output.jsonl.gz in preprocess), then the dataset name (in order to create the official predictions format)
 
- `python predict.py https://multiqa.s3.amazonaws.com/models_new/BERTbase/HotpotQA.tar.gz https://multiqa.s3.amazonaws.com/data/HotpotQA_dev.jsonl.gz HotpotQA`
+ `python predict.py https://multiqa.s3.amazonaws.com/models_new/BERTBase/SQuAD1-1.tar.gz  https://multiqa.s3.amazonaws.com/data/SQuAD1-1_dev.jsonl.gz SQuAD`
+ 
+ To predict only a the first N examples use `--sample_size N`
  
  To add a GPU device simply append: `--cuda_device 0`
  
