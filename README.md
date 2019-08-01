@@ -72,7 +72,7 @@ The allennlp caching infra is used, so be sure to have enough disk space, and co
     
    before you run: 
    
-  `python build_dataset.py HotpotQA dev path/to/output.jsonl.gz --n_processes 10`
+  `python build_dataset.py --dataset_name HotpotQA --split train --output_file path/to/output.jsonl.gz --n_processes 10`
 
 
 ## Predict
