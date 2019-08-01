@@ -77,7 +77,7 @@ The allennlp caching infra is used, so be sure to have enough disk space, and co
 
 ## Predict
 
-first argument is the allennlp model, second is the preprocessed evalutaion file ( path/to/output.jsonl.gz in preprocess), then the dataset name (in order to create the official predictions format)
+first argument is the allennlp model, second is the preprocessed evalutaion file ( path/to/output.jsonl.gz in preprocess), then the dataset name (in order to create the official predictions format) 
 
  `python predict.py --model https://multiqa.s3.amazonaws.com/models_new/BERTBase/SQuAD1-1.tar.gz  --dataset https://multiqa.s3.amazonaws.com/data/SQuAD1-1_dev.jsonl.gz --dataset_name SQuAD`
  
