@@ -4,8 +4,10 @@ from overrides import overrides
 from allennlp.common.file_utils import cached_path
 from common.uuid import gen_uuid
 import tqdm
+import os
 import tarfile
-
+import logging
+logger = logging.getLogger(__name__)
 
 class TriviaQA(MultiQA_DataSet):
     """
@@ -39,25 +41,49 @@ class TriviaQA(MultiQA_DataSet):
 
     @overrides
     def build_contexts(self, preprocessor, split, sample_size, dataset_version, dataset_flavor, dataset_specific_props, input_file):
+
+        if dataset_flavor == "unfiltered":
+            data_path = "data/triviaqa-unfiltered"
+        else:
+            data_path = "data/triviaqa-rc"
+        evidence_path = "data/triviaqa-rc/evidence"
+        dataset_url = "https://nlp.cs.washington.edu/triviaqa/" + data_path + ".tar.gz"
+
+        logger.info('Getting the dataset from cache, this may take some time first time the dataset needs to be downloaded')
         if not input_file:
-            if dataset_flavor == "unfiltered":
-                single_file_path = cached_path("https://nlp.cs.washington.edu/triviaqa/data/triviaqa-unfiltered.tar.gz")
-            else:
+            # Checking if the data is already extracted to the data directory
+            if not os.path.exists(data_path):
+                single_file_path = cached_path(dataset_url)
+                dataset_tar = tarfile.open(single_file_path, "r:gz")
+                dataset_tar.extractall(path=data_path)
+                dataset_tar.close()
+
+            if not os.path.exists(evidence_path):
                 single_file_path = cached_path("https://nlp.cs.washington.edu/triviaqa/data/triviaqa-rc.tar.gz")
+                dataset_tar = tarfile.open(single_file_path, "r:gz")
+                dataset_tar.extractall(path="data/triviaqa-rc")
+                dataset_tar.close()
         else:
             single_file_path = cached_path(input_file)
 
-        tar = tarfile.open(single_file_path, "r:gz")
-        for member in tar.getmembers():
-            if member.name.find(dataset_flavor) > -1 and member.name.find(split) > -1:
-                f = tar.extractfile(member)
-                if f is not None:
-                    examples = json.load(f)['Data']
-                break
+        logger.info('Getting the data file from the dataset tar, this may also take some time...')
 
+        if dataset_flavor == "unfiltered":
+            with open(data_path + '/triviaqa-unfiltered/unfiltered-web-' + split + '.json') as f:
+                examples = json.load(f)['Data']
+        elif dataset_flavor == "wiki":
+            with open(data_path + '/qa/wikipedia-' + split + '.json') as f:
+                examples = json.load(f)['Data']
+        elif dataset_flavor == "web":
+            with open(data_path + '/qa/web-' + split + '.json') as f:
+                examples = json.load(f)['Data']
+        else:
+            logger.error('The dataset_flavor ' + dataset_flavor + ' is not supported, please use unfiltered,wiki,web')
+            return []
+
+        logger.info('Iterating over the examples')
         contexts = []
         for example in tqdm.tqdm(examples, total=len(examples), ncols=80):
-
 
             qas = []
             new_qa = {'qid':self.DATASET_NAME + '_q_' + str(example['QuestionId']),
@@ -72,8 +98,26 @@ class TriviaQA(MultiQA_DataSet):
             qas.append(new_qa)
 
             documents = []
-            for search_res in example['SearchResults']:
-                documents.append({'title': search_res['Title'],'text': search_res['Description'],'url':search_res['Url']})
+
+            # SearchResults
+            if 'SearchResults' in example:
+                for search_res in example['SearchResults']:
+                    document = {'rank': search_res['Rank'], 'title': search_res['Title'], \
+                                'url':search_res['Url'],'snippet': search_res['Description']}
+                    if 'Filename' in search_res:
+                        with open(evidence_path + '/web/' + search_res['Filename']) as f:
+                            text = f.read()
+                        document.update({'text': text })
+                    documents.append(document)
+
+            # EntityPages
+            for res in example['EntityPages']:
+                if 'Filename' in res:
+                    with open(evidence_path + '/wikipedia/' + res['Filename']) as f:
+                        text = f.read()
+                    documents.append({'title': res['Title'], \
+                                  'text': text})
+
 
             contexts.append({"id": self.DATASET_NAME + '_'  + str(example['QuestionId']),
                              "context": {"documents": documents},

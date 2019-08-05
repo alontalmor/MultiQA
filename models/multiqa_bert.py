@@ -129,6 +129,7 @@ class MultiQA_BERT(Model):
         # Compute F1 and preparing the output dictionary.
         output_dict['best_span_str'] = []
         output_dict['best_span_logit'] = []
+        output_dict['cannot_answer_logit'] = []
         output_dict['yesno'] = []
         output_dict['yesno_logit'] = []
         output_dict['qid'] = []
@@ -143,6 +144,8 @@ class MultiQA_BERT(Model):
         for instance_ind, instance_metadata in zip(range(batch_size), metadata):
             best_span_logit = span_start_logits.data.cpu().numpy()[instance_ind, best_span_cpu[instance_ind][0]] + \
                               span_end_logits.data.cpu().numpy()[instance_ind, best_span_cpu[instance_ind][1]]
+            cannot_answer_logit = span_start_logits.data.cpu().numpy()[instance_ind, 0] + \
+                              span_end_logits.data.cpu().numpy()[instance_ind, 0]
 
             if self.vocab.get_vocab_size("yesno_labels") > 1:
                 yesno_maxind = np.argmax(yesno_logits[instance_ind].data.cpu().numpy())
@@ -160,7 +163,7 @@ class MultiQA_BERT(Model):
             if yesno_pred != 'no_yesno':
                 best_span_string = yesno_pred
             else:
-                if predicted_span[0] == 0 and predicted_span[1] == 0:
+                if cannot_answer_logit + 0.9 > best_span_logit :
                     best_span_string = 'cannot_answer'
                 else:
                     wordpiece_offsets = self.bert_offsets_to_wordpiece_offsets(bert_offsets[instance_ind][0:len(offsets)])
@@ -171,6 +174,7 @@ class MultiQA_BERT(Model):
                     best_span_string = passage_str[start_offset:end_offset]
 
             output_dict['best_span_str'].append(best_span_string)
+            output_dict['cannot_answer_logit'].append(cannot_answer_logit)
             output_dict['best_span_logit'].append(best_span_logit)
             output_dict['yesno'].append(yesno_pred)
             output_dict['yesno_logit'].append(yesno_logit)
@@ -220,7 +224,8 @@ class MultiQA_BERT(Model):
         span_start_logits = span_start_logits.data.cpu().numpy()
         span_end_logits = span_end_logits.data.cpu().numpy()
         for b_i in range(batch_size):  # pylint: disable=invalid-name
-            for j in range(passage_length):
+            # Ignoring the first index that is reserved for [CLS] (cannot_answer) in BERT
+            for j in range(1,passage_length):
                 val1 = span_start_logits[b_i, span_start_argmax[b_i]]
                 if val1 < span_start_logits[b_i, j]:
                     span_start_argmax[b_i] = j

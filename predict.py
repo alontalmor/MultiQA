@@ -26,6 +26,7 @@ if __name__ == "__main__":
     archive = load_archive(file_path, cuda_device=args.cuda_device)
     predictor = Predictor.from_archive(archive, 'multiqa_predictor')
     all_predictions = {}
+    all_full_predictions = []
     contexts = []
     single_file_path_cached = cached_path(args.dataset)
     with gzip.open(single_file_path_cached, 'rb') as myzip:
@@ -43,8 +44,9 @@ if __name__ == "__main__":
     answers = {}
     all_scores = {}
     for context in Tqdm.tqdm(contexts, total = len(contexts)):
-        curr_pred = predictor.predict_json(context)
+        curr_pred, full_predictions = predictor.predict_json(context)
         all_predictions.update(curr_pred)
+        all_full_predictions += full_predictions
 
         # saving official answers for this context
         for qa in context['qas']:
@@ -97,6 +99,8 @@ if __name__ == "__main__":
     # saving predictions
     with open(output_filepath + '_predictions.json', 'w') as f:
         json.dump(all_predictions, f)
+    with open(output_filepath + '_fullpredictions.json', 'w') as f:
+        json.dump(all_full_predictions, f)
 
     # storing results
     with open(output_filepath + '_eval_results.json', 'w') as f:

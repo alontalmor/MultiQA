@@ -9,6 +9,9 @@ __pycache__/
 # pychamr
 .idea/
 
+# all data files
+data/
+
 # Distribution / packaging
 .Python
 build/

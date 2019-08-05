@@ -7,6 +7,10 @@ import gzip
 import shutil
 from  datasets.multiqa_factory import MultiQAFactory
 from common.preprocess import MultiQAPreProcess
+import logging
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
+                    level=logging.INFO)
+
 def main():
     parse = argparse.ArgumentParser("")
     parse.add_argument("--dataset_name", type=str, help="use the actual name of the dataset class, case sensitive")

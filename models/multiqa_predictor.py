@@ -13,6 +13,7 @@ class MultiQAPredictor(Predictor):
         self._dataset_reader._is_training = False
 
         predictions = []
+        full_predictions = []
         for question_chunks in self._dataset_reader.make_chunks(example, {'dataset_name':''}):
             question_instances = []
             for instance in self._dataset_reader.gen_question_instances(question_chunks):
@@ -20,6 +21,7 @@ class MultiQAPredictor(Predictor):
 
             if len(question_instances) > 0:
                 question_predictions = self.predict_batch_instance(question_instances)
+                full_predictions += question_predictions
 
                 max_logit = -1000
                 final_question_pred = {}
@@ -40,4 +42,4 @@ class MultiQAPredictor(Predictor):
                 predictions.append({'qid':qid ,'best_span_str':''})
 
         formated_predictions = {pred['qid']:pred['best_span_str'] for pred in predictions}
-        return formated_predictions
+        return formated_predictions, full_predictions

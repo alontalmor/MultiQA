@@ -39,7 +39,8 @@ Each context contains a LIST of one or more documents with different possible ty
 ```json
 "document" : {
     "title": "the document title",
-    "text":" abstract / web-snippet/ paragraph / full_html",
+    "text": "abstract / paragraph / full_html",
+    "snippet": "search engine snippet for this document",
     "source_url":"http:// ... ",
     "metadata": {},
     "tokens": {}

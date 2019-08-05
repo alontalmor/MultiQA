@@ -1,4 +1,8 @@
 
+
+
+ # pylint: disable=invalid-name
+
 class MultiQA_DataSet():
     """
        A ``DatasetReader`` knows how to turn a file containing a dataset into a collection
