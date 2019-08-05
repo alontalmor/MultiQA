@@ -11,7 +11,7 @@
         "token_indexers": {
             "bert": {
                   "type": "bert-pretrained",
-                  "pretrained_model": "bert-base-uncased",
+                  "pretrained_model": "bert-large-uncased",
                   "do_lowercase": true,
                   "use_starting_offsets": true
               }
@@ -27,7 +27,7 @@
         "token_indexers": {
             "bert": {
                   "type": "bert-pretrained",
-                  "pretrained_model": "bert-base-uncased",
+                  "pretrained_model": "bert-large-uncased",
                   "do_lowercase": true,
                   "use_starting_offsets": true
               }
@@ -35,8 +35,8 @@
     },
     "iterator": {
         "type": "basic",
-        "batch_size": 8,
-        "max_instances_in_memory": 5000
+        "batch_size": 2,
+        "max_instances_in_memory": 1000
     },
     "model": {
         "type": "multiqa_bert",
@@ -49,7 +49,7 @@
             "token_embedders": {
                 "bert": {
                     "type": "bert-pretrained",
-                    "pretrained_model": "bert-base-uncased",
+                    "pretrained_model": "bert-large-uncased",
                     "requires_grad":true
                 }
             }
@@ -71,8 +71,7 @@
     },
     "validation_iterator": {
         "type": "basic",
-        "batch_size": 6,
-        "max_instances_in_memory": 5000
+        "batch_size": 30
     }
 }
 
