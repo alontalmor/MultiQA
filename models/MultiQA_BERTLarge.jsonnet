@@ -71,7 +71,7 @@
     },
     "validation_iterator": {
         "type": "basic",
-        "batch_size": 30
+        "batch_size": 20
     }
 }
 
