@@ -49,24 +49,27 @@ class TriviaQA(MultiQA_DataSet):
         evidence_path = "data/triviaqa-rc/evidence"
         dataset_url = "https://nlp.cs.washington.edu/triviaqa/" + data_path + ".tar.gz"
 
-        logger.info('Getting the dataset from cache, this may take some time first time the dataset needs to be downloaded')
         if not input_file:
             # Checking if the data is already extracted to the data directory
             if not os.path.exists(data_path):
+                logger.info('Getting the dataset from cache, this may take some time first time the dataset needs to be downloaded')
                 single_file_path = cached_path(dataset_url)
+                logger.info('Getting the data file from the dataset tar, this may also take some time...')
                 dataset_tar = tarfile.open(single_file_path, "r:gz")
                 dataset_tar.extractall(path=data_path)
                 dataset_tar.close()
 
             if not os.path.exists(evidence_path):
+                logger.info('Getting the dataset from cache, this may take some time first time the dataset needs to be downloaded')
                 single_file_path = cached_path("https://nlp.cs.washington.edu/triviaqa/data/triviaqa-rc.tar.gz")
+                logger.info('Getting the data file from the dataset tar, this may also take some time...')
                 dataset_tar = tarfile.open(single_file_path, "r:gz")
                 dataset_tar.extractall(path="data/triviaqa-rc")
                 dataset_tar.close()
         else:
             single_file_path = cached_path(input_file)
 
-        logger.info('Getting the data file from the dataset tar, this may also take some time...')
+
 
         if dataset_flavor == "unfiltered":
             with open(data_path + '/triviaqa-unfiltered/unfiltered-web-' + split + '.json') as f:

@@ -20,7 +20,11 @@ class MultiQAPredictor(Predictor):
                 question_instances.append(instance)
 
             if len(question_instances) > 0:
-                question_predictions = self.predict_batch_instance(question_instances)
+                question_predictions = []
+                # TODO we need the max batch size 20 to be a param
+                for offset in range(0, len(question_instances), 20):
+                    question_predictions += self.predict_batch_instance(question_instances[offset: \
+                                                                    min(offset+20, len(question_instances))])
                 full_predictions += question_predictions
 
                 max_logit = -1000
