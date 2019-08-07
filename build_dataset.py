@@ -16,7 +16,7 @@ def main():
     parse.add_argument("--dataset_name", type=str, help="use the actual name of the dataset class, case sensitive")
     parse.add_argument("--dataset_flavor", type=str, help="", default=None)
     parse.add_argument("--dataset_version", type=str, help="", default=None)
-    parse.add_argument("--dataset_specific_props", type=str, help="", default=None , action = 'append')
+    parse.add_argument("--dataset_specific_props", type=str, help="", default='' , action = 'append')
     parse.add_argument("--split", type=str, help="dev / train / test")
     parse.add_argument("--output_file", type=str, help="")
     parse.add_argument("--header_file", type=str, help="If this file path is provided the header json will be save here.", default=None)
