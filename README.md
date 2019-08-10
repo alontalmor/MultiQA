@@ -37,7 +37,20 @@ The MultiQA-5Base column contain the link to the model (in the header) and evalu
 | Natural Questions | Coming soon | Coming soon | Coming soon | Coming soon | Coming soon |  
 
 Datasets will be addeed weekly, so please stay tuned!
+
+### multiqa commands
+
+In order to simply train BERT on multiple datasets please use:
+```
+python multiqa.py train --datasets SQuAD1-1,NewsQA,SearchQA --cuda_device 0,1,2,3
+```
+By default the output will be stored in models/datatset1_dataset2_... to change this please change  `--serialization_dir`
+
+Type `python multiqa.py` for additional options.
+
+Note, this version uses the default multiqa format datasets stored in s3, to use your own dataset please see [Readme](https://github.com/alontalmor/multiqa/blob/master/models/README.md) for using allennlp core commands.
  
+
  
 ## Setup
 
@@ -58,19 +71,20 @@ Datasets will be addeed weekly, so please stay tuned!
 3.  Create a virtual environment with Python 3.6 or above:
 
     ```
-    virtualenv venv --python=python3.7 (or python3.7 -m venv venv)
+    virtualenv venv --python=python3.7 (or python3.7 -m venv venv or conda create -n multiqa python=3.7)
     ```
 
 4.  Activate the virtual environment. You will need to activate the venv environment in each terminal in which you want to use WebAsKB.
 
     ```
-    source venv/bin/activate (or source venv/bin/activate.csh)
+    source venv/bin/activate (or source venv/bin/activate.csh or conda activate multiqa)
     ```
 5.  Install the required dependencies:
 
     ```
-    pip3 install -r requirements.txt
+    pip install -r requirements.txt
     ```
+
 
 ### Data
 
