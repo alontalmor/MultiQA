@@ -12,6 +12,7 @@ __pycache__/
 # all data files
 data/
 results/
+models/
 
 # Distribution / packaging
 .Python

@@ -5,7 +5,7 @@ import boto3
 import re
 import gzip
 import shutil
-from  datasets.multiqa_factory import MultiQAFactory
+from datasets.multiqa_factory import MultiQAFactory
 from common.preprocess import MultiQAPreProcess
 import logging
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
