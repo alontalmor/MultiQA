@@ -29,12 +29,14 @@ def main():
     parse.add_argument("--bert_type", type=str, help="Base / Large /", default="Base")
     parse.add_argument("--config", type=str, help="dev / test", default=None)
     parse.add_argument("--output_path", type=str, help="directory to which results JSONs of eval will written", default='results/eval/')
+    parse.add_argument("--models_dir", type=str, help="directory containing the models used for eval , (please add '/' at the end)", default=None)
+    parse.add_argument("--data_dir", type=str, help="directory containing the multiqa format datasets , (please add '/' at the end and make sure to have a headers directory with all headers under your specified path)", default='https://multiqa.s3.amazonaws.com/data/')
     parse.add_argument("--t_total", type=str, help="used for training, see BERT's learning rate schedule for details", default=None)
     args = parse.parse_args()
 
     import_submodules("models")
 
-    # TODO add best config for specific datasets
+    # TODO add best config for specific datasets as default, not one general default...
     if args.config is None:
         config = 'models/MultiQA_BERT' + args.bert_type + '.jsonnet'
     else:
@@ -43,14 +45,14 @@ def main():
 
     if args.command == 'train':
         # building the default dataset urls
-        train_datasets = ['https://multiqa.s3.amazonaws.com/data/' + dataset + '_train.jsonl.gz' for dataset in args.datasets.split(',')]
-        val_datasets = ['https://multiqa.s3.amazonaws.com/data/' + dataset + '_' + args.split + '.jsonl.gz' for dataset in args.datasets.split(',')]
+        train_datasets = [args.data_dir + dataset + '_train.jsonl.gz' for dataset in args.datasets.split(',')]
+        val_datasets = [args.data_dir + dataset + '_' + args.split + '.jsonl.gz' for dataset in args.datasets.split(',')]
 
         # calculating the t_total
         if args.t_total == None:
             logging.info('getting headers of the chosen dataset in order to compute learning rate schedule t_total')
             total_number_of_examples = 0
-            for header_url in ['https://multiqa.s3.amazonaws.com/data/headers/' + dataset + '_train.json' for dataset in
+            for header_url in [args.data_dir + 'headers/' + dataset + '_train.json' for dataset in
                               args.datasets.split(',')]:
                 with open(cached_path(header_url),'r') as f:
                     header = json.load(f)
@@ -77,9 +79,12 @@ def main():
         train_model_from_file(config, serialization_dir, overrides_str, True, False, True, "", "")
     elif args.command == 'evaluate':
 
-        #if args.model is None:
-        model_cached_path = cached_path('https://multiqa.s3.amazonaws.com/models_new/BERT' + \
-                                 args.bert_type + '/' + args.model + '.tar.gz')
+        if args.models_dir is None:
+            model_path = 'https://multiqa.s3.amazonaws.com/models/BERT' + args.bert_type + '/' + args.model + '.tar.gz'
+        else:
+            model_path = args.models_dir + args.model + '.tar.gz'
+        model_cached_path = cached_path(model_path)
+
 
         overrides_str = ''
         # Load from archive
@@ -94,7 +99,7 @@ def main():
 
         # running over all validation datasets specified
         val_dataset_names = args.datasets.split(',')
-        val_datasets = ['https://multiqa.s3.amazonaws.com/data/' + dataset + '_' + args.split + '.jsonl.gz' for dataset in val_dataset_names]
+        val_datasets = [args.data_dir + dataset + '_' + args.split + '.jsonl.gz' for dataset in val_dataset_names]
 
         for val_dataset_path,val_dataset_name in zip(val_datasets,val_dataset_names):
             # This is a bit strange but there is a lot of config "popping" going on implicitly in allennlp
