@@ -2,7 +2,6 @@ import json
 from datasets.multiqa_dataset import MultiQA_DataSet
 from overrides import overrides
 from allennlp.common.file_utils import cached_path
-from common.uuid import gen_uuid
 import tqdm
 
 

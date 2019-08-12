@@ -28,7 +28,9 @@ After the header, each line in the MultiQA format contains one context + questio
 
 ```json
 "id": "HotpotQA_5a85ea095542994775f606a8",
-"context":["document1","document2","document3"],
+"context": {
+  "documents":["document1","document2","document3"],
+},
 "qas":["question1","question2"], 
 ```
 
@@ -37,14 +39,16 @@ After the header, each line in the MultiQA format contains one context + questio
 Each context contains a LIST of one or more documents with different possible types of text. A document `title` if such exists, a `text` for various types of internal document texts such abstract (e.g. HotpotQA), partial or full body text (e.g. TriviaQA) or full html (e.g. NaturalQuestions). And finally the `source_url` of the document. 
 
 ```json
-"document" : {
-    "title": "the document title",
-    "text": "abstract / paragraph / full_html",
-    "snippet": "search engine snippet for this document",
-    "source_url":"http:// ... ",
-    "metadata": {},
-    "tokens": {}
-}
+"documents":[
+    {
+        "title": "the document title",
+        "text": "abstract / paragraph / full_html",
+        "snippet": "search engine snippet for this document",
+        "source_url":"http:// ... ",
+        "metadata": {},
+        "tokens": {}
+    }
+]
 ```
 
 Each document may also contain a metadata field for datasets with annotated field on the context. Such as `sentence_start_bytes`  that serparating the `text` field into sentences for supporting context in datasets such as HotpotQA.
