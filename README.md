@@ -16,6 +16,7 @@ This project is constantly being improved. Contributions, comments and suggestio
 
 | Date | Message
 | :----- | :-----:
+| Aug 12, 2019 | multiqa.py added enabling easy multiple dataset training and evaluation. 
 | Aug 07, 2019 | TriviaQA-Wikipedia BERT-Base Model is now available, improved results will be soon to follow. 
 | Aug 03, 2019 | BERT-Large Models are now available! 
 
@@ -43,6 +44,7 @@ Datasets will be addeed weekly, so please stay tuned!
 In order to simply train BERT on multiple datasets please use:
 ```
 python multiqa.py train --datasets SQuAD1-1,NewsQA,SearchQA --cuda_device 0,1,2,3
+python multiqa.py evaluate --model SQuAD1-1 --datasets SQuAD1-1,NewsQA,SearchQA --cuda_device 0
 ```
 By default the output will be stored in models/datatset1_dataset2_... to change this please change  `--serialization_dir`
 
