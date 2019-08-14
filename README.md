@@ -16,6 +16,7 @@ This project is constantly being improved. Contributions, comments and suggestio
 
 | Date | Message
 | :----- | :-----:
+| Aug 14, 2019 | BoolQ and ComplexWebQuestions data added. 
 | Aug 12, 2019 | multiqa.py added enabling easy multiple dataset training and evaluation. 
 | Aug 07, 2019 | TriviaQA-Wikipedia BERT-Base Model is now available, improved results will be soon to follow. 
 | Aug 03, 2019 | BERT-Large Models are now available! 
@@ -35,6 +36,8 @@ The MultiQA-5Base column contain the link to the model (in the header) and evalu
 | TriviaQA-unfiltered | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_unfiltered_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_unfiltered_dev.jsonl.gz) | 59.4 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/TriviaQA_unfiltered.tar.gz) | 59.0 / 64.7 | 60.7 / 66.5 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/TriviaQA_unfiltered.tar.gz)  |  
 | TriviaQA-wiki | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_wiki_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_wiki_dev.jsonl.gz) | 57.5 / 62.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/TriviaQA_wiki.tar.gz) | -  | -  |  
 | SearchQA | [data](https://multiqa.s3.amazonaws.com/data/SearchQA_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/SearchQA_dev.jsonl.gz) | 58.7 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SearchQA.tar.gz) | 58.8 / 65.3 | 60.5 / 67.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/SearchQA.tar.gz)  |  
+| BoolQ | [data](https://multiqa.s3.amazonaws.com/data/BoolQ_jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/BoolQ_dev.jsonl.gz) | |  |   |  
+| ComplexWebQuestions | [data](https://multiqa.s3.amazonaws.com/data/ComplexWebQuestions_jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/ComplexWebQuestions_dev.jsonl.gz) | |  |   |  
 | Natural Questions | Coming soon | Coming soon | Coming soon | Coming soon | Coming soon |  
 
 Datasets will be addeed weekly, so please stay tuned!
