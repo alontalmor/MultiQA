@@ -146,14 +146,30 @@ def read_squad_examples(input_file, is_training, version_2_with_negative):
                 if is_training:
                     if version_2_with_negative:
                         is_impossible = qa["is_impossible"]
-                    if (len(qa["answers"]) != 1) and (not is_impossible):
-                        raise ValueError(
-                            "For training, each question should have exactly 1 answer.")
+                    if (len(qa["answers"]) > 1) and (not is_impossible):
+                        # Alon - for comparability with this model implementation, if more than one answer exists
+                        # we will choose the first one as the correct gold answer.
+                        qa["answers"] = [qa["answers"][0]]
+                        # raise ValueError(
+                        #    "For training, each question should have exactly 1 answer.")
+
+                    elif (len(qa["answers"]) == 0) and (not is_impossible):
+                        # Alon - in the none SQuAD datasets, it may very well be possible that no gold answer has
+                        # been found for an example. In these cases we just discard the example in training.
+                        continue
+
+
+
                     if not is_impossible:
                         answer = qa["answers"][0]
                         orig_answer_text = answer["text"]
                         answer_offset = answer["answer_start"]
                         answer_length = len(orig_answer_text)
+
+                        if answer_offset + answer_length - 1 >= len(char_to_word_offset):
+                            # Alon - in some datasets we get this edge case... s
+                            continue
+
                         start_position = char_to_word_offset[answer_offset]
                         end_position = char_to_word_offset[answer_offset + answer_length - 1]
                         # Only add answers where the text can be exactly recovered from the
