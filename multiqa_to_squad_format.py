@@ -58,6 +58,7 @@ def multi_example_to_squad(example):
         new_qas.append(new_qa)
 
     squad_example['qas'] = new_qas
+    squad_example['context'] = squad_context
 
     return squad_example
 
