@@ -23,10 +23,17 @@ logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 def multi_example_to_squad(example):
     squad_example = {}
 
-    # TODO add all context types...
-    squad_example['context'] = example['context']['documents'][0]['text']
+    offsets = [{} for d in example['context']['documents']]
+    squad_context = '[aug] yes no '
+    aug_offests = {'yes':6, 'no':10}
+    for doc_id, doc in enumerate(example['context']['documents']):
+        for part in ['title','text','snippet']:
+            if part in doc:
+                squad_context += ' [' + part + '] '
+                offsets[doc_id][part] = len(squad_context)
+                squad_context += doc[part]
 
-    # TODO add all question types...
+
     new_qas = []
     for qa in example['qas']:
         new_qa = {'id':qa['qid'],'question':qa['question'],'answers':[],'is_impossible':False}
@@ -34,8 +41,20 @@ def multi_example_to_squad(example):
             new_qa['is_impossible'] = True
         else:
             for answer_cand in qa['answers']["open-ended"]['answer_candidates']:
-                for instance in answer_cand['extractive']['single_answer']['instances']:
-                    new_qa['answers'].append({'text': instance['text'] ,'answer_start':instance['start_byte']})
+                if 'extractive' in answer_cand:
+                    for instance in answer_cand['extractive']['single_answer']['instances']:
+                        new_qa['answers'].append({'text': instance['text'] ,\
+                                                  'answer_start':instance['start_byte'] + offsets[instance['doc_id']][instance['part']]})
+                        # sanity check
+                        #offest = instance['start_byte'] + offsets[instance['doc_id']][instance['part']]
+                        #if instance['text'].lower() != squad_context[offest:offest+len(instance['text'])].lower():
+                        #    print(instance['text'] + ' || ' + squad_context[offest:offest+len(instance['text'])])
+                        #else:
+                        #    print('OK!')
+                if 'yesno' in answer_cand:
+                    new_qa['answers'].append({'text': answer_cand['yesno']['single_answer'], \
+                                              'answer_start': aug_offests[answer_cand['yesno']['single_answer']]})
+
         new_qas.append(new_qa)
 
     squad_example['qas'] = new_qas
