@@ -166,8 +166,8 @@ Note that in all observed datasets, a model is required to match only one of the
       "aliases": ["Donald Trump","Trump"],
       "instances":[
         {
-            "doc_ind":0,
-            "part":"abstract",
+            "doc_id":0,
+            "part":"text",
             "start_byte":15,
             "start_end_tokens":[2,3],
             "text": "Donald Trump",

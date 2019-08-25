@@ -15,7 +15,8 @@ This project is constantly being improved. Contributions, comments and suggestio
 ## News
 
 | Date | Message
-| :----- | :-----:
+| :----- | :-----
+| Aug 24, 2019 | New! convert multiqa format to SQuAD2.0 format + Pytorch-Transformers models support 
 | Aug 14, 2019 | BoolQ and ComplexWebQuestions data added. 
 | Aug 12, 2019 | multiqa.py added enabling easy multiple dataset training and evaluation. 
 | Aug 07, 2019 | TriviaQA-Wikipedia BERT-Base Model is now available, improved results will be soon to follow. 
@@ -55,6 +56,11 @@ Type `python multiqa.py` for additional options.
 
 Note, this version uses the default multiqa format datasets stored in s3, to use your own dataset please see [Readme](https://github.com/alontalmor/multiqa/blob/master/models/README.md) for using allennlp core commands.
  
+### MultiQA format to SQuAD2.0 format
+If you prefer using SQuAD2.0 format, or run the Pytorch-Trasformers models, please use:
+```
+python convert_multiqa_to_squad_format.py --datasets https://multiqa.s3.amazonaws.com/data/HotpotQA_dev.jsonl.gz --output_file data/squad_format/HotpotQA_dev.json
+```
 
  
 ## Setup
@@ -119,6 +125,9 @@ first argument is the allennlp model, second is the preprocessed evalutaion file
 see [Readme](https://github.com/alontalmor/multiqa/blob/master/datasets/README.md) in the datasets folder.
 
 ## Training using AlleNLP
+see [Readme](https://github.com/alontalmor/multiqa/blob/master/models/README.md) in the models folder.
+
+## Training using Pytorch-Trasformers
 see [Readme](https://github.com/alontalmor/multiqa/blob/master/models/README.md) in the models folder.
 
 ## Other

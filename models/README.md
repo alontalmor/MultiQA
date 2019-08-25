@@ -1,7 +1,13 @@
 
 
+## Training using Pytorch-Trasformers
 
-## Training
+An example on HotpotQA that revieces accuracy of  'exact': 53.16, 'f1': 67.23. 
+(please make sure to convert the MultiQA format to SQuAD format before running.)
+
+`python -m torch.distributed.launch --nproc_per_node 3 ./models/pytorch-transformers/run_squad.py --model_type bert --model_name_or_path bert-base-uncased --do_train --do_eval --do_lower_case --train_file data/squad_format/HotpotQA_train.json --predict_file data/squad_format/HotpotQA_dev.json --learning_rate 3e-5 --num_train_epochs 2 --max_seq_length 384 --doc_stride 128 --output_dir data/pytorch-transformers/HotpotQA --gradient_accumulation_steps 2 --per_gpu_eval_batch_size=20 --per_gpu_train_batch_size=8`
+
+## Training using AllenNLP
 
 The AllenNLP train command is used for training. The training and validation files should be provided as an override to the base config. 
 
