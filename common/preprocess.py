@@ -262,7 +262,7 @@ class MultiQAPreProcess:
                 if 'cannot_answer' in qa['answers']['open-ended'] and qa['answers']['open-ended']['cannot_answer'] == 'yes':
                     pass
                 else:
-                    for answer_cand in qa['answers']['open-ended']['answer_candidates']:
+                    for answer_cand in qa['answers']['open-ended']['annotators_answer_candidates']:
                         if 'extractive' in answer_cand:
                             if "single_answer" in answer_cand['extractive']:
                                 answer_cand_list.append(answer_cand['extractive']['single_answer'])
@@ -347,6 +347,7 @@ class MultiQAPreProcess:
             contexts = preprocessed_instances
 
         return contexts
+
 
 
 

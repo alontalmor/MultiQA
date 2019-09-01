@@ -1,0 +1,194 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "http://example.com/multiqa#",
+  "title": "MultiQA schema",
+  "version": "0.1.0",
+  "definitions": {
+    "extractive_instance":{
+      "properties":{
+        "doc_id": {"type":"integer"},
+        "part": {"type": "string"},
+        "start_byte": {"type":"integer"},
+        "text": {"type": "string"},
+        "token_inds": {
+          "type":"array",
+          "items":{"type":"number"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "answer_type":{
+       	"anyOf": [
+          {"required": ["yesno"]},
+          {"required": ["generated_text"]},
+          {"required": ["date"]},
+          {"required": ["number"]},
+          {"required": ["extractive"]}
+        ],
+		"properties": {
+          "yesno":{
+          	"type": "string",
+        	"enum": ["yes", "no"]
+          },
+          "generated_text":{
+            "type": "string"
+          },
+          "date":{
+            "type": "string",
+            "format": "date"
+          },
+          "number":{
+            "type": "number"
+          },
+          "extractive":{
+          	"properties":{
+              "answer":{"type":"string"},
+              "aliases":{
+                "items":{
+                  "type":"string"
+                },
+                "type":"array"
+              },
+              "instances":{
+                "items":{
+          			"$ref": "#/definitions/extractive_instance"
+            	},
+              	"type":"array"
+              }
+          	}
+          },
+          "additionalProperties": false
+        }
+    },
+    "answer_candidate":{
+      	"anyOf": [
+          {"required": ["single_answer"]},
+          {"required": ["list"]},
+          {"required": ["set"]}
+        ],
+		"properties": {
+          "single_answer":{
+            "$ref": "#/definitions/answer_type"
+          },
+          "list":{
+            "items":{
+          		"$ref": "#/definitions/answer_type"
+            },
+            "type":"array"
+          },
+          "set":{
+            "items":{
+            	"$ref": "#/definitions/answer_type"
+            },
+            "type":"array"
+          },
+          "additionalProperties": false
+        }
+    },
+    "document": {
+      "type": "object",
+      "anyOf": [
+        {"required": ["title"]},
+        {"required": ["url"]},
+        {"required": ["text"]},
+        {"required": ["snippet"]},
+        {"required": ["table"]},
+        {"required": ["image"]}
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^(https?|wss?|ftp)://"
+        },
+        "text": {
+          "description": "",
+          "type": "string"
+        },
+        "snippet": {
+          "type": "string",
+          "description": "some documents contain a small text preview, usually when search engine results are used. Up to 200 chars are valid, if you have more please use the text field.",
+          "maxLength": 200
+        },
+        "text": {
+          "type": "string"
+        },
+        "table": {
+          "type": "array"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^(https?|wss?|ftp)://"
+        },
+        "metadata": {
+
+        },
+        "tokens": {
+
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "id": {},
+    "context": {
+      "properties": {
+        "documents": {
+          "items": {
+            "$ref": "#/definitions/document"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "documents"
+      ]
+    },
+    "qas": {
+      "type": "array",
+      "items": {
+      	"properties": {
+          "qid": {"type":"string"},
+          "question": {"type":"string"},
+          "question_tokens": {"type":"array"},
+          "supporting_context": {"type":"array"},
+          "metadata": {},
+          "answers": {
+          	"properties":{
+            	"open-ended": {
+                	"properties":{
+                    	"cannot_answer":{
+                        	"type": "string",
+        					"enum": ["yes", "no"]
+                        },
+                        "annotators_answer_candidates": {
+                          	"description": "annotators_answer_candidates is a list of annotations provided by different annotators (e.g. SQuAD, NaturalQuestions and DROP)",
+                          	"type": "array" ,
+                          	"items": {
+                              "$ref": "#/definitions/answer_candidate"
+                            }
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "multi-choice" : {}
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "context",
+    "qas"
+  ],
+  "additionalProperties": false
+}

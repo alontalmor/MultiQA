@@ -8,6 +8,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import pairwise_distances
 from nltk.corpus import stopwords
 import string
+import logging
+logger = logging.getLogger(__name__)
 
 class NltkPlusStopWords():
     """ Configurablable access to stop word """
@@ -28,7 +30,6 @@ class NltkPlusStopWords():
                 self._words.update(["£", "€", "¥", "¢", "₹", "\u2212",
                                     "\u2014", "\u2013", "\ud01C", "\u2019", "\u201D", "\u2018", "\u00B0"])
         return self._words
-
 
 class Paragraph_TfIdf_Scoring():
     # Hard coded weight learned from a logistic regression classifier
@@ -74,20 +75,30 @@ class Paragraph_TfIdf_Scoring():
                  self.LOWER_WORD_W * word_matches_features[:, 1] + self.WORD_W * word_matches_features[:, 0]
         return scores
 
-
 class HotpotQA(MultiQA_DataSet):
     """
 
     """
 
-    def __init__(self):
+    def __init__(self, preprocessor, split, dataset_version, dataset_flavor, dataset_specific_props, \
+                 sample_size, max_contexts_in_file, custom_input_file):
+        self._preprocessor = preprocessor
+        self._split = split
+        self._dataset_version = dataset_version
+        self._dataset_flavor = dataset_flavor
+        self._dataset_specific_props = dataset_specific_props
+        self._sample_size = sample_size
+        self._custom_input_file = custom_input_file
+        self._max_contexts_in_file = max_contexts_in_file
         self.DATASET_NAME = 'HotpotQA'
+        self._output_file_count = 0
+        self.done_processing = True
 
     @overrides
-    def build_header(self, preprocessor, contexts, split, dataset_version, dataset_flavor, dataset_specific_props):
+    def build_header(self, contexts):
         header = {
             "dataset_name": self.DATASET_NAME,
-            "split": split,
+            "split": self._split,
             "dataset_url": "https://hotpotqa.github.io/",
             "license": "http://creativecommons.org/licenses/by-sa/4.0/legalcode",
             "data_source": "Wikipedia",
@@ -97,6 +108,8 @@ class HotpotQA(MultiQA_DataSet):
             "text_type": "abstract",
             "number_of_qas": sum([len(context['qas']) for context in contexts]),
             "number_of_contexts": len(contexts),
+            "file_num": self._output_file_count,
+            "next_file_exists": not self._done_processing,
             "readme": "",
             "multiqa_version": super().get_multiqa_version()
         }
@@ -108,13 +121,13 @@ class HotpotQA(MultiQA_DataSet):
         return {"answer": predictions, "sp": {}}
 
     @overrides
-    def build_contexts(self, preprocessor, split, sample_size, dataset_version, dataset_flavor, dataset_specific_props, input_file):
-        if input_file is not None:
-            single_file_path = cached_path(input_file)
+    def build_contexts(self):
+        if self._custom_input_file is not None:
+            single_file_path = cached_path(self._custom_input_file)
         else:
-            if split == 'train':
+            if self._split == 'train':
                 single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_train_v1.1.json")
-            elif split == 'dev':
+            elif self._split == 'dev':
                 single_file_path = cached_path("http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_dev_distractor_v1.json")
 
         with open(single_file_path, 'r') as myfile:
@@ -122,6 +135,7 @@ class HotpotQA(MultiQA_DataSet):
 
         _para_tfidf_scoring = Paragraph_TfIdf_Scoring()
         contexts = []
+        total_qas_count = 0
         for example in tqdm.tqdm(data, total=len(data), ncols=80):
 
             # choosing only the gold paragraphs
@@ -133,7 +147,7 @@ class HotpotQA(MultiQA_DataSet):
             #            gold_paragraphs.append(context)
 
             # Arranging paragraphs by TF-IDF
-            if 'original_context_order' in dataset_specific_props:
+            if 'original_context_order' in self._dataset_specific_props:
                 context_order = range(len(example['context']))
             else:
                 tf_idf_scores = _para_tfidf_scoring.score_paragraphs([example['question']], \
@@ -169,11 +183,11 @@ class HotpotQA(MultiQA_DataSet):
                                  'metadata': {"text": {"sentence_start_bytes": sentence_start_bytes}}})
 
             if example['answer'].lower() == 'yes':
-                answers = {'open-ended': {'answer_candidates': [{'yesno':{'single_answer':'yes'}}]}}
+                answers = {'open-ended': {'annotators_answer_candidates': [{'single_answer':{'yesno':'yes'}}]}}
             elif example['answer'].lower() == 'no':
-                answers = {'open-ended': {'answer_candidates': [{'yesno':{'single_answer':'no'}}]}}
+                answers = {'open-ended': {'annotators_answer_candidates': [{'single_answer':{'yesno':'no'}}]}}
             else:
-                answers = {'open-ended': {'answer_candidates': [{'extractive': {'single_answer': {'answer': example['answer']}}}]}}
+                answers = {'open-ended': {'annotators_answer_candidates': [{'single_answer': {'extractive': {'answer': example['answer']}}}]}}
 
 
             qas = [{"qid": self.DATASET_NAME + '_q_' + example['_id'],
@@ -187,13 +201,15 @@ class HotpotQA(MultiQA_DataSet):
                              "context": {"documents": documents},
                              "qas": qas})
 
-        if sample_size != None:
-            contexts = contexts[0:sample_size]
+            total_qas_count += len(qas)
+            if (self._sample_size != None and total_qas_count > self._sample_size):
+                break
 
-        if split == 'train' and 'use_all_answers_in_training' not in dataset_specific_props:
+        logger.info('producing final context file')
+        self._done_processing = True
+        self._output_file_count = 1
+        if self._split == 'train' and 'use_all_answers_in_training' not in self._dataset_specific_props:
             ans_in_supp_context = True
         else:
             ans_in_supp_context = False
-        contexts = preprocessor.tokenize_and_detect_answers(contexts, search_answer_within_supp_context=ans_in_supp_context)
-
-        return contexts
+        yield self._preprocessor.tokenize_and_detect_answers(contexts, search_answer_within_supp_context=ans_in_supp_context)

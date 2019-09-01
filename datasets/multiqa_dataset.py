@@ -1,7 +1,5 @@
-
-
-
- # pylint: disable=invalid-name
+# pylint: disable=invalid-name
+MULTIQA_VERSION = '0.1.0'
 
 class MultiQA_DataSet():
     """
@@ -24,7 +22,7 @@ class MultiQA_DataSet():
         pass
 
     def get_multiqa_version(self):
-        return '0.00'
+        return MULTIQA_VERSION
 
     def recursive_schema_compute(self,item, schema):
         if type(item) == list:

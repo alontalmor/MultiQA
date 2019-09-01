@@ -1,6 +1,12 @@
 
+# JSON-schema
+
+A [json-schema](https://json-schema.org/) for a single context in MultiQA format is available [here](https://github.com/alontalmor/multiqa/blob/master/models/datasets/multiqa_jsonschema.json)
+
+You can use [this python repository](https://github.com/Julian/jsonschema) to validate a context by running:
+`jsonschema -i single_context.json multiqa_jsonschema.json` 
+
 # Data Description
-We will have table of many datasets statistics here .. 
 
 ## Header
 
@@ -11,7 +17,7 @@ The first line in a multiqa file is a header, containing various information on 
     "dataset_name": "SQuAD",
     "dataset_url": "https://rajpurkar.github.io/SQuAD-explorer/",
     "license": "http://creativecommons.org/licenses/by-sa/4.0/legalcode",
-    "multiqa_version": "0.00",
+    "multiqa_version": "0.1.0",
     "number_of_contexts": 19035,
     "number_of_qas": 130319,
     "readme": "",
@@ -36,7 +42,7 @@ After the header, each line in the MultiQA format contains one context + questio
 
 ### The `Context`
 
-Each context contains a LIST of one or more documents with different possible types of text. A document `title` if such exists, a `text` for various types of internal document texts such abstract (e.g. HotpotQA), partial or full body text (e.g. TriviaQA) or full html (e.g. NaturalQuestions). And finally the `source_url` of the document. 
+Each context contains a LIST of one or more documents with different possible types of text. A document `title` if such exists, a `text` for various types of internal document texts such abstract (e.g. HotpotQA), partial or full body text (e.g. TriviaQA) or full html (e.g. NaturalQuestions). And finally the `url` of the document. 
 
 ```json
 "documents":[
@@ -44,7 +50,7 @@ Each context contains a LIST of one or more documents with different possible ty
         "title": "the document title",
         "text": "abstract / paragraph / full_html",
         "snippet": "search engine snippet for this document",
-        "source_url":"http:// ... ",
+        "url": "http:// ... ",
         "metadata": {},
         "tokens": {}
     }
@@ -81,7 +87,7 @@ A natural language `question` text is accompanied by a list of `question_tokens`
     "qid": "DROP_q_1e50dd00-e837-4ecc-8265-83365d286aa4",
     "question": "How many years was the Mon kingdom",
     "question_tokens": [["How",0],["many",4],["years",9],["was",15],["the",19],["Mon",23],["kingdom",27]],
-    "supporting_context": {},
+    "supporting_context": [],
     "metadata": {},
     "answers": {}
 }
@@ -107,7 +113,7 @@ Datasets such as HotpotQA and MultiRC require `supporting_context` to be provide
 
 #### Answers 
 
-Answers can be of `multi-choice` type for which a set of `choices` is provided, or `open-ended`. The `open-ended` option may contain `cannot_answer` if applicable for the question, and/or `answer_candidates` that are a list of annotations provided by different annotators (e.g. SQuAD, NaturalQuestions and DROP. Note that in all these datasets answer should much ONLY ONE of the `answer_candidates`). If a main answer exists it will be the first in the `answer_candidates` list (e.g. DROP).
+Answers can be of `multi-choice` type for which a set of `choices` is provided, or `open-ended`. The `open-ended` option may contain `cannot_answer` if applicable for the question, and/or `annotators_answer_candidates` that are a list of annotations provided by different annotators (e.g. SQuAD, NaturalQuestions or DROP). If a main answer exists it will be the first in the `answer_candidates` list (e.g. DROP).
 
 In the `multi-choice` options a set of `answer_candidate` `choices` is provided, as well as a `correct_answer_index` if only one answer is correct OR `multi_correct_answer_indexes` (e.g. MultiRC)
 
@@ -115,7 +121,7 @@ In the `multi-choice` options a set of `answer_candidate` `choices` is provided,
 "answers": {
     "open-ended": {
         "cannot_answer": "yes/no",
-        "answer_candidates":["answer_candidate1", "answer_candidate2"]
+        "annotators_answer_candidates":["answer_candidate1", "answer_candidate2"]
     },
     "multi-choice": {
         "correct_answer_index": 0,

@@ -55,8 +55,8 @@
             }
         }
     },
-    "train_data_path": "s3://multiqa/data/SQuAD1-1_train.jsonl.gz",
-    "validation_data_path": "s3://multiqa/data/SQuAD1-1_dev.jsonl.gz",
+    "train_data_path": "https://multiqa.s3.amazonaws.com/data/SQuAD1-1_train.jsonl.gz",
+    "validation_data_path": "https://multiqa.s3.amazonaws.com/data/SQuAD1-1_dev.jsonl.gz",
     "trainer": {
         "cuda_device": -1,
         "num_epochs": 2,

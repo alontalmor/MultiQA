@@ -54,8 +54,8 @@ if __name__ == "__main__":
             if qid not in answers:
                 answers[qid] = []
 
-            if 'answer_candidates' in qa['answers']['open-ended']:
-                for ans_cand in qa['answers']['open-ended']['answer_candidates']:
+            if 'annotators_answer_candidates' in qa['answers']['open-ended']:
+                for ans_cand in qa['answers']['open-ended']['annotators_answer_candidates']:
                     if 'extractive' in ans_cand and 'single_answer' in ans_cand['extractive']:
                         answers[qid] += [(ans_cand['extractive']['single_answer']['answer'])]
                         if 'aliases' in ans_cand['extractive']['single_answer']:

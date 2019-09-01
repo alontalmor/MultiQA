@@ -238,7 +238,7 @@ class MultiQAReader(DatasetReader):
             qa['yesno'] = 'no_yesno'
             qa['cannot_answer'] = False
             if 'open-ended' in qa['answers']:
-                if 'answer_candidates' in qa['answers']['open-ended']:
+                if 'annotators_answer_candidates' in qa['answers']['open-ended']:
                     for ac in qa['answers']['open-ended']["answer_candidates"]:
                         if 'extractive' in ac:
                             # Supporting only one answer of type extractive (future version will support list and set)
@@ -376,7 +376,8 @@ class MultiQAReader(DatasetReader):
         instances_to_add = []
         if self._is_training:
             # Trying to balance the chunks with answer and the ones without by sampling one from each
-            # if each is available
+            # if each is available (note that cannot_answer and yesno are available only in dataset that support it, and
+            # if the config enables this option)
             cannot_answer = [inst for inst in question_chunks if inst['cannot_answer']]
             yesno = [inst for inst in question_chunks if inst['yesno'] != 'no_yesno']
             spans = [inst for inst in question_chunks if len(inst['answers']) > 0]

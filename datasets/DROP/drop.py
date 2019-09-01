@@ -88,7 +88,7 @@ class DROP(MultiQA_DataSet):
                     if new_ans_cand != {}:
                         answer_candidates.append(new_ans_cand)
 
-                new_qa['answers'] = {'open-ended': {'answer_candidates': answer_candidates}}
+                new_qa['answers'] = {'open-ended': {'annotators_answer_candidates': answer_candidates}}
                 qas.append(new_qa)
 
             contexts.append({"id": self.DATASET_NAME + '_' + id,
