@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "definitions": {
     "extractive_instance":{
+      "type": "object",
       "properties":{
         "doc_id": {"type":"integer"},
         "part": {"type": "string"},
@@ -18,6 +19,7 @@
       "additionalProperties": false
     },
     "answer_type":{
+        "type": "object",
        	"anyOf": [
           {"required": ["yesno"]},
           {"required": ["generated_text"]},
@@ -61,6 +63,7 @@
         }
     },
     "answer_candidate":{
+        "type": "object",
       	"anyOf": [
           {"required": ["single_answer"]},
           {"required": ["list"]},
@@ -137,14 +140,17 @@
   "properties": {
     "id": {},
     "context": {
+      "type":"object",
       "properties": {
         "documents": {
           "items": {
             "$ref": "#/definitions/document"
           },
-          "type": "array"
+          "type": "array",
+          "additionalItems": false
         }
       },
+      "additionalProperties": false,
       "required": [
         "documents"
       ]
@@ -171,7 +177,8 @@
                           	"type": "array" ,
                           	"items": {
                               "$ref": "#/definitions/answer_candidate"
-                            }
+                            },
+                            "additionalItems": false
                         }
                     },
                     "additionalProperties": false
