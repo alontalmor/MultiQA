@@ -17,9 +17,12 @@ class WikiHop(MultiQA_DataSet):
         self.DATASET_NAME = 'WikiHop'
 
     @overrides
-    def build_header(self, contexts, split, preprocessor):
+    def build_header(self, preprocessor, contexts, split, dataset_version, dataset_flavor, dataset_specific_props):
         header = {
             "dataset_name": self.DATASET_NAME,
+            "split": split,
+            "version": '',
+            "flavor": dataset_flavor,
             "split": split,
             "dataset_url": "http://qangaroo.cs.ucl.ac.uk/",
             "license": "https://creativecommons.org/licenses/by-sa/3.0/",
@@ -36,7 +39,7 @@ class WikiHop(MultiQA_DataSet):
         return header
 
     @overrides
-    def build_contexts(self, split, preprocessor , sample_size):
+    def build_contexts(self, preprocessor, split, sample_size, dataset_version, dataset_flavor, dataset_specific_props, input_file):
         if not os.path.exists('data/quangaroo_v1.1/wikihop/' + split + '.json'):
             gdd.download_file_from_google_drive(file_id='1ytVZ4AhubFDOEL7o7XrIRIyhU8g9wvKA',
                                             dest_path='data/qangroo.zip',

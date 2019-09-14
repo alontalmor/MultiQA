@@ -40,7 +40,7 @@ def multi_example_to_squad(example):
         if 'cannot_answer' in qa['answers']["open-ended"]:
             new_qa['is_impossible'] = True
         else:
-            for answer_cand in qa['answers']["open-ended"]['answer_candidates']:
+            for answer_cand in qa['answers']["open-ended"]['annotators_answer_candidates']:
                 if 'extractive' in answer_cand:
                     for instance in answer_cand['extractive']['single_answer']['instances']:
                         new_qa['answers'].append({'text': instance['text'] ,\
