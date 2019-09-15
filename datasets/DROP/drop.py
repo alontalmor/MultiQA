@@ -5,6 +5,8 @@ from allennlp.common.file_utils import cached_path
 from common.uuid import gen_uuid
 import tqdm
 import zipfile
+import logging
+logger = logging.getLogger(__name__)
 
 
 class DROP(MultiQA_DataSet):
@@ -12,23 +14,39 @@ class DROP(MultiQA_DataSet):
 
     """
 
-    def __init__(self):
+    def __init__(self, preprocessor, split, dataset_version, dataset_flavor, dataset_specific_props, \
+                 sample_size, max_contexts_in_file, custom_input_file):
+        self._preprocessor = preprocessor
+        self._split = split
+        self._dataset_version = dataset_version
+        self._dataset_flavor = dataset_flavor
+        self._dataset_specific_props = dataset_specific_props
+        self._sample_size = sample_size
+        self._custom_input_file = custom_input_file
+        self._max_contexts_in_file = max_contexts_in_file
         self.DATASET_NAME = 'DROP'
+        self._output_file_count = 0
+        self.done_processing = True
 
     @overrides
-    def build_header(self, contexts, split, preprocessor):
+    def build_header(self, contexts):
         header = {
             "dataset_name": self.DATASET_NAME,
-            "split": split,
+            "version": self._dataset_version,
+            "flavor": self._dataset_flavor,
+            "split": self._split,
             "dataset_url": "https://allennlp.org/drop",
             "license": "https://creativecommons.org/licenses/by-sa/4.0/legalcode",
             "data_source": "Wikipedia",
-            "context_answer_detection_source": "MultiQA",
-            "tokenization_source": "multiqa",
+            "context_answer_detection_source": self.DATASET_NAME,
+            "tokenization_source": "MultiQA",
             "full_schema": super().compute_schema(contexts),
             "text_type": "abstract",
             "number_of_qas": sum([len(context['qas']) for context in contexts]),
+            "number_of_qas_with_gold_answers": sum([len(context['qas']) for context in contexts]),
             "number_of_contexts": len(contexts),
+            "file_num": self._output_file_count,
+            "next_file_exists": not self._done_processing,
             "readme": "",
             "multiqa_version": super().get_multiqa_version()
         }
@@ -36,33 +54,17 @@ class DROP(MultiQA_DataSet):
         return header
 
     @overrides
-    def build_contexts(self, split, preprocessor, sample_size):
+    def build_contexts(self):
         single_file_path = cached_path("https://s3-us-west-2.amazonaws.com/allennlp/datasets/drop/drop_dataset.zip")
         with zipfile.ZipFile(single_file_path, 'r') as archive:
-            data = json.loads(archive.read('drop_dataset/drop_dataset_' + split + '.json'))
+            data = json.loads(archive.read('drop_dataset/drop_dataset_' + self._split + '.json'))
 
         contexts = []
+        total_qas_count = 0
         for id, context in tqdm.tqdm(data.items(), total=len(data), ncols=80):
 
             qas = []
             for qa in context['qa_pairs']:
-                # From the DROP eval script:
-                # https://github.com/allenai/allennlp/blob/master/allennlp/tools/drop_eval.py
-                # predicted = predicted_answers[query_id]
-                # candidate_answers = [qa_pair["answer"]]
-                # if "validated_answers" in qa_pair and qa_pair["validated_answers"]:
-                #    candidate_answers += qa_pair["validated_answers"]
-                # for answer in candidate_answers:
-                #    gold_answer, gold_type = answer_json_to_strings(answer)
-                #    em_score, f1_score = get_metrics(predicted, gold_answer)
-                #    if gold_answer[0].strip() != "":
-                #        max_em_score = max(max_em_score, em_score)
-                #        max_f1_score = max(max_f1_score, f1_score)
-                #        if max_em_score == em_score or max_f1_score == f1_score:
-                #            max_type = gold_type
-                #
-
-
 
                 new_qa = {'qid': self.DATASET_NAME + '_q_' + qa['query_id'],
                           'question': qa['question']}
@@ -77,13 +79,13 @@ class DROP(MultiQA_DataSet):
                     new_ans_cand = {}
 
                     if len(answer_candidate['spans']) > 0:
-                        new_ans_cand['extractive'] = {"list":[{"answer": span} for span in answer_candidate['spans']]}
+                        new_ans_cand['list'] = [{"extractive":{"answer": span}} for span in answer_candidate['spans']]
 
                     if answer_candidate['number'] != '':
-                        new_ans_cand['number'] = {"single_answer": answer_candidate['number']}
+                        new_ans_cand['single_answer'] = {'number':float(answer_candidate['number'])}
 
                     if answer_candidate['date']['day'] != '':
-                        new_ans_cand['date'] = {"single_answer": answer_candidate['date']}
+                        new_ans_cand['single_answer'] = {'date':answer_candidate['date']}
 
                     if new_ans_cand != {}:
                         answer_candidates.append(new_ans_cand)
@@ -96,12 +98,11 @@ class DROP(MultiQA_DataSet):
                                                         "url": context['wiki_url']}]},
                              "qas": qas})
 
-        if sample_size != None:
-            contexts = contexts[0:sample_size]
-        contexts = preprocessor.tokenize_and_detect_answers(contexts)
+            total_qas_count += len(qas)
+            if (self._sample_size != None and total_qas_count > self._sample_size):
+                break
 
-        # detect answers
-
-        # save dataset
-
-        return contexts
+        logger.info('producing final context file')
+        self._done_processing = True
+        self._output_file_count = 1
+        yield self._preprocessor.tokenize_and_detect_answers(contexts)

@@ -1,5 +1,7 @@
 
-# JSON-schema
+# Convert a dataset to MultiQA format (and then SQuAD2.0 format)
+
+## JSON-schema
 
 A [json-schema](https://json-schema.org/) for a single context in MultiQA format is available [here](https://github.com/alontalmor/multiqa/blob/master/models/datasets/multiqa_jsonschema.json)
 
@@ -184,5 +186,7 @@ Note that in all observed datasets, a model is required to match only one of the
 ```
 
 Extractive answers contain a main answer, and a list of aliases when applicable (e.g. TriviaQA, ComplexWebQuestions). In addition for each span a list of `instances` is provided pointing the document index (`doc_ind`) and the document `part` from which it was extracted, as well as the `start_byte`, `start_end_tokens` and the span `text`.  `Instances` provided as part of the a dataset will be used, if none are provided instances (or fields of `instances` such as `start_end_tokens` that were not provided) are extracted in pre-processing.
+
+
 
 
