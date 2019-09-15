@@ -1,5 +1,11 @@
 
-# Convert a dataset to MultiQA format (and then SQuAD2.0 format)
+# Convert a dataset to MultiQA format
+
+To add a new dataset just open a new folder in the datasets folder with your new dataset name, 
+and simply copy and modify the example that best suites your dataset format from the already existing datasets.
+
+After creating the dataset you may test your code by creating a pytest file in the relevant directory under the pytest folder.
+The test may be copied from other existing tests that already check the format of each context using the JSON schema below.
 
 ## JSON-schema
 

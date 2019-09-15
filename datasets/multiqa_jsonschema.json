@@ -36,8 +36,13 @@
             "type": "string"
           },
           "date":{
-            "type": "string",
-            "format": "date"
+            "type": "object",
+            "properties": {
+              "day": {"type": "string"},
+              "month": {"type": "string"},
+              "year": {"type": "string"}
+            },
+            "additionalProperties": false
           },
           "number":{
             "type": "number"
