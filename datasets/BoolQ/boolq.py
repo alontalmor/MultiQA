@@ -57,7 +57,7 @@ class BoolQ(MultiQA_DataSet):
     def build_contexts(self):
         # This dataset is provided with google storage, https://storage.cloud.google.com/boolq/dev.jsonl which is a pain to work with
         # python, so i just added it to the datasets folder directly ...
-        single_file_path = "datasets/boolq/" + self._split + ".jsonl.gz"
+        single_file_path = "datasets/BoolQ/" + self._split + ".jsonl.gz"
 
         data = []
         total_qas_count = 0
@@ -70,9 +70,9 @@ class BoolQ(MultiQA_DataSet):
         for example in tqdm.tqdm(data, total=len(data), ncols=80):
             q_uuid = gen_uuid()
             if example['answer'] == True:
-                answers = {'open-ended': {'annotators_answer_candidates': [{'yesno':{'single_answer':'yes'}}]}}
+                answers = {'open-ended': {'annotators_answer_candidates': [{'single_answer':{'yesno':'yes'}}]}}
             elif example['answer'] == False:
-                answers = {'open-ended': {'annotators_answer_candidates': [{'yesno':{'single_answer':'no'}}]}}
+                answers = {'open-ended': {'annotators_answer_candidates': [{'single_answer':{'yesno':'no'}}]}}
 
             qas = [{"qid": self.DATASET_NAME + '_q_' + q_uuid,
                     "question": example['question'],

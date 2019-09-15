@@ -1,6 +1,8 @@
 # pylint: disable=no-self-use,invalid-name
 import pytest
-
+import json
+import tqdm
+from jsonschema import validate
 from datasets.BoolQ.boolq import BoolQ
 from common.preprocess import MultiQAPreProcess
 
@@ -19,5 +21,13 @@ class TestBoolQDataset:
         dataset = BoolQ(preprocessor, split, dataset_version, dataset_flavor, dataset_specific_props, \
                  sample_size, max_contexts_in_file, custom_input_file)
 
+        # loading multiqa schema
+        with open("datasets/multiqa_jsonschema.json") as f:
+            multiqa_schema = json.load(f)
+
         for contexts in dataset.build_contexts():
             header = dataset.build_header(contexts)
+
+            # validating each context
+            for context in tqdm.tqdm(contexts, total=len(contexts), desc="validating all contexts"):
+                assert validate(instance=context, schema=multiqa_schema) is None
