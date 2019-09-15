@@ -84,7 +84,9 @@ class DROP(MultiQA_DataSet):
                     if answer_candidate['number'] != '':
                         new_ans_cand['single_answer'] = {'number':float(answer_candidate['number'])}
 
-                    if answer_candidate['date']['day'] != '':
+                    if 'day' in answer_candidate and (answer_candidate['date']['day'] != '' or \
+                            answer_candidate['date']['month'] != '' or \
+                            answer_candidate['date']['year'] != ''):
                         new_ans_cand['single_answer'] = {'date':answer_candidate['date']}
 
                     if new_ans_cand != {}:

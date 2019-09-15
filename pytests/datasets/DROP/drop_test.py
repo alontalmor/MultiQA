@@ -11,7 +11,7 @@ class TestDROPDataset:
     @pytest.mark.parametrize("split", ("dev","train"))
     def test_build_contexts(self, split):
         N_PROCESSES = 1
-        sample_size = 10
+        sample_size = 1000
         max_contexts_in_file = 5
         dataset_version = None
         dataset_flavor = None
