@@ -5,6 +5,7 @@ from allennlp.common.file_utils import cached_path
 from common.uuid import gen_uuid
 import tqdm
 import logging
+import gzip
 logger = logging.getLogger(__name__)
 
 class BoolQ(MultiQA_DataSet):
@@ -54,11 +55,13 @@ class BoolQ(MultiQA_DataSet):
 
     @overrides
     def build_contexts(self):
-        single_file_path = "data/boolq/" + self._split + ".jsonl"
+        # This dataset is provided with google storage, https://storage.cloud.google.com/boolq/dev.jsonl which is a pain to work with
+        # python, so i just added it to the datasets folder directly ...
+        single_file_path = "datasets/boolq/" + self._split + ".jsonl.gz"
 
         data = []
         total_qas_count = 0
-        with open(single_file_path, 'r') as myfile:
+        with gzip.open(single_file_path, 'rb') as myfile:
             for example in myfile:
                 data.append(json.loads(example))
 
