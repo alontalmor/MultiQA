@@ -91,7 +91,7 @@ def main():
 
             with open(output_file.replace('.gz',''), "w") as f:
                 # first JSON line is header
-                f.write(json.dumps({'header': header}, indent=4) + '\n')
+                f.write(json.dumps({'header': header}) + '\n')
                 for instance in contexts:
                     if args.save_in_sample_format:
                         s = json.dumps(instance, indent=4)
