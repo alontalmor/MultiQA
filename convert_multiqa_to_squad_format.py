@@ -4,6 +4,7 @@ import logging
 import json
 import os
 import gzip
+import boto3
 import _jsonnet
 import tqdm
 from allennlp.common.file_utils import cached_path
@@ -115,8 +116,30 @@ def main():
 
     squad_data = multiqa_to_squad(args.datasets.split(','))
 
-    with open(args.output_file,'w') as f:
-        json.dump(squad_data,f)
+    # supporting direct upload to s3
+    if args.output_file.startswith('s3://'):
+        output_file = args.output_file.replace('s3://', '')
+        bucketName = output_file.split('/')[0]
+        outPutname = '/'.join(output_file.split('/')[1:])
+        local_filename = outPutname.replace('/', '_')
+
+        # support gzip
+        if args.output_file.endswith('gz'):
+            with gzip.open(local_filename, "wb") as f:
+                f.write(json.dumps(squad_data).encode('utf-8'))
+        else:
+            with open(local_filename, "w") as f:
+                json.dump(squad_data,f)
+
+        print("size of %s is %dMB" % (local_filename, int(os.stat(local_filename).st_size / 1000000)))
+
+        s3 = boto3.client('s3')
+        s3.upload_file(local_filename, bucketName, outPutname, ExtraArgs={'ACL': 'public-read'})
+
+        os.remove(local_filename)
+    else:
+        with open(args.output_file,'w') as f:
+            json.dump(squad_data,f)
 
 
 if __name__ == '__main__':
