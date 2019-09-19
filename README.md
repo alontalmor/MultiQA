@@ -16,6 +16,7 @@ This project is constantly being improved. Contributions, comments and suggestio
 
 | Date | Message
 | :----- | :-----
+| Sep 19, 2019 | DuoRC added, and Multiple dataset links in SQuAD2.0 format available 
 | Sep 15, 2019 | DROP and WikiHop added. 
 | Aug 31, 2019 | Version 0.1.0 of the MultiQA format is out, with a [json-schema](https://github.com/alontalmor/multiqa/blob/master/models/datasets/multiqa_jsonschema.json) for validation, and new pytests  
 | Aug 24, 2019 | New! convert multiqa format to SQuAD2.0 format + Pytorch-Transformers models support 
@@ -27,25 +28,42 @@ This project is constantly being improved. Contributions, comments and suggestio
 
 ## Datasets
 
-Link to the single format dataset are provided in the Train, Dev and Test columns.
-The BERT-Base column contains evaluation results (EM/F1) as well as a link to the trained model. 
-The MultiQA-5Base column contain the link to the model (in the header) and evalution results for this model. This model is BERT-Base that has been trained on 5 datasets. 
+Link to the single format datasets are provided in to formats: MultiQA, and SQuAD2.0.
+The SQuAD2.0 are GZipped JSONs that are the results of applying convert_multiqa_to_squad_format to the MultiQA dataset.
+To used them with [Pytorch-Transformers](https://github.com/huggingface/pytorch-transformers) code simply unzip them. (see models [Readme](https://github.com/alontalmor/multiqa/blob/master/models/README.md) for an example)
 
-| Dataset | Train | Dev | BERT-Base | MultiQA-5Base [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SQuAD1-1_HotpotQA_NewsQA_TriviaQA_unfiltered_SearchQA__full.tar.gz) | BERT-Large | 
-| :----- | :-----:|  :------------------: | :------------------: | :------------------: |  :------------------: | 
-| SQuAD-1.1 | [data](https://multiqa.s3.amazonaws.com/data/SQuAD1-1_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/SQuAD1-1_dev.jsonl.gz) | 80.1 / 87.5 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SQuAD1-1.tar.gz) | 81.7 / 88.8 | 83.3 / 90.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/SQuAD1-1.tar.gz)  | 
-| NewsQA | [data](https://multiqa.s3.amazonaws.com/data/NewsQA_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/NewsQA_dev.jsonl.gz) | 47.5 / 62.9 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/NewsQA.tar.gz) | 48.3 / 64.7 | 50.3 / 66.0 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/NewsQA.tar.gz)  |  
-| HotpotQA | [data](https://multiqa.s3.amazonaws.com/data/HotpotQA_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/HotpotQA_dev.jsonl.gz) | 50.1 / 63.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/HotpotQA.tar.gz) | - | 54.0 / 67.0 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/HotpotQA.tar.gz) |  
-| TriviaQA-unfiltered | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_unfiltered_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_unfiltered_dev.jsonl.gz) | 59.4 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/TriviaQA_unfiltered.tar.gz) | 59.0 / 64.7 | 60.7 / 66.5 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/TriviaQA_unfiltered.tar.gz)  |  
-| TriviaQA-wiki | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_wiki_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/TriviaQA_wiki_dev.jsonl.gz) | 57.5 / 62.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/TriviaQA_wiki.tar.gz) | -  | -  |  
-| SearchQA | [data](https://multiqa.s3.amazonaws.com/data/SearchQA_train.jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/SearchQA_dev.jsonl.gz) | 58.7 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SearchQA.tar.gz) | 58.8 / 65.3 | 60.5 / 67.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/SearchQA.tar.gz)  |  
-| BoolQ | [data](https://multiqa.s3.amazonaws.com/data/BoolQ_jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/BoolQ_dev.jsonl.gz) | |  |   |  
-| ComplexWebQuestions | [data](https://multiqa.s3.amazonaws.com/data/ComplexWebQuestions_jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/ComplexWebQuestions_dev.jsonl.gz) | |  |   |  
-| DROP | [data](https://multiqa.s3.amazonaws.com/data/DROP_jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/DROP_dev.jsonl.gz) | |  |   |  
-| WikiHop | [data](https://multiqa.s3.amazonaws.com/data/WikiHop_jsonl.gz) | [data](https://multiqa.s3.amazonaws.com/data/WikiHop_dev.jsonl.gz) | |  |   |  
+| Dataset | MultiQA format |  SQuAD2.0 format (GZipped) | 
+| :----- | :-----:|  :------------------: | 
+| SQuAD-1.1 | [train](https://multiqa.s3.amazonaws.com/data/SQuAD1-1_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/SQuAD1-1_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/SQuAD1-1_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/SQuAD1-1_train.json.gz)
+| SQuAD-2.0 | [train](https://multiqa.s3.amazonaws.com/data/SQuAD2-0_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/SQuAD2-0_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/SQuAD2-0_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/SQuAD2-0_train.json.gz)
+| NewsQA | [train](https://multiqa.s3.amazonaws.com/data/NewsQA_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/NewsQA_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/NewsQA_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/NewsQA_dev.json.gz)  
+| HotpotQA | [train](https://multiqa.s3.amazonaws.com/data/HotpotQA_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/HotpotQA_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/HotpotQA_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/HotpotQA_dev.json.gz)  
+| TriviaQA-unfiltered |  [dev](https://multiqa.s3.amazonaws.com/data/TriviaQA_unfiltered_dev.jsonl.gz) |  [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/TriviaQA_unfiltered_dev.json.gz)
+| TriviaQA-wiki | [train](https://multiqa.s3.amazonaws.com/data/TriviaQA_wiki_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/TriviaQA_wiki_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/TriviaQA_wiki_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/TriviaQA_wiki_dev.json.gz)
+| SearchQA | [train](https://multiqa.s3.amazonaws.com/data/SearchQA_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/SearchQA_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/SearchQA_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/SearchQA_dev.json.gz)
+| BoolQ | [train](https://multiqa.s3.amazonaws.com/data/BoolQ_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/BoolQ_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/BoolQ_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/BoolQ_dev.json.gz) 
+| ComplexWebQuestions | [train](https://multiqa.s3.amazonaws.com/data/ComplexWebQuestions_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/ComplexWebQuestions_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComplexWebQuestions_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComplexWebQuestions_dev.json.gz) |
+| DROP | [train](https://multiqa.s3.amazonaws.com/data/DROP_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/DROP_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DROP_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DROP_dev.json.gz)
+| WikiHop | [train](https://multiqa.s3.amazonaws.com/data/WikiHop_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/WikiHop_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/WikiHop_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/WikiHop_dev.json.gz)
+| DuoRC | [train](https://multiqa.s3.amazonaws.com/data/DuoRC_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/DuoRC_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_dev.json.gz)
 | Natural Questions | Coming soon | Coming soon | Coming soon | Coming soon | Coming soon |  
 
 Datasets will be addeed weekly, so please stay tuned!
+
+## Models and Results
+
+Trained Models for download and results will be posted in this table.
+The BERT-Base column contains evaluation results (EM/F1) as well as a link to the trained model. 
+The MultiQA-5Base column contain the link to the model (in the header) and evalution results for this model. This model is BERT-Base that has been trained on 5 datasets. 
+
+| Dataset |  BERT-Base AllenNLP | MultiQA-5Base AllenNLP [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SQuAD1-1_HotpotQA_NewsQA_TriviaQA_unfiltered_SearchQA__full.tar.gz) | BERT-Large AllenNLP| 
+| :----- | :------------------: | :------------------: |  :------------------: | 
+| SQuAD-1.1 |  80.1 / 87.5 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SQuAD1-1.tar.gz) | 81.7 / 88.8 | 83.3 / 90.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/SQuAD1-1.tar.gz)  | 
+| NewsQA |  47.5 / 62.9 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/NewsQA.tar.gz) | 48.3 / 64.7 | 50.3 / 66.0 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/NewsQA.tar.gz)  |  
+| HotpotQA | 50.1 / 63.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/HotpotQA.tar.gz) | - | 54.0 / 67.0 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/HotpotQA.tar.gz) |  
+| TriviaQA-unfiltered |  59.4 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/TriviaQA_unfiltered.tar.gz) | 59.0 / 64.7 | 60.7 / 66.5 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/TriviaQA_unfiltered.tar.gz)  |  
+| TriviaQA-wiki |  57.5 / 62.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/TriviaQA_wiki.tar.gz) | -  | -  |  
+| SearchQA |  58.7 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SearchQA.tar.gz) | 58.8 / 65.3 | 60.5 / 67.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/SearchQA.tar.gz)  |  
 
 ### multiqa commands
 

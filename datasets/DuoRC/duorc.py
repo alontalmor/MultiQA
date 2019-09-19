@@ -3,6 +3,7 @@ from datasets.multiqa_dataset import MultiQA_DataSet
 from overrides import overrides
 from allennlp.common.file_utils import cached_path
 import tqdm
+import gzip
 import logging
 logger = logging.getLogger(__name__)
 
@@ -51,7 +52,10 @@ class DuoRC(MultiQA_DataSet):
     @overrides
     def build_contexts(self):
 
-        with open('data/DuoRC/' + self._dataset_flavor + 'RC_' + self._split + '.json', 'r') as myfile:
+        single_file_path = cached_path('https://s3.amazonaws.com/multiqa/raw_datasets/DuoRC/' + \
+            self._dataset_flavor + 'RC_' + self._split + '.json.gz')
+
+        with gzip.open(single_file_path, 'rb') as myfile:
             data = json.load(myfile)
 
         contexts = []
