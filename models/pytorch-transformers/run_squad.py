@@ -157,8 +157,8 @@ def train(args, train_dataset, model, tokenizer):
 
             tr_loss += loss.item()
             if (step + 1) % args.gradient_accumulation_steps == 0:
-                scheduler.step()  # Update learning rate schedule
                 optimizer.step()
+                scheduler.step()  # Update learning rate schedule
                 model.zero_grad()
                 global_step += 1
 
@@ -275,9 +275,14 @@ def load_and_cache_examples(args, tokenizer, evaluate=False, output_examples=Fal
     if args.local_rank not in [-1, 0] and not evaluate:
         torch.distributed.barrier()  # Make sure only the first process in distributed training process the dataset, and the others will use the cache
 
+    # ALON adding a different path for the feature cache...
+    if not os.path.exists('data/'):
+        os.mkdir('data/')
+    if not os.path.exists('data/pytorch_transformers_cache'):
+        os.mkdir('data/pytorch_transformers_cache')
     # Load data features from cache or dataset file
     input_file = args.predict_file if evaluate else args.train_file
-    cached_features_file = os.path.join(os.path.dirname(input_file), 'cached_{}_{}_{}'.format(
+    cached_features_file = os.path.join('data/pytorch_transformers_cache/', 'cached_{}_{}_{}'.format(
         'dev' if evaluate else 'train',
         list(filter(None, args.model_name_or_path.split('/'))).pop(),
         str(args.max_seq_length)))

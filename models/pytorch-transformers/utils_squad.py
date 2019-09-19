@@ -19,9 +19,11 @@
 from __future__ import absolute_import, division, print_function
 
 import json
+import gzip
 import logging
 import math
 import collections
+from pytorch_transformers.file_utils import cached_path
 from io import open
 
 from pytorch_transformers.tokenization_bert import BasicTokenizer, whitespace_tokenize
@@ -109,9 +111,18 @@ class InputFeatures(object):
 
 
 def read_squad_examples(input_file, is_training, version_2_with_negative):
+
     """Read a SQuAD json file into a list of SquadExample."""
-    with open(input_file, "r", encoding='utf-8') as reader:
-        input_data = json.load(reader)["data"]
+    # ALON - add cache support
+    if input_file.startswith('http'):
+        cached_input_file = cached_path(input_file)
+
+    if input_file.endswith('gz'):
+        with gzip.open(cached_input_file, "rb") as reader:
+            input_data = json.load(reader)["data"]
+    else:
+        with open(cached_input_file, "r", encoding='utf-8') as reader:
+            input_data = json.load(reader)["data"]
 
     def is_whitespace(c):
         if c == " " or c == "\t" or c == "\r" or c == "\n" or ord(c) == 0x202F:
