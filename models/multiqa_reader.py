@@ -239,32 +239,32 @@ class MultiQAReader(DatasetReader):
             qa['cannot_answer'] = False
             if 'open-ended' in qa['answers']:
                 if 'annotators_answer_candidates' in qa['answers']['open-ended']:
-                    for ac in qa['answers']['open-ended']["answer_candidates"]:
-                        if 'extractive' in ac:
-                            # Supporting only one answer of type extractive (future version will support list and set)
-                            if "single_answer" in ac['extractive']:
-                                answer_text_list.append(ac['extractive']["single_answer"]["answer"])
-                                if 'aliases' in ac['extractive']["single_answer"]:
-                                    answer_text_list += ac['extractive']["single_answer"]["aliases"]
+                    for ac in qa['answers']['open-ended']["annotators_answer_candidates"]:
+                        # Supporting only one answer of type extractive (future version will support list and set)
+                        if "single_answer" in ac:
+                            if 'extractive' in ac["single_answer"]:
+                                    answer_text_list.append(ac["single_answer"]['extractive']["answer"])
+                                    if 'aliases' in ac["single_answer"]['extractive']:
+                                        answer_text_list += ac["single_answer"]['extractive']["aliases"]
 
-                                for instance in ac['extractive']["single_answer"]["instances"]:
-                                    detected_answer = {}
-                                    # checking if the answer has been detected
-                                    if "token_offset" in offsets[instance["doc_id"]][instance["part"]]:
-                                        answer_token_offset = offsets[instance["doc_id"]][instance["part"]]['token_offset']
-                                        detected_answer["token_spans"] = (instance['token_inds'][0] + answer_token_offset,
-                                                                          instance['token_inds'][1] + answer_token_offset)
-                                        detected_answer['text'] = instance["text"]
-                                        qa['detected_answers'].append(detected_answer)
+                                    for instance in ac["single_answer"]['extractive']["instances"]:
+                                        detected_answer = {}
+                                        # checking if the answer has been detected
+                                        if "token_offset" in offsets[instance["doc_id"]][instance["part"]]:
+                                            answer_token_offset = offsets[instance["doc_id"]][instance["part"]]['token_offset']
+                                            detected_answer["token_spans"] = (instance['token_inds'][0] + answer_token_offset,
+                                                                              instance['token_inds'][1] + answer_token_offset)
+                                            detected_answer['text'] = instance["text"]
+                                            qa['detected_answers'].append(detected_answer)
 
-                        elif 'yesno' in ac:
-                            # Supporting only one answer of type yesno
-                            if self._support_yesno and "single_answer" in ac['yesno']:
-                                qa['yesno'] = ac['yesno']['single_answer']
-                            else:
-                                # in case we don't support this kind of answer, we will just add it as plane text so that
-                                # in validation we can just compare the prediction
-                                answer_text_list.append(ac['yesno']['single_answer'])
+                            elif 'yesno' in ac['single_answer']:
+                                # Supporting only one answer of type yesno
+                                if self._support_yesno:
+                                    qa['yesno'] = ac['single_answer']['yesno']
+                                else:
+                                    # in case we don't support this kind of answer, we will just add it as plane text so that
+                                    # in validation we can just compare the prediction
+                                    answer_text_list.append(ac['single_answer']['yesno'])
 
                 elif self._support_cannotanswer and 'cannot_answer' in qa['answers']['open-ended']:
                     qa['cannot_answer'] = True
