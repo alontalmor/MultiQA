@@ -263,19 +263,22 @@ class MultiQAPreProcess:
                     pass
                 else:
                     for answer_cand in qa['answers']['open-ended']['annotators_answer_candidates']:
-                        if 'extractive' in answer_cand:
-                            if "single_answer" in answer_cand['extractive']:
-                                answer_cand_list.append(answer_cand['extractive']['single_answer'])
-                            if "list" in answer_cand['extractive']:
-                                answer_cand_list += [answer for answer in answer_cand['extractive']['list']]
+                        if "single_answer" in answer_cand:
+                            if 'extractive' in answer_cand['single_answer']:
+                                answer_cand_list.append(answer_cand['single_answer']['extractive'])
+                        if "list" in answer_cand:
+                            if 'extractive' in answer_cand['list']:
+                                answer_cand_list += [answer for answer in answer_cand['list']['extractive']]
+
 
             elif 'multi-choice' in qa['answers']:
                 for answer_cand in qa['answers']['multi-choice']['choices']:
-                    if 'extractive' in answer_cand:
-                        if "single_answer" in answer_cand['extractive']:
-                            answer_cand_list.append(answer_cand['extractive']['single_answer'])
-                        if "list" in answer_cand['extractive']:
-                            answer_cand_list += [answer for answer in answer_cand['extractive']['list']]
+                    if "single_answer" in answer_cand:
+                        if 'extractive' in answer_cand['single_answer']:
+                            answer_cand_list.append(answer_cand['single_answer']['extractive'])
+                    if "list" in answer_cand:
+                        if 'extractive' in answer_cand['list']:
+                            answer_cand_list += [answer for list in answer_cand['list']['extractive']]
 
 
             for single_item in answer_cand_list:
