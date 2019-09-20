@@ -42,8 +42,9 @@ def multi_example_to_squad(example):
             new_qa['is_impossible'] = True
         else:
             for answer_cand in qa['answers']["open-ended"]['annotators_answer_candidates']:
-                if 'extractive' in answer_cand:
-                    for instance in answer_cand['extractive']['single_answer']['instances']:
+                # TODO this conversion supports only single answer (no lists or oredered lists)
+                if 'extractive' in answer_cand['single_answer']:
+                    for instance in answer_cand['single_answer']['extractive']['instances']:
                         new_qa['answers'].append({'text': instance['text'] ,\
                                                   'answer_start':instance['start_byte'] + offsets[instance['doc_id']][instance['part']]})
                         # sanity check
@@ -52,9 +53,9 @@ def multi_example_to_squad(example):
                         #    print(instance['text'] + ' || ' + squad_context[offest:offest+len(instance['text'])])
                         #else:
                         #    print('OK!')
-                if 'yesno' in answer_cand:
-                    new_qa['answers'].append({'text': answer_cand['yesno']['single_answer'], \
-                                              'answer_start': aug_offests[answer_cand['yesno']['single_answer']]})
+                if 'yesno' in answer_cand['single_answer']:
+                    new_qa['answers'].append({'text': answer_cand['single_answer']['yesno'], \
+                                              'answer_start': aug_offests[answer_cand['single_answer']['yesno']]})
 
         new_qas.append(new_qa)
 
