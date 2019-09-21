@@ -55,20 +55,20 @@ Datasets will be addeed weekly, so please stay tuned!
 
 Trained Models for download and results will be posted in this table.
 The BERT-Base column contains evaluation results (EM/F1) as well as a link to the trained model. 
-The MultiQA-5Base column contain the link to the model (in the header) and evalution results for this model. This model is BERT-Base that has been trained on 5 datasets. 
+The MultiQA-5Base column contain the link to the model (in the header) and evalution results for this model. This model is BERT-Base that has been trained on 5 datasets. The pytorch-transformers columns contain .bin models trained with pytorch-transformers code added. 
 
-| Dataset |  BERT-Base AllenNLP | MultiQA-5Base AllenNLP [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SQuAD1-1_HotpotQA_NewsQA_TriviaQA_unfiltered_SearchQA__full.tar.gz) | BERT-Large AllenNLP| 
-| :----- | :------------------: | :------------------: |  :------------------: | 
-| SQuAD-1.1 |  80.1 / 87.5 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SQuAD1-1.tar.gz) | 81.7 / 88.8 | 83.3 / 90.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/SQuAD1-1.tar.gz)  | 
-| NewsQA |  47.5 / 62.9 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/NewsQA.tar.gz) | 48.3 / 64.7 | 50.3 / 66.0 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/NewsQA.tar.gz)  |  
-| HotpotQA | 50.1 / 63.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/HotpotQA.tar.gz) | - | 54.0 / 67.0 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/HotpotQA.tar.gz) |  
-| TriviaQA-unfiltered |  59.4 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/TriviaQA_unfiltered.tar.gz) | 59.0 / 64.7 | 60.7 / 66.5 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/TriviaQA_unfiltered.tar.gz)  |  
-| TriviaQA-wiki |  57.5 / 62.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/TriviaQA_wiki.tar.gz) | -  | -  |  
-| SearchQA |  58.7 / 65.2 [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SearchQA.tar.gz) | 58.8 / 65.3 | 60.5 / 67.3 [(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/SearchQA.tar.gz)  |  
+| Dataset |  BERT-Base <br> AllenNLP | BERT Base uncased <br> Pytorch-Transformers | MultiQA-5Base <br> AllenNLP [(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SQuAD1-1_HotpotQA_NewsQA_TriviaQA_unfiltered_SearchQA__full.tar.gz) | BERT-Large <br> AllenNLP| 
+| :----- | :------------------: | :------------------: |  :------------------: | :------------------: | 
+| SQuAD-1.1 |  80.1 / 87.5 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SQuAD1-1.tar.gz) | 80.2 / 87.7 <br>[(model)](https://multiqa.s3.amazonaws.com/pytorch_transformers_models/bert-base-uncased/SQuAD1-1.bin) | 81.7 / 88.8 | 83.3 / 90.3 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/SQuAD1-1.tar.gz)  | 
+| NewsQA |  47.5 / 62.9 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/NewsQA.tar.gz) | | 48.3 / 64.7 | 50.3 / 66.0 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/NewsQA.tar.gz)  |  
+| HotpotQA | 50.1 / 63.2 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/HotpotQA.tar.gz) | | - | 54.0 / 67.0 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/HotpotQA.tar.gz) |  
+| TriviaQA-unfiltered |  59.4 / 65.2 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/TriviaQA_unfiltered.tar.gz) | | 59.0 / 64.7 | 60.7 / 66.5 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/TriviaQA_unfiltered.tar.gz)  |  
+| TriviaQA-wiki |  57.5 / 62.3 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/TriviaQA_wiki.tar.gz) | | -  | -  |  
+| SearchQA |  58.7 / 65.2 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTBase/SearchQA.tar.gz) | | 58.8 / 65.3 | 60.5 / 67.3 <br>[(model)](https://multiqa.s3.amazonaws.com/models/BERTLarge/SearchQA.tar.gz)  |  
 
 ### multiqa commands
 
-In order to simply train BERT on multiple datasets please use:
+In order to simply train BERT on multiple datasets (with AllenNLP) please use:
 ```
 python multiqa.py train --datasets SQuAD1-1,NewsQA,SearchQA --cuda_device 0,1,2,3
 python multiqa.py evaluate --model SQuAD1-1 --datasets SQuAD1-1,NewsQA,SearchQA --cuda_device 0
