@@ -14,6 +14,9 @@ import os
 import re
 import string
 import sys
+import gzip
+
+from pytorch_transformers.file_utils import cached_path
 
 class EVAL_OPTS():
   def __init__(self, data_file, pred_file, out_file="",
@@ -132,9 +135,10 @@ def make_eval_dict(exact_scores, f1_scores, qid_list=None):
     ])
   else:
     total = len(qid_list)
+    # ALON supporting misssing keys (if k in exact_scores)
     return collections.OrderedDict([
-        ('exact', 100.0 * sum(exact_scores[k] for k in qid_list) / total),
-        ('f1', 100.0 * sum(f1_scores[k] for k in qid_list) / total),
+        ('exact', 100.0 * sum(exact_scores[k] for k in qid_list if k in exact_scores) / total),
+        ('f1', 100.0 * sum(f1_scores[k] for k in qid_list if k in f1_scores) / total),
         ('total', total),
     ])
 
@@ -176,7 +180,7 @@ def make_precision_recall_eval(scores, na_probs, num_true_pos, qid_to_has_ans,
     plot_pr_curve(precisions, recalls, out_image, title)
   return {'ap': 100.0 * avg_prec}
 
-def run_precision_recall_analysis(main_eval, exact_raw, f1_raw, na_probs, 
+def run_precision_recall_analysis(main_eval, exact_raw, f1_raw, na_probs,
                                   qid_to_has_ans, out_image_dir):
   if out_image_dir and not os.path.exists(out_image_dir):
     os.makedirs(out_image_dir)
@@ -282,9 +286,18 @@ def find_all_best_thresh_v2(main_eval, preds, exact_raw, f1_raw, na_probs, qid_t
   main_eval['has_ans_f1'] = has_ans_f1
 
 def main(OPTS):
-  with open(OPTS.data_file) as f:
-    dataset_json = json.load(f)
-    dataset = dataset_json['data']
+  # ALON - add cache support + gzip support
+  if OPTS.data_file.startswith('http'):
+    cached_input_file = cached_path(OPTS.data_file)
+
+  if OPTS.data_file.endswith('gz'):
+    with gzip.open(cached_input_file, "rb") as reader:
+      dataset = json.load(reader)["data"]
+  else:
+    with open(cached_input_file) as f:
+      dataset_json = json.load(f)
+      dataset = dataset_json['data']
+
   with open(OPTS.pred_file) as f:
     preds = json.load(f)
   if OPTS.na_prob_file:
@@ -310,7 +323,7 @@ def main(OPTS):
   if OPTS.na_prob_file:
     find_all_best_thresh(out_eval, preds, exact_raw, f1_raw, na_probs, qid_to_has_ans)
   if OPTS.na_prob_file and OPTS.out_image_dir:
-    run_precision_recall_analysis(out_eval, exact_raw, f1_raw, na_probs, 
+    run_precision_recall_analysis(out_eval, exact_raw, f1_raw, na_probs,
                                   qid_to_has_ans, OPTS.out_image_dir)
     histogram_na_prob(na_probs, has_ans_qids, OPTS.out_image_dir, 'hasAns')
     histogram_na_prob(na_probs, no_ans_qids, OPTS.out_image_dir, 'noAns')
@@ -326,5 +339,5 @@ if __name__ == '__main__':
   if OPTS.out_image_dir:
     import matplotlib
     matplotlib.use('Agg')
-    import matplotlib.pyplot as plt 
+    import matplotlib.pyplot as plt
   main(OPTS)

@@ -23,6 +23,9 @@ import os
 import random
 import glob
 
+from pytorch_transformers.file_utils import cached_path
+import tarfile
+
 import numpy as np
 import torch
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
@@ -41,6 +44,7 @@ from pytorch_transformers import (WEIGHTS_NAME, BertConfig,
 
 from pytorch_transformers import AdamW, WarmupLinearSchedule
 
+
 from utils_squad import (read_squad_examples, convert_examples_to_features,
                          RawResult, write_predictions,
                          RawResultExtended, write_predictions_extended)
@@ -50,6 +54,8 @@ from utils_squad import (read_squad_examples, convert_examples_to_features,
 # We've added it here for automated tests (see examples/test_examples.py file)
 from utils_squad_evaluate import EVAL_OPTS, main as evaluate_on_squad
 
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
+                    level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 ALL_MODELS = sum((tuple(conf.pretrained_config_archive_map.keys()) \
@@ -73,11 +79,11 @@ def to_list(tensor):
 
 def train(args, train_dataset, model, tokenizer):
     """ Train the model """
-    if args.local_rank in [-1, 0]:
+    if args.local_rank in [-1, 0] or args.no_distributed_training:
         tb_writer = SummaryWriter()
 
     args.train_batch_size = args.per_gpu_train_batch_size * max(1, args.n_gpu)
-    train_sampler = RandomSampler(train_dataset) if args.local_rank == -1 else DistributedSampler(train_dataset)
+    train_sampler = RandomSampler(train_dataset) if args.local_rank == -1 or args.no_distributed_training else DistributedSampler(train_dataset)
     train_dataloader = DataLoader(train_dataset, sampler=train_sampler, batch_size=args.train_batch_size)
 
     if args.max_steps > 0:
@@ -106,7 +112,7 @@ def train(args, train_dataset, model, tokenizer):
         model = torch.nn.DataParallel(model)
 
     # Distributed training (should be after apex fp16 initialization)
-    if args.local_rank != -1:
+    if args.local_rank != -1 and not args.no_distributed_training:
         model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.local_rank],
                                                           output_device=args.local_rank,
                                                           find_unused_parameters=True)
@@ -117,24 +123,24 @@ def train(args, train_dataset, model, tokenizer):
     logger.info("  Num Epochs = %d", args.num_train_epochs)
     logger.info("  Instantaneous batch size per GPU = %d", args.per_gpu_train_batch_size)
     logger.info("  Total train batch size (w. parallel, distributed & accumulation) = %d",
-                   args.train_batch_size * args.gradient_accumulation_steps * (torch.distributed.get_world_size() if args.local_rank != -1 else 1))
+                   args.train_batch_size * args.gradient_accumulation_steps * (torch.distributed.get_world_size() if args.local_rank != -1 and not args.no_distributed_training else 1))
     logger.info("  Gradient Accumulation steps = %d", args.gradient_accumulation_steps)
     logger.info("  Total optimization steps = %d", t_total)
 
     global_step = 0
     tr_loss, logging_loss = 0.0, 0.0
     model.zero_grad()
-    train_iterator = trange(int(args.num_train_epochs), desc="Epoch", disable=args.local_rank not in [-1, 0])
+    train_iterator = trange(int(args.num_train_epochs), desc="Epoch", disable=args.local_rank not in [-1, 0] and not args.no_distributed_training)
     set_seed(args)  # Added here for reproductibility (even between python 2 and 3)
-    for _ in train_iterator:
-        epoch_iterator = tqdm(train_dataloader, desc="Iteration", disable=args.local_rank not in [-1, 0])
+    for epoch_number in train_iterator:
+        epoch_iterator = tqdm(train_dataloader, desc="Iteration", disable=args.local_rank not in [-1, 0] and not args.no_distributed_training)
         for step, batch in enumerate(epoch_iterator):
             model.train()
             batch = tuple(t.to(args.device) for t in batch)
             inputs = {'input_ids':       batch[0],
-                      'attention_mask':  batch[1], 
-                      'token_type_ids':  None if args.model_type == 'xlm' else batch[2],  
-                      'start_positions': batch[3], 
+                      'attention_mask':  batch[1],
+                      'token_type_ids':  None if args.model_type == 'xlm' else batch[2],
+                      'start_positions': batch[3],
                       'end_positions':   batch[4]}
             if args.model_type in ['xlnet', 'xlm']:
                 inputs.update({'cls_index': batch[5],
@@ -162,17 +168,24 @@ def train(args, train_dataset, model, tokenizer):
                 model.zero_grad()
                 global_step += 1
 
-                if args.local_rank in [-1, 0] and args.logging_steps > 0 and global_step % args.logging_steps == 0:
-                    # Log metrics
-                    if args.local_rank == -1 and args.evaluate_during_training:  # Only evaluate when single GPU otherwise metrics may not average well
-                        results = evaluate(args, model, tokenizer)
-                        for key, value in results.items():
-                            tb_writer.add_scalar('eval_{}'.format(key), value, global_step)
+                # Log metrics
+                if (args.local_rank == -1 or args.no_distributed_training) and args.evaluate_during_training and \
+                        args.training_eval_steps > 0 and global_step % args.training_eval_steps == 0:
+                    # Only evaluate when single GPU otherwise metrics may not average well
+                    results = evaluate(args, model, tokenizer)
+
+                    for key, value in results.items():
+                        tb_writer.add_scalar('eval_{}'.format(key), value, global_step)
+
+                if (args.local_rank in [-1, 0] or args.no_distributed_training) and \
+                        args.logging_steps > 0 and global_step % args.logging_steps == 1:
                     tb_writer.add_scalar('lr', scheduler.get_lr()[0], global_step)
+
                     tb_writer.add_scalar('loss', (tr_loss - logging_loss)/args.logging_steps, global_step)
+
                     logging_loss = tr_loss
 
-                if args.local_rank in [-1, 0] and args.save_steps > 0 and global_step % args.save_steps == 0:
+                if (args.local_rank in [-1, 0] or args.no_distributed_training) and args.save_steps > 0 and global_step % args.save_steps == 0:
                     # Save model checkpoint
                     output_dir = os.path.join(args.output_dir, 'checkpoint-{}'.format(global_step))
                     if not os.path.exists(output_dir):
@@ -198,12 +211,12 @@ def train(args, train_dataset, model, tokenizer):
 def evaluate(args, model, tokenizer, prefix=""):
     dataset, examples, features = load_and_cache_examples(args, tokenizer, evaluate=True, output_examples=True)
 
-    if not os.path.exists(args.output_dir) and args.local_rank in [-1, 0]:
+    if not os.path.exists(args.output_dir) and (args.local_rank in [-1, 0] or args.no_distributed_training):
         os.makedirs(args.output_dir)
 
     args.eval_batch_size = args.per_gpu_eval_batch_size * max(1, args.n_gpu)
     # Note that DistributedSampler samples randomly
-    eval_sampler = SequentialSampler(dataset) if args.local_rank == -1 else DistributedSampler(dataset)
+    eval_sampler = SequentialSampler(dataset) if (args.local_rank == -1 or args.no_distributed_training) else DistributedSampler(dataset)
     eval_dataloader = DataLoader(dataset, sampler=eval_sampler, batch_size=args.eval_batch_size)
 
     # Eval!
@@ -268,13 +281,15 @@ def evaluate(args, model, tokenizer, prefix=""):
                                  pred_file=output_prediction_file,
                                  na_prob_file=output_null_log_odds_file)
     results = evaluate_on_squad(evaluate_options)
+
     return results
 
 
 def load_and_cache_examples(args, tokenizer, evaluate=False, output_examples=False):
-    if args.local_rank not in [-1, 0] and not evaluate:
+    if args.local_rank not in [-1, 0] and not evaluate and not args.no_distributed_training:
         torch.distributed.barrier()  # Make sure only the first process in distributed training process the dataset, and the others will use the cache
 
+    # Load data features from cache or dataset file
     # ALON adding a different path for the feature cache...
     if not os.path.exists('data/'):
         os.mkdir('data/')
@@ -294,17 +309,23 @@ def load_and_cache_examples(args, tokenizer, evaluate=False, output_examples=Fal
         examples = read_squad_examples(input_file=input_file,
                                                 is_training=not evaluate,
                                                 version_2_with_negative=args.version_2_with_negative)
+
+        # ALON support sampling the input and the evaluation
+        if args.sample_size != -1:
+            examples = random.sample(examples, k=args.sample_size)
+
         features = convert_examples_to_features(examples=examples,
                                                 tokenizer=tokenizer,
                                                 max_seq_length=args.max_seq_length,
                                                 doc_stride=args.doc_stride,
                                                 max_query_length=args.max_query_length,
                                                 is_training=not evaluate)
-        if args.local_rank in [-1, 0]:
-            logger.info("Saving features into cached file %s", cached_features_file)
-            torch.save(features, cached_features_file)
+        # TODO features should be recalc when data changed
+        #if args.local_rank in [-1, 0] or args.no_distributed_training:
+        #    logger.info("Saving features into cached file %s", cached_features_file)
+        #    torch.save(features, cached_features_file)
 
-    if args.local_rank == 0 and not evaluate:
+    if args.local_rank == 0 and not evaluate and not args.no_distributed_training:
         torch.distributed.barrier()  # Make sure only the first process in distributed training process the dataset, and the others will use the cache
 
     # Convert to Tensors and build dataset
@@ -405,6 +426,8 @@ def main():
 
     parser.add_argument('--logging_steps', type=int, default=50,
                         help="Log every X updates steps.")
+    parser.add_argument('--training_eval_steps', type=int, default=2000,
+                        help="Log every X updates steps.")
     parser.add_argument('--save_steps', type=int, default=50,
                         help="Save checkpoint every X updates steps.")
     parser.add_argument("--eval_all_checkpoints", action='store_true',
@@ -417,9 +440,10 @@ def main():
                         help="Overwrite the cached training and evaluation sets")
     parser.add_argument('--seed', type=int, default=42,
                         help="random seed for initialization")
-
     parser.add_argument("--local_rank", type=int, default=-1,
                         help="local_rank for distributed training on gpus")
+    parser.add_argument("--no_distributed_training", action='store_true',
+                        help="do distributed_training")
     parser.add_argument('--fp16', action='store_true',
                         help="Whether to use 16-bit (mixed) precision (through NVIDIA apex) instead of 32-bit")
     parser.add_argument('--fp16_opt_level', type=str, default='O1',
@@ -427,6 +451,10 @@ def main():
                              "See details at https://nvidia.github.io/apex/amp.html")
     parser.add_argument('--server_ip', type=str, default='', help="Can be used for distant debugging.")
     parser.add_argument('--server_port', type=str, default='', help="Can be used for distant debugging.")
+    # ALON - option additions
+    parser.add_argument('--sample_size', type=int, default=-1, help="sample the data")
+    parser.add_argument('--exp_name', type=str, default='test_exp', help="An experiment name for logs and output file saving")
+
     args = parser.parse_args()
 
     if os.path.exists(args.output_dir) and os.listdir(args.output_dir) and args.do_train and not args.overwrite_output_dir:
@@ -447,7 +475,8 @@ def main():
     else:  # Initializes the distributed backend which will take care of sychronizing nodes/GPUs
         torch.cuda.set_device(args.local_rank)
         device = torch.device("cuda", args.local_rank)
-        torch.distributed.init_process_group(backend='nccl')
+        if not args.no_distributed_training:
+            torch.distributed.init_process_group(backend='nccl')
         args.n_gpu = 1
     args.device = device
 
@@ -456,22 +485,33 @@ def main():
                         datefmt = '%m/%d/%Y %H:%M:%S',
                         level = logging.INFO if args.local_rank in [-1, 0] else logging.WARN)
     logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, 16-bits training: %s",
-                    args.local_rank, device, args.n_gpu, bool(args.local_rank != -1), args.fp16)
+                    args.local_rank, device, args.n_gpu, bool(args.local_rank != -1) and not args.no_distributed_training, args.fp16)
 
     # Set seed
     set_seed(args)
 
     # Load pretrained model and tokenizer
-    if args.local_rank not in [-1, 0]:
+    if args.local_rank not in [-1, 0] and not args.no_distributed_training:
         torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab
 
     args.model_type = args.model_type.lower()
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
+
+    # ALON if model_name_or_path is an s3 directory and gzipped, then downlaod it to cache and unzip it.
+    if args.model_name_or_path.find('s3') > -1 and args.model_name_or_path.endswith('.gz'):
+        logger.info("MultiQA: Downloading %s and unzipping it", args.model_name_or_path)
+        cached_dir = cached_path(args.model_name_or_path)
+        tar = tarfile.open(cached_dir)
+        args.model_name_or_path = args.output_dir + '/' + tar.firstmember.name
+        tar.extractall(path=args.output_dir)
+        args.output_dir = args.model_name_or_path
+        tar.close()
+
     config = config_class.from_pretrained(args.config_name if args.config_name else args.model_name_or_path)
     tokenizer = tokenizer_class.from_pretrained(args.tokenizer_name if args.tokenizer_name else args.model_name_or_path, do_lower_case=args.do_lower_case)
     model = model_class.from_pretrained(args.model_name_or_path, from_tf=bool('.ckpt' in args.model_name_or_path), config=config)
 
-    if args.local_rank == 0:
+    if args.local_rank == 0 and not args.no_distributed_training:
         torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab
 
     model.to(args.device)
@@ -486,9 +526,9 @@ def main():
 
 
     # Save the trained model and the tokenizer
-    if args.do_train and (args.local_rank == -1 or torch.distributed.get_rank() == 0):
+    if args.do_train and (args.local_rank == -1 or args.no_distributed_training or torch.distributed.get_rank() == 0):
         # Create output directory if needed
-        if not os.path.exists(args.output_dir) and args.local_rank in [-1, 0]:
+        if not os.path.exists(args.output_dir) and (args.local_rank in [-1, 0] or args.no_distributed_training):
             os.makedirs(args.output_dir)
 
         logger.info("Saving model checkpoint to %s", args.output_dir)
