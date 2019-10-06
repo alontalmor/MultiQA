@@ -16,9 +16,10 @@ This project is constantly being improved. Contributions, comments and suggestio
 
 | Date | Message
 | :----- | :-----
+| Oct 06, 2019 | ComplexQuestion and ComQA added, thanks to [tuvuumass](https://github.com/tuvuumass)! 
 | Sep 19, 2019 | DuoRC added, and Multiple dataset links in SQuAD2.0 format available 
 | Sep 15, 2019 | DROP and WikiHop added. 
-| Aug 31, 2019 | Version 0.1.0 of the MultiQA format is out, with a [json-schema](https://github.com/alontalmor/multiqa/blob/master/models/datasets/multiqa_jsonschema.json) for validation, and new pytests  
+| Aug 31, 2019 | Version 0.1.0 of the MultiQA format is out, with a [json-schema](https://github.com/alontalmor/multiqa/blob/master/models/datasets/multiqa_train.jsonschema.json) for validation, and new pytests  
 | Aug 24, 2019 | New! convert multiqa format to SQuAD2.0 format + Pytorch-Transformers models support 
 | Aug 14, 2019 | BoolQ and ComplexWebQuestions data added. 
 | Aug 12, 2019 | multiqa.py added enabling easy multiple dataset training and evaluation. 
@@ -41,12 +42,14 @@ To used them with [Pytorch-Transformers](https://github.com/huggingface/pytorch-
 | TriviaQA-unfiltered |  [dev](https://multiqa.s3.amazonaws.com/data/TriviaQA_unfiltered_dev.jsonl.gz) |  [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/TriviaQA_unfiltered_dev.json.gz)
 | TriviaQA-wiki | [train](https://multiqa.s3.amazonaws.com/data/TriviaQA_wiki_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/TriviaQA_wiki_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/TriviaQA_wiki_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/TriviaQA_wiki_dev.json.gz)
 | SearchQA | [train](https://multiqa.s3.amazonaws.com/data/SearchQA_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/SearchQA_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/SearchQA_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/SearchQA_dev.json.gz)
-| BoolQ | [train](https://multiqa.s3.amazonaws.com/data/BoolQ_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/BoolQ_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/BoolQ_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/BoolQ_dev.json.gz) 
-| ComplexWebQuestions | [train](https://multiqa.s3.amazonaws.com/data/ComplexWebQuestions_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/ComplexWebQuestions_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComplexWebQuestions_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComplexWebQuestions_dev.json.gz) |
-| DROP | [train](https://multiqa.s3.amazonaws.com/data/DROP_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/DROP_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DROP_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DROP_dev.json.gz)
-| WikiHop | [train](https://multiqa.s3.amazonaws.com/data/WikiHop_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/WikiHop_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/WikiHop_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/WikiHop_dev.json.gz)
-| DuoRC Paraphrase| [train](https://multiqa.s3.amazonaws.com/data/DuoRC_Paraphrase_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/DuoRC_Paraphrase_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Paraphrase_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Paraphrase_dev.json.gz)
-| DuoRC Self| [train](https://multiqa.s3.amazonaws.com/data/DuoRC_Self_jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/DuoRC_Self_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Self_json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Self_dev.json.gz)
+| BoolQ | [train](https://multiqa.s3.amazonaws.com/data/BoolQ_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/BoolQ_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/BoolQ_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/BoolQ_dev.json.gz) 
+| ComplexWebQuestions | [train](https://multiqa.s3.amazonaws.com/data/ComplexWebQuestions_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/ComplexWebQuestions_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComplexWebQuestions_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComplexWebQuestions_dev.json.gz) |
+| DROP | [train](https://multiqa.s3.amazonaws.com/data/DROP_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/DROP_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DROP_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DROP_dev.json.gz)
+| WikiHop | [train](https://multiqa.s3.amazonaws.com/data/WikiHop_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/WikiHop_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/WikiHop_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/WikiHop_dev.json.gz)
+| DuoRC Paraphrase| [train](https://multiqa.s3.amazonaws.com/data/DuoRC_Paraphrase_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/DuoRC_Paraphrase_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Paraphrase_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Paraphrase_dev.json.gz)
+| DuoRC Self| [train](https://multiqa.s3.amazonaws.com/data/DuoRC_Self_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/DuoRC_Self_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Self_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Self_dev.json.gz)
+| ComplexQuestions | [train](https://multiqa.s3.amazonaws.com/data/ComplexQuestions_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/ComplexQuestions_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComplexQuestions.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComplexQuestions.json.gz)
+| ComQA | [train](https://multiqa.s3.amazonaws.com/data/ComQA_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/ComQA_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComQA_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComQA_dev.json.gz)
 | Natural Questions | Coming soon | Coming soon | Coming soon | Coming soon | Coming soon |  
 
 Datasets will be addeed weekly, so please stay tuned!
@@ -146,7 +149,7 @@ first argument is the allennlp model, second is the preprocessed evalutaion file
  
 ## Multiqa Data Format
 see [Readme](https://github.com/alontalmor/multiqa/blob/master/datasets/README.md) in the datasets folder.
-A [json-schema](https://json-schema.org/) for a single context in multiqa is available [here](https://github.com/alontalmor/multiqa/blob/master/models/datasets/multiqa_jsonschema.json).
+A [json-schema](https://json-schema.org/) for a single context in multiqa is available [here](https://github.com/alontalmor/multiqa/blob/master/models/datasets/multiqa_train.jsonschema.json).
 
 ## Training using AlleNLP
 see [Readme](https://github.com/alontalmor/multiqa/blob/master/models/README.md) in the models folder.

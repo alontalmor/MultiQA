@@ -93,6 +93,8 @@ class SQuAD(MultiQA_DataSet):
                 total_qas_count += len(qas)
                 if (self._sample_size != None and total_qas_count > self._sample_size):
                     break
+            if (self._sample_size != None and total_qas_count > self._sample_size):
+                break
 
         logger.info('producing final context file')
         self._done_processing = True

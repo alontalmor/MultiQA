@@ -4,6 +4,42 @@
   "title": "MultiQA schema",
   "version": "0.1.0",
   "definitions": {
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^(https?|wss?|ftp)://"
+    },
+    "table":{
+      "type":"array",
+      "items":{
+        "type":"array",
+        "items":{
+          "type":"object",
+          "properties":{
+            "text":{"type":"string"},
+            "links":{"$ref": "#/definitions/url"}
+          },
+          "additionalProperties":false
+        }
+      }
+    },
+    "image":{
+      "type": "object",
+      "properties": {
+        "url": {
+           "type": "string",
+           "format": "uri",
+           "pattern": "^(https?|wss?|ftp)://"
+        },
+        "caption": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        }
+      },
+      "additionalProperties":false
+    },
     "extractive_instance":{
       "type": "object",
       "properties":{
@@ -36,13 +72,8 @@
             "type": "string"
           },
           "date":{
-            "type": "object",
-            "properties": {
-              "day": {"type": "string"},
-              "month": {"type": "string"},
-              "year": {"type": "string"}
-            },
-            "additionalProperties": false
+            "type": "string",
+            "format": "date"
           },
           "number":{
             "type": "number"
@@ -101,6 +132,8 @@
         {"required": ["text"]},
         {"required": ["snippet"]},
         {"required": ["table"]},
+        {"required": ["tokens"]},
+        {"required": ["metadata"]},
         {"required": ["image"]}
       ],
       "properties": {
@@ -125,18 +158,16 @@
           "type": "string"
         },
         "table": {
-          "type": "array"
+          "$ref": "#/definitions/table"
         },
         "image": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^(https?|wss?|ftp)://"
+          "$ref": "#/definitions/image"
         },
         "metadata": {
-
+			"type": "object"
         },
         "tokens": {
-
+			"type": "object"
         }
       },
       "additionalProperties": false

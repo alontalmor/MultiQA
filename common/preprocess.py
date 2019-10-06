@@ -186,7 +186,7 @@ class MultiQAPreProcess:
         #                   actual_text, cleaned_answer_text)
         #    assert()
         #else:
-        instance['token_inds'] = (start_index, end_index)
+        instance['token_inds'] = [start_index, end_index]
 
     def find_all_answer_spans(self, answer, context):
         """Find all exact matches of `answer` in `context`.
@@ -317,7 +317,7 @@ class MultiQAPreProcess:
                                              'part': part,
                                              'start_byte': start_byte,
                                              'text': alias,
-                                             'token_inds':occurence}
+                                             'token_inds':list(occurence)}
                                         single_item['instances'].append(instance)
 
     def preprocess_multiple_contexts(self, contexts, search_answer_within_supp_context):
