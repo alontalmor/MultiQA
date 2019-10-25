@@ -56,12 +56,12 @@ if __name__ == "__main__":
 
             if 'annotators_answer_candidates' in qa['answers']['open-ended']:
                 for ans_cand in qa['answers']['open-ended']['annotators_answer_candidates']:
-                    if 'extractive' in ans_cand and 'single_answer' in ans_cand['extractive']:
-                        answers[qid] += [(ans_cand['extractive']['single_answer']['answer'])]
-                        if 'aliases' in ans_cand['extractive']['single_answer']:
+                    if 'single_answer' in ans_cand and 'extractive' in ans_cand['single_answer']:
+                        answers[qid] += [(ans_cand['single_answer']['extractive']['answer'])]
+                        if 'aliases' in ans_cand['single_answer']['extractive']:
                             answers[qid] += ans_cand['extractive']['single_answer']['aliases']
-                    elif 'yesno' in ans_cand and 'single_answer' in ans_cand['yesno']:
-                        answers[qid] += [(ans_cand['yesno']['single_answer'])]
+                    elif 'single_answer' in ans_cand and 'yesno' in ans_cand['single_answer']:
+                        answers[qid] += [(ans_cand['single_answer']['yesno'])]
 
             elif 'cannot_answer' in qa['answers']['open-ended']:
                 answers[qid] += ['cannot_answer']

@@ -16,7 +16,7 @@ This project is constantly being improved. Contributions, comments and suggestio
 
 | Date | Message
 | :----- | :-----
-| Oct 06, 2019 | ComplexQuestion and ComQA added, thanks to [tuvuumass](https://github.com/tuvuumass)! 
+| Oct 06, 2019 | ComplexQuestions and ComQA added, thanks to [tuvuumass](https://github.com/tuvuumass)! 
 | Sep 19, 2019 | DuoRC added, and Multiple dataset links in SQuAD2.0 format available 
 | Sep 15, 2019 | DROP and WikiHop added. 
 | Aug 31, 2019 | Version 0.1.0 of the MultiQA format is out, with a [json-schema](https://github.com/alontalmor/multiqa/blob/master/models/datasets/multiqa_train.jsonschema.json) for validation, and new pytests  
@@ -111,7 +111,7 @@ python convert_multiqa_to_squad_format.py --datasets https://multiqa.s3.amazonaw
     virtualenv venv --python=python3.7 (or python3.7 -m venv venv or conda create -n multiqa python=3.7)
     ```
 
-4.  Activate the virtual environment. You will need to activate the venv environment in each terminal in which you want to use WebAsKB.
+4.  Activate the virtual environment. You will need to activate the venv environment in each terminal in which you want to use MultiQA.
 
     ```
     source venv/bin/activate (or source venv/bin/activate.csh or conda activate multiqa)
@@ -121,6 +121,12 @@ python convert_multiqa_to_squad_format.py --datasets https://multiqa.s3.amazonaw
     ```
     pip install -r requirements.txt
     ```
+
+### Tests
+
+You can test all challenges using pytest, or using pycharm tests directory (pytest-pycharm added):
+
+`pytest pytests`
 
 
 ### Data
@@ -145,7 +151,7 @@ first argument is the allennlp model, second is the preprocessed evalutaion file
  To add a GPU device simply append: `--cuda_device 0`
  
  By default the output will be saved at results/DATASET_NAME/...  You may also change the output filename and path using `--prediction_filepath path/to/my/output`
- 
+  
  
 ## Multiqa Data Format
 see [Readme](https://github.com/alontalmor/multiqa/blob/master/datasets/README.md) in the datasets folder.
