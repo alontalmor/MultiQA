@@ -19,7 +19,7 @@ class MultiQAFactory:
     def format_predictions(self, dastaset_name, predictions):
 
         mod = __import__('datasets.' + dastaset_name + '.' + dastaset_name.lower(), fromlist=[dastaset_name])
-        dataset_class = getattr(mod, dastaset_name)()
+        dataset_class = getattr(mod, dastaset_name)
 
         predictions = dataset_class.format_predictions(predictions)
 

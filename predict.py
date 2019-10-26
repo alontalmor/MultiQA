@@ -12,16 +12,7 @@ from allennlp.tools import squad_eval
 import json
 from allennlp.common.tqdm import Tqdm
 
-if __name__ == "__main__":
-    parse = argparse.ArgumentParser("")
-    parse.add_argument("--model")
-    parse.add_argument("--dataset")
-    parse.add_argument("--dataset_name")
-    parse.add_argument("--prediction_filepath", type=str, default=None)
-    parse.add_argument("--cuda_device", type=int, default=-1)
-    parse.add_argument("--sample_size", type=int, default=-1)
-    args = parse.parse_args()
-
+def predict(args):
     file_path = cached_path(args.model)
     archive = load_archive(file_path, cuda_device=args.cuda_device)
     predictor = Predictor.from_archive(archive, 'multiqa_predictor')
@@ -43,7 +34,7 @@ if __name__ == "__main__":
     # predict
     answers = {}
     all_scores = {}
-    for context in Tqdm.tqdm(contexts, total = len(contexts)):
+    for context in Tqdm.tqdm(contexts, total=len(contexts)):
         curr_pred, full_predictions = predictor.predict_json(context)
         all_predictions.update(curr_pred)
         all_full_predictions += full_predictions
@@ -68,7 +59,7 @@ if __name__ == "__main__":
 
             f1_score = squad_eval.metric_max_over_ground_truths(squad_eval.f1_score, all_predictions[qid], answers[qid])
             EM_score = squad_eval.metric_max_over_ground_truths(squad_eval.exact_match_score, all_predictions[qid], answers[qid])
-            all_scores[qid] = {'EM':EM_score * 100,'f1':f1_score * 100}
+            all_scores[qid] = {'EM': EM_score * 100, 'f1': f1_score * 100}
 
     metrics = {}
     metrics['EM'] = sum([all_scores[q]['EM'] for q in all_scores.keys()]) / \
@@ -86,7 +77,7 @@ if __name__ == "__main__":
         if not os.path.exists('results/' + args.dataset_name):
             os.makedirs('results/' + args.dataset_name)
         output_filepath = 'results/' + args.dataset_name + '/' + '_'.join(args.model.split('/')[-2:]).split('.')[0] + '__on__' + \
-                               args.dataset.split('/')[-1].split('.')[0]
+                          args.dataset.split('/')[-1].split('.')[0]
     else:
         output_filepath = args.output_filepath
 
@@ -105,6 +96,18 @@ if __name__ == "__main__":
     # storing results
     with open(output_filepath + '_eval_results.json', 'w') as f:
         json.dump(metrics, f)
+
+if __name__ == "__main__":
+    parse = argparse.ArgumentParser("")
+    parse.add_argument("--model")
+    parse.add_argument("--dataset")
+    parse.add_argument("--dataset_name")
+    parse.add_argument("--prediction_filepath", type=str, default=None)
+    parse.add_argument("--cuda_device", type=int, default=-1)
+    parse.add_argument("--sample_size", type=int, default=-1)
+    args = parse.parse_args()
+
+    predict(args)
 
 
 

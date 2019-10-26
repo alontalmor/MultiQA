@@ -117,7 +117,7 @@ class HotpotQA(MultiQA_DataSet):
         return header
 
     @overrides
-    def format_predictions(self, predictions):
+    def format_predictions(predictions):
         return {"answer": predictions, "sp": {}}
 
     @overrides

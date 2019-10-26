@@ -30,5 +30,5 @@ class MultiQA_DataSet():
     def build_header(self):
         pass
 
-    def format_predictions(self, predictions):
+    def format_predictions(predictions):
         return predictions
