@@ -9,7 +9,7 @@ The test may be copied from other existing tests that already check the format o
 
 ## JSON-schema
 
-A [json-schema](https://json-schema.org/) for a single context in MultiQA format is available [here](https://github.com/alontalmor/multiqa/blob/master/models/datasets/multiqa_jsonschema.json)
+A [json-schema](https://json-schema.org/) for a single context in MultiQA format is available [here](https://github.com/alontalmor/MultiQA/blob/master/datasets/multiqa_jsonschema.json)
 
 You can use [this python repository](https://github.com/Julian/jsonschema) to validate a context by running:
 `jsonschema -i single_context.json multiqa_jsonschema.json` 
