@@ -79,7 +79,8 @@ class DROP(MultiQA_DataSet):
                     new_ans_cand = {}
 
                     if len(answer_candidate['spans']) > 0:
-                        new_ans_cand['list'] = [{"extractive":{"answer": span}} for span in answer_candidate['spans']]
+                        #new_ans_cand['list'] = [{"extractive":{"answer": span}} for span in answer_candidate['spans']]
+                        new_ans_cand['single_answer'] = {"extractive": {"answer": answer_candidate['spans'][0]}}
 
                     if answer_candidate['number'] != '':
                         new_ans_cand['single_answer'] = {'number':float(answer_candidate['number'])}

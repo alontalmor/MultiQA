@@ -23,7 +23,7 @@
         "support_cannotanswer":false,
         "type": "multiqa_reader",
         "lazy": true,
-        "sample_size": 10,
+        "sample_size": -1,
         "token_indexers": {
             "bert": {
                   "type": "bert-pretrained",
