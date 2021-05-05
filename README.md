@@ -42,8 +42,7 @@ To used them with [Pytorch-Transformers](https://github.com/huggingface/pytorch-
 | DuoRC Paraphrase| [train](https://multiqa.s3.amazonaws.com/data/DuoRC_Paraphrase_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/DuoRC_Paraphrase_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Paraphrase_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Paraphrase_dev.json.gz)
 | DuoRC Self| [train](https://multiqa.s3.amazonaws.com/data/DuoRC_Self_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/DuoRC_Self_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Self_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/DuoRC_Self_dev.json.gz)
 | ComplexQuestions | [train](https://multiqa.s3.amazonaws.com/data/ComplexQuestions_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/ComplexQuestions_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComplexQuestions_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComplexQuestions_dev.json.gz)
-| ComQA | [train](https://multiqa.s3.amazonaws.com/data/ComQA_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/ComQA_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComQA_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComQA_dev.json.gz)
-| Natural Questions | Coming soon | Coming soon | Coming soon | Coming soon | Coming soon |  
+| ComQA | [train](https://multiqa.s3.amazonaws.com/data/ComQA_train.jsonl.gz) , [dev](https://multiqa.s3.amazonaws.com/data/ComQA_dev.jsonl.gz) | [train](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComQA_train.json.gz) , [dev](https://multiqa.s3.amazonaws.com/squad2-0_format_data/ComQA_dev.json.gz)  
 
 Datasets will be addeed weekly, so please stay tuned!
 
