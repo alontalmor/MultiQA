@@ -12,11 +12,6 @@ This work was performed at The Allen Institute of Artificial Intelligence.
 
 This project is constantly being improved. Contributions, comments and suggestions are welcome!
 
-## News
-
-| Date | Message
-| :----- | :-----
-| Jan 21, 2020 |  bug fix
 
 
 
